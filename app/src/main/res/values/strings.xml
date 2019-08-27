@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TipSter</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="navi_league">League</string>
+    <string name="navi_super_league">Super</string>
+    <string name="navi_custom_league">Custom</string>
+    <string name="navi_tipstar">Tipstar</string>
+    <string name="navi_profile">Profile</string>
+
+</resources>
