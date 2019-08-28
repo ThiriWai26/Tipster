@@ -2,7 +2,7 @@ package com.chann.tipster.data;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Login {
+public class Register {
 
     private boolean isSuccess;
 
@@ -32,6 +32,9 @@ public class Login {
 
     private String token;
 
+    @SerializedName("profile_image")
+    private String profileImage;
+
     public String getErrorMessage() {
         return errorMessage;
     }
@@ -39,9 +42,6 @@ public class Login {
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
-
-    @SerializedName("profile_image")
-    private String profileImage;
 
     @SerializedName("error_message")
     private String errorMessage;

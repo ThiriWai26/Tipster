@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.RegisterActivity">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/theme_color"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/content_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1.8"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_lg">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="@dimen/view_width"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/MyTextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ph"
+                            style="@style/CvEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_ph_no"
+                            android:imeOptions="actionNext"
+                            android:inputType="phone" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="@dimen/view_width"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/MyTextInputLayout"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@android:color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/pwd"
+                            style="@style/CvEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_pwd"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPassword" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="@dimen/view_width"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/MyTextInputLayout"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@android:color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/confirmPwd"
+                            style="@style/CvEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_pwd_confirm"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/MyBtnStyle"
+                        android:layout_width="@dimen/view_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_xl"
+                        android:fontFamily="sans-serif"
+                        android:onClick="onRegister"
+                        android:text="@string/label_register"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+
+        </FrameLayout>
+
+</layout>

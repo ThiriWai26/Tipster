@@ -10,5 +10,22 @@
     <string name="navi_custom_league">Custom</string>
     <string name="navi_tipstar">Tipstar</string>
     <string name="navi_profile">Profile</string>
+    <string name="navi_bet_history">Bet History</string>
+    <string name="navi_user_ranking">Ranking</string>
+
+    <string name="label_register">Register</string>
+    <string name="label_login">Login</string>
+    <string name="label_logo">Tip Star</string>
+    <string name="label_create_account">CREATE YOUR NEW ACCOUNT</string>
+    <string name="label_fb_continue">Continue with Facebook</string>
+    <string name="label_title">Tipstar Championship</string>
+
+    <string name="hint_ph_no">Phone Number</string>
+    <string name="hint_pwd">Password</string>
+    <string name="hint_pwd_confirm">Confirmed Password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
