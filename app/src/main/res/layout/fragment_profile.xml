@@ -17,6 +17,17 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Save"
+                    android:textSize="14sp"
+                    android:padding="12dp"
+                    android:layout_gravity="end"
+                    android:onClick="onBtnSave"
+                    />
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile"
                     android:layout_width="90dp"
@@ -25,7 +36,17 @@
                     app:civ_circle_background_color="@color/grey"
                     app:civ_border_overlay="true"
                     app:civ_border_color="#a1a0a0"
-                    android:layout_marginTop="32dp" />
+                    android:layout_marginTop="32dp"
+                    android:onClick="getImage"
+                    tools:ignore="OnClick"
+                    android:src="@drawable/logo_tipstar"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-17dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_photo_camera"/>
 
                 <TextView
                     android:id="@+id/tvName"
@@ -36,6 +57,9 @@
                     android:fontFamily="@font/roboto_medium"
                     android:maxLines="2"
                     android:textColor="@android:color/black"
+                    android:text="User "
+                    android:drawableRight="@drawable/ic_mode_edit"
+                    android:drawablePadding="@dimen/drawable_left"
                     android:textSize="18sp" />
 
                 <TextView

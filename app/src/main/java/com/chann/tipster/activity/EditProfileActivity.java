@@ -133,6 +133,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 Log.e("onfailure",t.toString());
             }
         });
-        
+
     }
 }

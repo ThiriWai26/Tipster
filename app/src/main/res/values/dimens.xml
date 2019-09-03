@@ -32,4 +32,6 @@
     <dimen name="dialog_bet_width">280dp</dimen>
     <dimen name="dialog_bet_height">220dp</dimen>
 
+    <dimen name="drawable_left">12dp</dimen>
+
 </resources>
