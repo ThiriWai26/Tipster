@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/viewLeague"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingTop="@dimen/margin_sm">
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:textColor="@color/grey_dark"
+            android:textSize="12sp"
+            android:typeface="serif"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvVs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="bottom"
+            android:text=":"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvLocalTeamScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/grey_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tvVs"
+            app:layout_constraintEnd_toStartOf="@+id/tvVs" />
+
+        <TextView
+            android:id="@+id/tvVisitorTeamScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@{league.visitorTeamScore}"
+            android:textColor="@color/grey_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tvVs"
+            app:layout_constraintStart_toEndOf="@+id/tvVs" />
+
+        <TextView
+            android:id="@+id/localHandiCap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="top"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tvLocalTeamScore"
+            app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+
+        <TextView
+            android:id="@+id/visitorHandiCap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/localHandiCap"
+            app:layout_constraintEnd_toEndOf="@+id/tvVisitorTeamScore" />
+
+        <ImageView
+            android:id="@+id/localProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/tvLocalTeamScore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/visitorProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvVisitorTeamScore"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvLocalTeamName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_light"
+            android:gravity="center_horizontal|top"
+            android:maxLines="2"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:typeface="sans"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvLocalTeamScore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/localProfile" />
+
+        <TextView
+            android:id="@+id/tvVisitorTeamName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_light"
+            android:gravity="center_horizontal|top"
+            android:maxLines="2"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:typeface="sans"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvVisitorTeamScore"
+            app:layout_constraintTop_toBottomOf="@+id/visitorProfile" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:background="@color/divider_color" />
+</LinearLayout>
+

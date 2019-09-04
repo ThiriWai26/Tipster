@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.chann.tipster.R;
 import com.chann.tipster.data.Login;
+import com.chann.tipster.data.Token;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -59,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     if(response.body().isSuccess()){
 
+                        Token.token = response.body().getToken();
                         startActivity(MainActivity.getInstance(getApplicationContext()));
                         finish();
 

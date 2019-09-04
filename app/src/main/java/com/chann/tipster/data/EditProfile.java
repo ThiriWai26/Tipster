@@ -1,6 +1,6 @@
 package com.chann.tipster.data;
 
-public class EdiProfile {
+public class EditProfile {
 
     public boolean isSuccess;
 }

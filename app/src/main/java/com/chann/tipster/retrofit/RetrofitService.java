@@ -10,7 +10,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitService {
     //lazy initialization
-    private static final String BASE_URL="http://134.209.102.209";
+    public static final String BASE_URL="http://134.209.102.209";
 
     private static ApiEnd apiEnd;
     private static RetrofitService retrofitService;

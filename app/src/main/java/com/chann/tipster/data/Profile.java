@@ -1,13 +1,18 @@
 package com.chann.tipster.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Profile {
 
-    private boolean isSuccess;
+    public boolean isSuccess;
+    public String name;
+    public String image;
+    public long coin;
 
-//    "isSuccess": true,
-//            "name": "user_2",
-//            "phone_number": "09402768571",
-//            "image": "5d57b27f42d01_image.png",
-//            "tip_star_rank": null,
-//            "coin": 1000000
+    @SerializedName("phone_number")
+    public String phone;
+
+    @SerializedName("tip_star_rank")
+    public String tipStarRank;
+
 }

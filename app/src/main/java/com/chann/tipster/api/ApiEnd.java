@@ -1,7 +1,8 @@
 package com.chann.tipster.api;
 
-import com.chann.tipster.data.EdiProfile;
+import com.chann.tipster.data.EditProfile;
 import com.chann.tipster.data.Login;
+import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Register;
 
 import okhttp3.MultipartBody;
@@ -25,7 +26,9 @@ public interface ApiEnd {
 
     @Multipart
     @POST("/api/profile_edit")
-    Call<EdiProfile> profileEdit(@Part("token") RequestBody token , @Part("name") RequestBody name , @Part MultipartBody.Part image);
+    Call<EditProfile> profileEdit(@Part("token") RequestBody token , @Part("name") RequestBody name , @Part MultipartBody.Part image);
 
-
+    @FormUrlEncoded
+    @POST("/api/profile")
+    Call<Profile> getProfile(@Field("token") String token);
 }

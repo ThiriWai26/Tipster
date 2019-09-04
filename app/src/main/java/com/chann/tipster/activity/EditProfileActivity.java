@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.chann.tipster.R;
-import com.chann.tipster.data.EdiProfile;
+import com.chann.tipster.data.EditProfile;
 import com.chann.tipster.retrofit.RetrofitService;
 
 import java.io.File;
@@ -98,6 +98,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         return null;
+
     }
 
     public void uploadServer (String imagePath){
@@ -111,9 +112,9 @@ public class EditProfileActivity extends AppCompatActivity {
         image = MultipartBody.Part.createFormData("image",file.getName(),imageBody);
 
         Log.e("file name",file.getName());
-        RetrofitService.getApiEnd().profileEdit(token,name,image).enqueue(new Callback<EdiProfile>() {
+        RetrofitService.getApiEnd().profileEdit(token,name,image).enqueue(new Callback<EditProfile>() {
             @Override
-            public void onResponse(Call<EdiProfile> call, Response<EdiProfile> response) {
+            public void onResponse(Call<EditProfile> call, Response<EditProfile> response) {
                 if(response.isSuccessful()){
                     if(response.body().isSuccess){
                         Log.e("upload","successful");
@@ -128,7 +129,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<EdiProfile> call, Throwable t) {
+            public void onFailure(Call<EditProfile> call, Throwable t) {
 
                 Log.e("onfailure",t.toString());
             }

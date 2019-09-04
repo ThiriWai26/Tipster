@@ -18,9 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/bottom_navi_height"
             android:background="@color/colorPrimary"
-            android:padding="@dimen/margin_sm"
-            app:itemIconTint="@drawable/bottom_navigation_colors"
-            app:itemTextColor="@drawable/bottom_navigation_colors"
+            app:itemBackground="@drawable/bg_navigation_item"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@android:color/white"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_nav_menu" />
 

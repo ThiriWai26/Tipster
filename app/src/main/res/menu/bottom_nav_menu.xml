@@ -19,10 +19,11 @@
     <!--        android:id="@+id/action_tipstar"-->
     <!--        android:icon="@drawable/img_tipstar"-->
     <!--        android:title="@string/navi_tipstar" />-->
-    <item
-        android:id="@+id/menu_item_ranking"
+
+
+    <item android:id="@+id/menu_item_matchlist"
         android:icon="@drawable/ic_ranking"
-        android:title="@string/navi_user_ranking" />
+        android:title="@string/navi_matchList"/>
 
 
     <item
@@ -31,10 +32,14 @@
         android:title="@string/navi_profile" />
 
 
+<!--    <item-->
+<!--        android:id="@+id/menu_item_bet_history"-->
+<!--        android:icon="@drawable/ic_bet_history"-->
+<!--        android:title="@string/navi_bet_history" />-->
     <item
-        android:id="@+id/menu_item_bet_history"
-        android:icon="@drawable/ic_bet_history"
-        android:title="@string/navi_bet_history" />
+        android:id="@+id/menu_item_ranking"
+        android:icon="@drawable/ic_menu_rank"
+        android:title="@string/navi_user_ranking" />
 
 
 </menu>

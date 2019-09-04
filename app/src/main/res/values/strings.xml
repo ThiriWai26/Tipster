@@ -12,6 +12,7 @@
     <string name="navi_profile">Profile</string>
     <string name="navi_bet_history">Bet History</string>
     <string name="navi_user_ranking">Ranking</string>
+    <string name="navi_matchList">Match List</string>
 
     <string name="label_register">Register</string>
     <string name="label_login">Login</string>

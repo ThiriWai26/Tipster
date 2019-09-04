@@ -18,6 +18,8 @@
                 android:orientation="vertical">
 
                 <TextView
+
+                    android:id="@+id/tvSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -26,7 +28,7 @@
                     android:textSize="14sp"
                     android:padding="12dp"
                     android:layout_gravity="end"
-                    android:onClick="onBtnSave"
+                    android:visibility="gone"
                     />
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile"
@@ -36,10 +38,7 @@
                     app:civ_circle_background_color="@color/grey"
                     app:civ_border_overlay="true"
                     app:civ_border_color="#a1a0a0"
-                    android:layout_marginTop="32dp"
-                    android:onClick="getImage"
-                    tools:ignore="OnClick"
-                    android:src="@drawable/logo_tipstar"/>
+                    android:layout_marginTop="32dp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
