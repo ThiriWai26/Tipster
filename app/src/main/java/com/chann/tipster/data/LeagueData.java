@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-class LeagueData {
+public class LeagueData {
 
     public int id;
 

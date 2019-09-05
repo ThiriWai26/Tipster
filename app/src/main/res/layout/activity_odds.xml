@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".activity.OddsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:paddingBottom="@dimen/margin_md">
+
+            <TextView
+                android:id="@+id/tvVs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="-"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvDate"
+                app:layout_constraintStart_toStartOf="@+id/tvDate"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:padding="@dimen/margin_md"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvVs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:padding="@dimen/margin_md"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/tvDate"
+                app:layout_constraintStart_toStartOf="@+id/tvDate"
+                app:layout_constraintTop_toBottomOf="@+id/tvVs" />
+
+            <TextView
+                android:id="@+id/tvLocalTeamScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvVs"
+                app:layout_constraintEnd_toStartOf="@+id/tvDate" />
+
+            <TextView
+                android:id="@+id/tvVisitorTeamScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvVs"
+                app:layout_constraintStart_toEndOf="@+id/tvDate" />
+
+            <ImageView
+                android:id="@+id/localProfile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvLocalTeamName"
+                app:layout_constraintEnd_toStartOf="@+id/tvLocalTeamScore"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/visitorProfile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvVisitorTeamName"
+                app:layout_constraintStart_toEndOf="@+id/tvVisitorTeamScore"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLocalTeamName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="32dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="end"
+                android:maxLines="2"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvLocalTeamScore"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/localProfile" />
+
+            <TextView
+                android:id="@+id/tvVisitorTeamName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="start"
+                android:maxLines="2"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvLocalTeamName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvVisitorTeamScore" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- layout for betting -->
+        <LinearLayout
+            android:id="@+id/layout_bet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titleHandicap"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#E7E5E3"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/margin_md"
+                android:paddingLeft="@dimen/margin_md"
+                android:paddingEnd="@dimen/margin_md"
+                android:paddingRight="@dimen/margin_md"
+                android:text="Asian Handicap"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/layout_handicap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xl"
+                android:layout_marginEnd="@dimen/margin_xl"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/margin_md"
+                android:paddingTop="@dimen/margin_md"
+                android:paddingEnd="@dimen/margin_md"
+                android:paddingBottom="@dimen/margin_md">
+
+                <ImageView
+                    android:id="@+id/imgLocalProfile"
+                    android:layout_width="64dp"
+                    android:layout_height="32dp" />
+
+                <TextView
+                    android:id="@+id/tvLocalValue"
+                    style="@style/BetTvStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/BetBtnStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lg"
+                    android:onClick="onLocalTeamBetClick"
+                    android:text="Bet" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/divider_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xl"
+                android:layout_marginEnd="@dimen/margin_xl"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/margin_md"
+                android:paddingTop="@dimen/margin_md"
+                android:paddingEnd="@dimen/margin_md"
+                android:paddingBottom="@dimen/margin_md">
+
+                <ImageView
+                    android:id="@+id/imgVisitorProfile"
+                    android:layout_width="64dp"
+                    android:layout_height="32dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvVisitorValue"
+                    style="@style/BetTvStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/BetBtnStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lg"
+                    android:onClick="onVisitorTeamBetClick"
+                    android:text="Bet" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/divider_color" />
+
+            <TextView
+                android:id="@+id/tvOverUnder"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#E7E5E3"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/margin_md"
+                android:paddingLeft="@dimen/margin_md"
+                android:paddingEnd="@dimen/margin_md"
+                android:paddingRight="@dimen/margin_md"
+                android:text="Over/Under"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xl"
+                android:layout_marginEnd="@dimen/margin_xl"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/margin_md"
+                android:paddingTop="@dimen/margin_md"
+                android:paddingEnd="@dimen/margin_md"
+                android:paddingBottom="@dimen/margin_md">
+
+                <TextView
+                    style="@style/BetTvStyle"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingRight="@dimen/margin_lg"
+                    android:src="@drawable/logo_tipstar"
+                    android:text="Over" />
+
+                <TextView
+                    android:id="@+id/tvOver"
+                    style="@style/BetTvStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/BetBtnStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lg"
+                    android:onClick="onOverBetClick"
+                    android:text="Bet" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/divider_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xl"
+                android:layout_marginEnd="@dimen/margin_xl"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/margin_md"
+                android:paddingTop="@dimen/margin_md"
+                android:paddingEnd="@dimen/margin_md"
+                android:paddingBottom="@dimen/margin_md">
+
+                <TextView
+                    style="@style/BetTvStyle"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingRight="@dimen/margin_lg"
+                    android:src="@drawable/logo_tipstar"
+                    android:text="Under" />
+
+                <TextView
+                    android:id="@+id/tvUnder"
+                    style="@style/BetTvStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/BetBtnStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lg"
+                    android:onClick="onUnderBetClick"
+                    android:text="Bet" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/divider_color" />
+
+        </LinearLayout>
+
+        <!-- layout for match finished-->
+        <LinearLayout
+            android:id="@+id/layout_finished"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_xl"
+                android:src="@drawable/ic_match_finish" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_lg"
+                android:fontFamily="@font/roboto_medium"
+                android:text="The Match is Over"
+                android:textSize="18sp"
+                android:typeface="sans" />
+
+        </LinearLayout>
+
+        <!-- layout for network error-->
+        <LinearLayout
+            android:id="@+id/layout_network_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_xl"
+                android:src="@drawable/ic_network_error" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_lg"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Network error"
+                android:textSize="18sp"
+                android:typeface="sans" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_lg"
+                android:onClick="@{()->viewModel.onTryAgain()}"
+                android:text="Try again"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                app:strokeColor="@color/colorPrimary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bet_dialog"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/margin_md">
+
+    <TextView
+        android:id="@+id/labelOverUnder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_lg"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Over"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tvOverUnderValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_sm"
+        android:fontFamily="@font/roboto"
+        android:text="+50"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/imgTeamLogo"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="@dimen/margin_lg" />
+
+    <TextView
+        android:id="@+id/tvHandicapValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_sm"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:paddingStart="@dimen/margin_sm"
+        android:paddingEnd="@dimen/margin_sm"
+        android:text="1(85)"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etBetAmout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/margin_lg"
+        android:layout_marginTop="@dimen/margin_lg"
+        android:layout_marginEnd="@dimen/margin_lg"
+        android:background="@color/grey"
+        android:gravity="center"
+        android:visibility="gone"
+        android:hint="Coins"
+        android:inputType="number" />
+
+    <RadioGroup
+        android:id="@+id/radioBetAmout"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_lg"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/minAmout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:layout_marginLeft="@dimen/margin_lg"
+            android:layout_marginRight="@dimen/margin_md" />
+
+        <RadioButton
+            android:id="@+id/maxAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_lg"
+            android:layout_marginRight="@dimen/margin_md" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvTotalCoin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_md"
+        android:fontFamily="@font/roboto_light"
+        android:paddingStart="@dimen/margin_lg"
+        android:paddingEnd="@dimen/margin_lg"
+        android:text="Your coin : 1299" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_lg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvCancel"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_bet_cancel"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tvBet"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_bet_confirm"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="Bet"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

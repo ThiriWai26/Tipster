@@ -30,7 +30,7 @@
             android:paddingTop="@dimen/margin_md"
             android:paddingEnd="@dimen/compat_margin_sm"
             android:paddingBottom="@dimen/margin_md"
-            android:text="@{league.leagueTitle}"
+            android:text="Superliga"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/league_title_size"
             android:textStyle="bold"/>

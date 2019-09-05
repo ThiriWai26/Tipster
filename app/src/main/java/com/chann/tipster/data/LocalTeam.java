@@ -1,6 +1,6 @@
 package com.chann.tipster.data;
 
-class LocalTeam {
+public class LocalTeam {
 
     public int id;
     public String name;

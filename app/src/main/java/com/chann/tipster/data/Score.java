@@ -2,7 +2,7 @@ package com.chann.tipster.data;
 
 import com.google.gson.annotations.SerializedName;
 
-class Score {
+public class Score {
 
     @SerializedName("local_team_score")
     public int localScore;

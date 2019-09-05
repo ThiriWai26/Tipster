@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import com.chann.tipster.R;
 import com.chann.tipster.data.Login;
 import com.chann.tipster.fragment.BetHistoryFragment;
+import com.chann.tipster.fragment.MatchListFragment;
 import com.chann.tipster.fragment.ProfileFragment;
 import com.chann.tipster.fragment.RankFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -44,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()){
 
-                    case R.id.menu_item_bet_history:
-                        loadFragment(new BetHistoryFragment());
+                    case R.id.menu_item_matchlist:
+                        loadFragment(new MatchListFragment());
                         return true;
 
                     case R.id.menu_item_profile:

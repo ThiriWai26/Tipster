@@ -1,7 +1,10 @@
 package com.chann.tipster.api;
 
 import com.chann.tipster.data.EditProfile;
+import com.chann.tipster.data.LeagueData;
 import com.chann.tipster.data.Login;
+import com.chann.tipster.data.MatchList;
+import com.chann.tipster.data.OddsData;
 import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Register;
 
@@ -31,4 +34,13 @@ public interface ApiEnd {
     @FormUrlEncoded
     @POST("/api/profile")
     Call<Profile> getProfile(@Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("/api/matchList")
+    Call<MatchList> getMatchList(@Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("/api/odds")
+    Call<OddsData> getOddsData(@Field("token") String token , @Field("match_id") int matchId , @Field("type") int type , @Field("room_id") int roomId);
+
 }
