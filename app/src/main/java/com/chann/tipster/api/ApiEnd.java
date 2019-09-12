@@ -1,5 +1,6 @@
 package com.chann.tipster.api;
 
+import com.chann.tipster.data.BetResponse;
 import com.chann.tipster.data.EditProfile;
 import com.chann.tipster.data.LeagueData;
 import com.chann.tipster.data.Login;
@@ -43,4 +44,9 @@ public interface ApiEnd {
     @POST("/api/odds")
     Call<OddsData> getOddsData(@Field("token") String token , @Field("match_id") int matchId , @Field("type") int type , @Field("room_id") int roomId);
 
+    @FormUrlEncoded
+    @POST("/api/bet")
+    Call<BetResponse> bet(@Field("token") String token , @Field("type") int type , @Field("room_id") int roomId , @Field("match_id") int matchId,
+                          @Field("fixture_id") int fixtureId, @Field("bet_amount") int betAmount, @Field("bet_handicap") int betHandiCap , @Field("bet_value") int betValue,
+                          @Field("label") String label, @Field("bet_type") int betType);
 }

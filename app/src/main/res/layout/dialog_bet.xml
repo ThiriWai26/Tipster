@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="334dp"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bet_dialog"
     android:gravity="center_horizontal"
@@ -60,14 +60,13 @@
 
     <RadioGroup
         android:id="@+id/radioBetAmout"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_lg"
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/minAmout"
+            android:id="@+id/minAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -91,6 +90,7 @@
         android:fontFamily="@font/roboto_light"
         android:paddingStart="@dimen/margin_lg"
         android:paddingEnd="@dimen/margin_lg"
+        android:visibility="gone"
         android:text="Your coin : 1299" />
 
     <LinearLayout
