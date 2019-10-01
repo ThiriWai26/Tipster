@@ -3,6 +3,7 @@ package com.chann.tipster.fragment;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -134,40 +135,40 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
        }
        if(view == tvName){
 
+           final EditText etUsername ;
+           final TextView save , tvCancel;
 
-           AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-           builder.setTitle("Enter User Name");
+           final Dialog dialog = new Dialog(getContext());
+           dialog.setContentView(R.layout.dialog_edit_profile);
 
-           final EditText etName = new EditText(this.getContext());
-           etName.setInputType(InputType.TYPE_CLASS_TEXT);
+           etUsername = dialog.findViewById(R.id.etUsername);
+           save = dialog.findViewById(R.id.tvSave);
+           tvCancel = dialog.findViewById(R.id.tvCancel);
 
-           builder.setView(etName);
-
-           builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+           tvCancel.setOnClickListener(new View.OnClickListener() {
                @Override
-               public void onClick(DialogInterface dialogInterface, int i) {
+               public void onClick(View view) {
+                   dialog.dismiss();
+               }
+           });
 
-                   if(etName.getText().toString().equals("")){
-                       dialogInterface.cancel();
+           save.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   editName = etUsername.getText().toString();
+
+                   if(editName.equals("")){
+                       etUsername.setError("Enter user name");
                    }
                    else {
-                       editName = etName.getText().toString();
                        tvName.setText(editName);
                        tvSave.setVisibility(View.VISIBLE);
+                       dialog.dismiss();
                    }
-
                }
            });
 
-           builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-               @Override
-               public void onClick(DialogInterface dialogInterface, int i) {
-
-                   dialogInterface.cancel();
-               }
-           });
-
-           builder.show();
+           dialog.show();
 
        }
        if( view == tvSave){

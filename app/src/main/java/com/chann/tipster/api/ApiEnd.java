@@ -1,6 +1,7 @@
 package com.chann.tipster.api;
 
 import com.chann.tipster.data.BetResponse;
+import com.chann.tipster.data.CurrentCoin;
 import com.chann.tipster.data.EditProfile;
 import com.chann.tipster.data.LeagueData;
 import com.chann.tipster.data.Login;
@@ -8,12 +9,14 @@ import com.chann.tipster.data.MatchList;
 import com.chann.tipster.data.OddsData;
 import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Register;
+import com.chann.tipster.data.RoomListOfLeague;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -49,4 +52,14 @@ public interface ApiEnd {
     Call<BetResponse> bet(@Field("token") String token , @Field("type") int type , @Field("room_id") int roomId , @Field("match_id") int matchId,
                           @Field("fixture_id") int fixtureId, @Field("bet_amount") int betAmount, @Field("bet_handicap") int betHandiCap , @Field("bet_value") int betValue,
                           @Field("label") String label, @Field("bet_type") int betType);
+
+    @FormUrlEncoded
+    @POST("/api/league_list")
+    Call<RoomListOfLeague> getRoomListOfLeague(@Field("token") String token , @Field("type") int typeId);
+
+    @FormUrlEncoded
+    @POST("/api/current_coin")
+    Call<CurrentCoin> getCurrentCoin(@Field("token") String token , @Field("type") int typeId, @Field("room_id") int roomId);
+
+
 }

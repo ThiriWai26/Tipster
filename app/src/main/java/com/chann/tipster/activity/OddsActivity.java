@@ -21,6 +21,7 @@ import com.chann.tipster.data.Data;
 import com.chann.tipster.data.LeagueData;
 import com.chann.tipster.data.Odds;
 import com.chann.tipster.data.OddsData;
+import com.chann.tipster.data.RoomListOfLeague;
 import com.chann.tipster.data.Token;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.squareup.picasso.Picasso;
@@ -40,11 +41,13 @@ public class OddsActivity extends AppCompatActivity {
     private TextView tvLocalValue, tvVisitorValue;
 
     private TextView tvOver, tvUnder;
+    private static int roomId;
 
-    private int roomId = 0, matchId = 1, type = 1;
+    private int matchId = 1, typeId = 1;
 
-    public static Intent getInstance(Context context, LeagueData leagueData) {
+    public static Intent getInstance(Context context, LeagueData leagueData, int room_Id) {
         league = leagueData;
+        roomId = room_Id;
         Intent intent = new Intent(context, OddsActivity.class);
         return intent;
     }
@@ -54,14 +57,17 @@ public class OddsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_odds);
-
         init();
+        Log.e("roomId",String.valueOf(roomId));
 
     }
 
     private void getOddsData() {
 
-        RetrofitService.getApiEnd().getOddsData(Token.token, league.id, 1, 0).enqueue(new Callback<OddsData>() {
+        Log.e("league_id",String.valueOf(league.id));
+        Log.e("fixture_id",String.valueOf(league.fixtureId));
+
+        RetrofitService.getApiEnd().getOddsData(Token.token, league.id, typeId, roomId).enqueue(new Callback<OddsData>() {
             @Override
             public void onResponse(Call<OddsData> call, Response<OddsData> response) {
                 if (response.isSuccessful()) {
@@ -109,6 +115,7 @@ public class OddsActivity extends AppCompatActivity {
 
         getOddsData();
     }
+
 
     private void bindData(Odds odds) {
 
@@ -182,10 +189,10 @@ public class OddsActivity extends AppCompatActivity {
 
     public void onLocalTeamBetClick(View view) {
 
-        Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(this);
         RadioButton minBtn , maxBtn;
         ImageView imgTeamLogo;
-        TextView tvCancel ,tvBet ,tvHandicapValue;
+        TextView tvCancel ,tvBet ,tvHandicapValue , labelOverUnder , tvOverUnderValue;
 
         dialog.setContentView(R.layout.dialog_bet);
         imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
@@ -194,6 +201,11 @@ public class OddsActivity extends AppCompatActivity {
         tvHandicapValue = dialog.findViewById(R.id.tvHandicapValue);
         minBtn = dialog.findViewById(R.id.minAmount);
         maxBtn = dialog.findViewById(R.id.maxAmount);
+        labelOverUnder = dialog.findViewById(R.id.labelOverUnder);
+        tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
+
+        labelOverUnder.setVisibility(View.GONE);
+        tvOverUnderValue.setVisibility(View.GONE);
 
         Picasso.get().load(league.localTeam.logo).resize(50, 50).into(imgTeamLogo);
         tvHandicapValue.setText(tvLocalValue.getText().toString());
@@ -201,16 +213,22 @@ public class OddsActivity extends AppCompatActivity {
         maxBtn.setText(String.valueOf(oddsData.point.max));
 
 
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
 
 
     }
 
     public void onVisitorTeamBetClick(View view) {
-        Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(this);
         RadioButton minBtn, maxBtn;
         ImageView imgTeamLogo;
-        TextView tvCancel ,tvBet ,tvHandicapValue;
+        TextView tvCancel ,tvBet ,tvHandicapValue ,labelOverUnder , tvOverUnderValue;
 
         dialog.setContentView(R.layout.dialog_bet);
         imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
@@ -225,13 +243,27 @@ public class OddsActivity extends AppCompatActivity {
         minBtn.setText(String.valueOf(oddsData.point.min));
         maxBtn.setText(String.valueOf(oddsData.point.max));
 
+        labelOverUnder = dialog.findViewById(R.id.labelOverUnder);
+        tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
+
+        labelOverUnder.setVisibility(View.GONE);
+        tvOverUnderValue.setVisibility(View.GONE);
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
     public void onOverBetClick(View view) {
-        Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(this);
         RadioButton minBtn, maxBtn;
-        TextView tvOverUnder,tvCancel ,tvBet ,tvOverUnderValue;
+        TextView tvOverUnder,tvCancel ,tvBet ,tvOverUnderValue , tvHanddicapValue;
+        ImageView imgTeamLogo;
 
         dialog.setContentView(R.layout.dialog_bet);
         tvOverUnder = dialog.findViewById(R.id.labelOverUnder);
@@ -240,20 +272,32 @@ public class OddsActivity extends AppCompatActivity {
         tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
         minBtn = dialog.findViewById(R.id.minAmount);
         maxBtn = dialog.findViewById(R.id.maxAmount);
+        tvHanddicapValue = dialog.findViewById(R.id.tvHandicapValue);
+        imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
+
+        tvHanddicapValue.setVisibility(View.GONE);
+        imgTeamLogo.setVisibility(View.GONE);
 
         tvOverUnder.setText("Over");
         tvOverUnderValue.setText(tvOver.getText().toString());
         minBtn.setText(String.valueOf(oddsData.point.min));
         maxBtn.setText(String.valueOf(oddsData.point.max));
 
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
 
     }
 
     public void onUnderBetClick(View view) {
-        Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(this);
         RadioButton minBtn, maxBtn;
-        TextView tvOverUnder,tvCancel ,tvBet , tvOverUnderValue;
+        TextView tvOverUnder,tvCancel ,tvBet , tvOverUnderValue ,tvHandicapValue;
+        ImageView  imgTeamLogo;
 
         dialog.setContentView(R.layout.dialog_bet);
         tvCancel = dialog.findViewById(R.id.tvCancel);
@@ -263,12 +307,23 @@ public class OddsActivity extends AppCompatActivity {
         tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
         minBtn = dialog.findViewById(R.id.minAmount);
         maxBtn = dialog.findViewById(R.id.maxAmount);
+        tvHandicapValue = dialog.findViewById(R.id.tvHandicapValue);
+        imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
+
+        tvHandicapValue.setVisibility(View.GONE);
+        imgTeamLogo.setVisibility(View.GONE);
 
         tvOverUnder.setText("Under");
         tvOverUnderValue.setText(tvUnder.getText().toString());
         minBtn.setText(String.valueOf(oddsData.point.min));
         maxBtn.setText(String.valueOf(oddsData.point.max));
 
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 

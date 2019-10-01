@@ -5,7 +5,8 @@
     <dimen name="compat_margin_md">16dp</dimen>
     <dimen name="compat_margin_lg">32dp</dimen>
 
-    <dimen name="compat_text_size_sm">10sp</dimen>
+    <dimen name="compat_text_size_xs">10sp</dimen>
+    <dimen name="compat_text_size_s">12sp</dimen>
     <dimen name="compat_text_size_md">16sp</dimen>
     <dimen name="compat_text_size_lg">22sp</dimen>
 

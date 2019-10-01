@@ -8,6 +8,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            android:paddingLeft="@dimen/padding_lg"
+            android:paddingRight="@dimen/padding_lg"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipster"
+                android:textSize="@dimen/compat_text_size_md"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_alignParentLeft="true"/>
+
+            <ImageView
+                android:id="@+id/iv_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_trending_up_white_24dp" />
+
+        </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
