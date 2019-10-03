@@ -1,8 +1,7 @@
 package com.chann.tipster.holderInterface;
 
-
-import com.chann.tipster.data.LeagueData;
+import com.chann.tipster.data.MatchData;
 
 public interface OnHolderItemClickListener {
-    public void onHolderitemClick(LeagueData leagueData);//to carry doctorName from one class to another
+    public void onHolderitemClick(MatchData matchData);//to carry doctorName from one class to another
 }

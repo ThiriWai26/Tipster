@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
 
-        loadFragment(new BetHistoryFragment());
+        loadFragment(new MatchListFragment());
 
 
 

@@ -3,13 +3,14 @@ package com.chann.tipster.api;
 import com.chann.tipster.data.BetResponse;
 import com.chann.tipster.data.CurrentCoin;
 import com.chann.tipster.data.EditProfile;
-import com.chann.tipster.data.LeagueData;
 import com.chann.tipster.data.Login;
-import com.chann.tipster.data.MatchList;
+import com.chann.tipster.data.MatchListData;
 import com.chann.tipster.data.OddsData;
 import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Register;
 import com.chann.tipster.data.RoomListOfLeague;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -39,9 +40,8 @@ public interface ApiEnd {
     @POST("/api/profile")
     Call<Profile> getProfile(@Field("token") String token);
 
-    @FormUrlEncoded
-    @POST("/api/matchList")
-    Call<MatchList> getMatchList(@Field("token") String token);
+    @GET("/api/match_list")
+    Call<List<MatchListData>> getMatchList();
 
     @FormUrlEncoded
     @POST("/api/odds")

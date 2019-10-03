@@ -6,9 +6,19 @@ import java.util.List;
 
 public class OverUnder {
 
-    @SerializedName("last_update")
-    public LastUpdate lastUpdate;
+    @SerializedName("id")
+    public int id;
 
-    @SerializedName("data")
-    public List<Data> data;
+    @SerializedName("value")
+    public int value;
+
+    @SerializedName("total_score")
+    public int totalScore;
+
+    @SerializedName("last_update")
+    public String lastUpdate;
+
+    @SerializedName("match_id")
+    public int matchId;
+
 }

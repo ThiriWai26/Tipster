@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.chann.tipster.R;
 import com.chann.tipster.data.Data;
 import com.chann.tipster.data.LeagueData;
+import com.chann.tipster.data.MatchData;
 import com.chann.tipster.data.Odds;
 import com.chann.tipster.data.OddsData;
 import com.chann.tipster.data.RoomListOfLeague;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 
 public class OddsActivity extends AppCompatActivity {
 
-    private static LeagueData league;
+    private static MatchData league;
     private OddsData oddsData;
     private TextView tvTime, tvLocalScore, tvVisitorScore, tvLocalName, tvVistiorName, tvDate;
     private ImageView imgVisitor, imgLocal;
@@ -45,9 +46,8 @@ public class OddsActivity extends AppCompatActivity {
 
     private int matchId = 1, typeId = 1;
 
-    public static Intent getInstance(Context context, LeagueData leagueData, int room_Id) {
-        league = leagueData;
-        roomId = room_Id;
+    public static Intent getInstance(Context context, MatchData matchData) {
+        league = matchData;
         Intent intent = new Intent(context, OddsActivity.class);
         return intent;
     }
@@ -58,36 +58,7 @@ public class OddsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_odds);
         init();
-        Log.e("roomId",String.valueOf(roomId));
-
-    }
-
-    private void getOddsData() {
-
-        Log.e("league_id",String.valueOf(league.id));
-        Log.e("fixture_id",String.valueOf(league.fixtureId));
-
-        RetrofitService.getApiEnd().getOddsData(Token.token, league.id, typeId, roomId).enqueue(new Callback<OddsData>() {
-            @Override
-            public void onResponse(Call<OddsData> call, Response<OddsData> response) {
-                if (response.isSuccessful()) {
-                    if (response.body().isSuccess) {
-                        Log.e("This is ", "successful");
-
-                        oddsData = response.body();
-                        bindData(oddsData.odds);
-
-
-                    }
-                }
-                Log.e("This is ", "unsuccessful");
-            }
-
-            @Override
-            public void onFailure(Call<OddsData> call, Throwable t) {
-                Log.e("This is ", t.toString());
-            }
-        });
+        bindData();
     }
 
 
@@ -113,77 +84,54 @@ public class OddsActivity extends AppCompatActivity {
         tvOver = findViewById(R.id.tvOver);
         tvUnder = findViewById(R.id.tvUnder);
 
-        getOddsData();
     }
 
 
-    private void bindData(Odds odds) {
+    private void bindData() {
 
-        Log.e("LastUpdate", odds.handicap.lastUpdate.date);
         tvDate.setText(league.date);
         tvTime.setText(league.time);
-        tvLocalScore.setText(String.valueOf(league.score.localScore));
-        tvVisitorScore.setText(String.valueOf(league.score.visitorScore));
-        tvLocalName.setText(league.localTeam.name);
-        tvVistiorName.setText(league.visitorTeam.name);
+        tvLocalScore.setText(String.valueOf(league.localTeamScore));
+        tvVisitorScore.setText(String.valueOf(league.visitorTeamScore));
+        tvLocalName.setText(league.localTeamName);
+        tvVistiorName.setText(league.visitorTeamName);
 
-        Picasso.get().load(league.localTeam.logo).resize(50, 50).into(imgLocal);
-        Picasso.get().load(league.visitorTeam.logo).resize(50, 50).into(imgVisitor);
+        Picasso.get().load(league.localTeamLogo).resize(50, 50).into(imgLocal);
+        Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgVisitor);
 
-        Picasso.get().load(league.localTeam.logo).resize(50, 50).into(imgLocalProfile);
-        Picasso.get().load(league.visitorTeam.logo).resize(50, 50).into(imgVisitorProfile);
+        Picasso.get().load(league.localTeamLogo).resize(50, 50).into(imgLocalProfile);
+        Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgVisitorProfile);
 
-        Data localData = odds.handicap.data.get(0);
-        Data visitorData = odds.handicap.data.get(1);
 
-        Data over = odds.overUnder.data.get(0);
-        Data under = odds.overUnder.data.get(1);
+        if(league.handiCap.label.equals("Home")){
 
-        if (localData.teamType > 0) {
-            if (localData.value > 0) {
+            if(league.handiCap.value>0)
+                tvLocalValue.setText(league.handiCap.handicap+"(+"+ league.handiCap.value+")");
+            else
+                tvLocalValue.setText(league.handiCap.handicap+"("+ league.handiCap.value+")");
 
-                Log.e("yout", "tal");
-                @SuppressLint("DefaultLocale") String localvalue = String.format("%d(+%d)", localData.handicap, localData.value);
-                tvLocalValue.setText(localvalue);
-            } else {
+        }else {
 
-                Log.e("yout", "tal");
-                @SuppressLint("DefaultLocale") String localvalue = String.format("%d(%d)", localData.handicap, localData.value);
-                tvLocalValue.setText(localvalue);
-            }
-
-        } else {
-            if (visitorData.value > 0) {
-
-                Log.e("yout", "tal");
-                String visitorValue = String.format("%d(+%d)", visitorData.handicap, visitorData.value);
-                tvLocalValue.setText(visitorValue);
-            } else {
-
-                Log.e("yout", "tal");
-                String visitorValue = String.format("%d(%d)", visitorData.handicap, visitorData.value);
-                tvLocalValue.setText(visitorValue);
+            if(league.handiCap.value>0)
+                tvVisitorValue.setText(league.handiCap.handicap+"(+"+ league.handiCap.value+")");
+            else {
+                tvVisitorValue.setText(league.handiCap.handicap+"("+ league.handiCap.value+")");
             }
         }
 
-        if (over.value > 0) {
+        if (league.overUnder.value > 0) {
 
-            String overValue = String.format("%d(+%d)", over.handicap, over.value);
+            String overValue = String.format("%d(+%d)", league.overUnder.totalScore, league.overUnder.value);
             tvOver.setText(overValue);
+            tvUnder.setText(overValue);
 
         } else {
 
-            String overValue = String.format("%d(%d)", over.handicap, over.value);
+            String overValue = String.format("%d(%d)", league.overUnder.totalScore, league.overUnder.value);
             tvOver.setText(overValue);
+            tvUnder.setText(overValue);
         }
 
-        if (under.value > 0) {
-            String underValue = String.format("%d(+%d)", under.handicap, under.value);
-            tvUnder.setText(underValue);
-        } else {
-            String underValue = String.format("%d(%d)", under.handicap, under.value);
-            tvUnder.setText(underValue);
-        }
 
     }
 
@@ -207,10 +155,10 @@ public class OddsActivity extends AppCompatActivity {
         labelOverUnder.setVisibility(View.GONE);
         tvOverUnderValue.setVisibility(View.GONE);
 
-        Picasso.get().load(league.localTeam.logo).resize(50, 50).into(imgTeamLogo);
+        Picasso.get().load(league.localTeamLogo).resize(50, 50).into(imgTeamLogo);
         tvHandicapValue.setText(tvLocalValue.getText().toString());
-        minBtn.setText(String.valueOf(oddsData.point.min));
-        maxBtn.setText(String.valueOf(oddsData.point.max));
+//        minBtn.setText(String.valueOf(oddsData.point.min));
+//        maxBtn.setText(String.valueOf(oddsData.point.max));
 
 
         tvCancel.setOnClickListener(new View.OnClickListener() {
@@ -238,10 +186,10 @@ public class OddsActivity extends AppCompatActivity {
         minBtn = dialog.findViewById(R.id.minAmount);
         maxBtn = dialog.findViewById(R.id.maxAmount);
 
-        Picasso.get().load(league.visitorTeam.logo).resize(50, 50).into(imgTeamLogo);
+        Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgTeamLogo);
         tvHandicapValue.setText(tvVisitorValue.getText().toString());
-        minBtn.setText(String.valueOf(oddsData.point.min));
-        maxBtn.setText(String.valueOf(oddsData.point.max));
+//        minBtn.setText(String.valueOf(oddsData.point.min));
+//        maxBtn.setText(String.valueOf(oddsData.point.max));
 
         labelOverUnder = dialog.findViewById(R.id.labelOverUnder);
         tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
@@ -280,8 +228,8 @@ public class OddsActivity extends AppCompatActivity {
 
         tvOverUnder.setText("Over");
         tvOverUnderValue.setText(tvOver.getText().toString());
-        minBtn.setText(String.valueOf(oddsData.point.min));
-        maxBtn.setText(String.valueOf(oddsData.point.max));
+//        minBtn.setText(String.valueOf(oddsData.point.min));
+//        maxBtn.setText(String.valueOf(oddsData.point.max));
 
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,8 +263,8 @@ public class OddsActivity extends AppCompatActivity {
 
         tvOverUnder.setText("Under");
         tvOverUnderValue.setText(tvUnder.getText().toString());
-        minBtn.setText(String.valueOf(oddsData.point.min));
-        maxBtn.setText(String.valueOf(oddsData.point.max));
+//        minBtn.setText(String.valueOf(oddsData.point.min));
+//        maxBtn.setText(String.valueOf(oddsData.point.max));
 
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override

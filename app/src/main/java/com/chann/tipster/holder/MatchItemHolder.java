@@ -1,7 +1,6 @@
 package com.chann.tipster.holder;
 
 import android.annotation.SuppressLint;
-import android.print.PrinterCapabilitiesInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chann.tipster.R;
-import com.chann.tipster.data.LeagueData;
+import com.chann.tipster.data.MatchData;
 import com.chann.tipster.data.PrematchOdds;
 import com.chann.tipster.holderInterface.OnHolderItemClickListener;
 import com.squareup.picasso.Picasso;
 
 
-public class MatchHolder extends RecyclerView.ViewHolder{
+public class MatchItemHolder extends RecyclerView.ViewHolder{
 
     private OnHolderItemClickListener listener;
 
@@ -27,7 +26,7 @@ public class MatchHolder extends RecyclerView.ViewHolder{
     private ImageView imgVisitor, imgLocal;
     private ConstraintLayout viewLeague;
 
-    public MatchHolder(@NonNull View itemView , OnHolderItemClickListener listener) {
+    public MatchItemHolder(@NonNull View itemView , OnHolderItemClickListener listener) {
         super(itemView);
         this.listener = listener;
 
@@ -52,32 +51,30 @@ public class MatchHolder extends RecyclerView.ViewHolder{
     }
 
     @SuppressLint("SetTextI18n")
-    public void bindData(final LeagueData data){
+    public void bindData(final MatchData data){
 
         tvTime.setText(data.time);
-        tvLocalScore.setText(String.valueOf(data.score.localScore));
-        tvVisitorScore.setText(String.valueOf(data.score.visitorScore));
-        tvLocalName.setText(data.localTeam.name);
-        tvVistiorName.setText(data.visitorTeam.name);
+        tvLocalScore.setText(String.valueOf(data.localTeamScore));
+        tvVisitorScore.setText(String.valueOf(data.visitorTeamScore));
+        tvLocalName.setText(data.localTeamName);
+        tvVistiorName.setText(data.visitorTeamName);
 
-        Picasso.get().load(data.localTeam.logo).resize(50,50).into(imgLocal);
-        Picasso.get().load(data.visitorTeam.logo).resize(50,50).into(imgVisitor);
+        Picasso.get().load(data.localTeamLogo).resize(50,50).into(imgLocal);
+        Picasso.get().load(data.visitorTeamLogo).resize(50,50).into(imgVisitor);
 
-        PrematchOdds localOdds = data.prematchOddsList.get(0);
-        PrematchOdds visitorOdds = data.prematchOddsList.get(1);
-        if(localOdds.teamType>0){
+        if(data.handiCap.label.equals("Home")){
 
-            if(localOdds.value>0)
-            tvLocalHandi.setText(localOdds.handicap+"(+"+ localOdds.value+")");
+            if(data.handiCap.value>0)
+            tvLocalHandi.setText(data.handiCap.handicap+"(+"+ data.handiCap.value+")");
             else
-                tvLocalHandi.setText(localOdds.handicap+"("+ localOdds.value+")");
+                tvLocalHandi.setText(data.handiCap.handicap+"("+ data.handiCap.value+")");
 
         }else {
 
-            if(visitorOdds.value>0)
-            tvVisitorHandi.setText(visitorOdds.handicap+"(+"+ visitorOdds.value+")");
+            if(data.handiCap.value>0)
+            tvVisitorHandi.setText(data.handiCap.handicap+"(+"+ data.handiCap.value+")");
             else {
-                tvVisitorHandi.setText(visitorOdds.handicap+"("+ visitorOdds.value+")");
+                tvVisitorHandi.setText(data.handiCap.handicap+"("+ data.handiCap.value+")");
             }
         }
 
@@ -89,10 +86,10 @@ public class MatchHolder extends RecyclerView.ViewHolder{
         });
     }
 
-    public static MatchHolder create(LayoutInflater inflater , ViewGroup parent , OnHolderItemClickListener listener){
+    public static MatchItemHolder create(LayoutInflater inflater , ViewGroup parent , OnHolderItemClickListener listener){
 
         View  view = inflater.inflate(R.layout.item_league, parent , false);
-        return new MatchHolder(view,listener);
+        return new MatchItemHolder(view,listener);
     }
 
 }

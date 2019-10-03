@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -88,44 +89,46 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void onLogin(View view) {
-        ph = etph.getText().toString();
-        pwd = etpwd.getText().toString();
-        Log.e("Da har :", "onLogin ");
-        Log.e("ph", ph);
-        Log.e("pwd", pwd);
+//        ph = etph.getText().toString();
+//        pwd = etpwd.getText().toString();
+//        Log.e("Da har :", "onLogin ");
+//        Log.e("ph", ph);
+//        Log.e("pwd", pwd);
+//
+//        if (ph == "") {
+//            etph.setError("Enter phone number");
+//        }
+//
+//        if (pwd == "") {
+//            etpwd.setError("Enter password");
+//        }
 
-        if (ph == "") {
-            etph.setError("Enter phone number");
-        }
+//        RetrofitService.getApiEnd().userLogin(ph, pwd).enqueue(new Callback<Login>() {
+//            @Override
+//            public void onResponse(Call<Login> call, Response<Login> response) {
+//
+//                Log.e("getApiEnd:", "yoat tal");
+//                if (response.isSuccessful()) {
+//                    if (response.body().isSuccess()) {
+//
+//                        Token.token = response.body().getToken();
+//                        startActivity(MainActivity.getInstance(getApplicationContext()));
+//                        finish();
+//
+//                    } else {
+//                        Toast.makeText(getApplicationContext(), response.body().getErrorMessage(), Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Login> call, Throwable t) {
+//
+//                Log.e("loginFailure:", t.toString());
+//            }
+//        });
 
-        if (pwd == "") {
-            etpwd.setError("Enter password");
-        }
-
-        RetrofitService.getApiEnd().userLogin(ph, pwd).enqueue(new Callback<Login>() {
-            @Override
-            public void onResponse(Call<Login> call, Response<Login> response) {
-
-                Log.e("getApiEnd:", "yoat tal");
-                if (response.isSuccessful()) {
-                    if (response.body().isSuccess()) {
-
-                        Token.token = response.body().getToken();
-                        startActivity(MainActivity.getInstance(getApplicationContext()));
-                        finish();
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), response.body().getErrorMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Login> call, Throwable t) {
-
-                Log.e("loginFailure:", t.toString());
-            }
-        });
+        startActivity(MainActivity.getInstance(getApplicationContext()));
     }
 
     public void onRegister(View view) {
@@ -161,7 +164,10 @@ public class LoginActivity extends AppCompatActivity {
                     String id = object.getString("id");
                     String image_url = "https://graph.facebook.com/" + id + "/picture?type=normal";
 
+                    Log.e("account_id",id);
                     Log.e("image_url", image_url);
+                    Log.e("first_name",first_name);
+                    Log.e("last_name",last_name);
 
 
                 } catch (JSONException e) {
@@ -182,5 +188,20 @@ public class LoginActivity extends AppCompatActivity {
         if (AccessToken.getCurrentAccessToken() != null) {
             loadUserProfile(AccessToken.getCurrentAccessToken());
         }
+    }
+
+    private void reload(int miliseconds){
+
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+
+                //some code for repeat
+            }
+        };
+
+        handler.postDelayed(runnable,miliseconds);
     }
 }
