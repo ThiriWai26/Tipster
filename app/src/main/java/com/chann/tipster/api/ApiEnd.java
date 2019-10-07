@@ -5,6 +5,7 @@ import com.chann.tipster.data.CurrentCoin;
 import com.chann.tipster.data.EditProfile;
 import com.chann.tipster.data.Login;
 import com.chann.tipster.data.MatchListData;
+import com.chann.tipster.data.MatchListResponse;
 import com.chann.tipster.data.OddsData;
 import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Register;
@@ -40,8 +41,9 @@ public interface ApiEnd {
     @POST("/api/profile")
     Call<Profile> getProfile(@Field("token") String token);
 
-    @GET("/api/match_list")
-    Call<List<MatchListData>> getMatchList();
+    @FormUrlEncoded
+    @POST("/api/matchList")
+    Call<MatchListResponse> getMatchList(@Field("token") String token);
 
     @FormUrlEncoded
     @POST("/api/odds")
@@ -51,7 +53,7 @@ public interface ApiEnd {
     @POST("/api/bet")
     Call<BetResponse> bet(@Field("token") String token , @Field("type") int type , @Field("room_id") int roomId , @Field("match_id") int matchId,
                           @Field("fixture_id") int fixtureId, @Field("bet_amount") int betAmount, @Field("bet_handicap") int betHandiCap , @Field("bet_value") int betValue,
-                          @Field("label") String label, @Field("bet_type") int betType);
+                          @Field("label") int label, @Field("bet_type") int betType);
 
     @FormUrlEncoded
     @POST("/api/league_list")

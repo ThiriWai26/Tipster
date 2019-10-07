@@ -57,10 +57,10 @@ public class MatchData {
     @SerializedName("updated_at")
     public String updtedAt;
 
-    @SerializedName("handicap")
+    @SerializedName("tmp_handicap")
     public Handicap handiCap;
 
-    @SerializedName("over_under")
+    @SerializedName("tmp_over_under")
     public OverUnder overUnder;
 
 }

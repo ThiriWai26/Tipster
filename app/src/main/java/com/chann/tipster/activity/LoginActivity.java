@@ -89,46 +89,46 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void onLogin(View view) {
-//        ph = etph.getText().toString();
-//        pwd = etpwd.getText().toString();
-//        Log.e("Da har :", "onLogin ");
-//        Log.e("ph", ph);
-//        Log.e("pwd", pwd);
-//
-//        if (ph == "") {
-//            etph.setError("Enter phone number");
-//        }
-//
-//        if (pwd == "") {
-//            etpwd.setError("Enter password");
-//        }
+        ph = etph.getText().toString();
+        pwd = etpwd.getText().toString();
+        Log.e("Da har :", "onLogin ");
+        Log.e("ph", ph);
+        Log.e("pwd", pwd);
 
-//        RetrofitService.getApiEnd().userLogin(ph, pwd).enqueue(new Callback<Login>() {
-//            @Override
-//            public void onResponse(Call<Login> call, Response<Login> response) {
-//
-//                Log.e("getApiEnd:", "yoat tal");
-//                if (response.isSuccessful()) {
-//                    if (response.body().isSuccess()) {
-//
-//                        Token.token = response.body().getToken();
-//                        startActivity(MainActivity.getInstance(getApplicationContext()));
-//                        finish();
-//
-//                    } else {
-//                        Toast.makeText(getApplicationContext(), response.body().getErrorMessage(), Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Login> call, Throwable t) {
-//
-//                Log.e("loginFailure:", t.toString());
-//            }
-//        });
+        if (ph == "") {
+            etph.setError("Enter phone number");
+        }
 
-        startActivity(MainActivity.getInstance(getApplicationContext()));
+        if (pwd == "") {
+            etpwd.setError("Enter password");
+        }
+
+        RetrofitService.getApiEnd().userLogin(ph, pwd).enqueue(new Callback<Login>() {
+            @Override
+            public void onResponse(Call<Login> call, Response<Login> response) {
+
+                Log.e("getApiEnd:", "yoat tal");
+                if (response.isSuccessful()) {
+                    if (response.body().isSuccess()) {
+
+                        Token.token = response.body().getToken();
+                        startActivity(MainActivity.getInstance(getApplicationContext()));
+                        finish();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), response.body().getErrorMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Login> call, Throwable t) {
+
+                Log.e("loginFailure:", t.toString());
+            }
+        });
+
+//        startActivity(MainActivity.getInstance(getApplicationContext()));
     }
 
     public void onRegister(View view) {

@@ -19,6 +19,7 @@ import com.chann.tipster.adapter.MatchItemAdapter;
 import com.chann.tipster.data.LeagueData;
 import com.chann.tipster.data.MatchData;
 import com.chann.tipster.data.MatchListData;
+import com.chann.tipster.data.MatchListResponse;
 import com.chann.tipster.data.RoomListOfLeague;
 import com.chann.tipster.data.Token;
 import com.chann.tipster.holderInterface.OnHolderItemClickListener;
@@ -67,13 +68,17 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
 
     private void getMatchList() {
 
-        RetrofitService.getApiEnd().getMatchList().enqueue(new Callback<List<MatchListData>>() {
+        RetrofitService.getApiEnd().getMatchList(Token.token).enqueue(new Callback<MatchListResponse>() {
             @Override
-            public void onResponse(Call<List<MatchListData>> call, Response<List<MatchListData>> response) {
+            public void onResponse(Call<MatchListResponse> call, Response<MatchListResponse> response) {
+
                 if(response.isSuccessful()){
-                    Log.e("matchListSize",String.valueOf(response.body().size()));
-                    adapter.addData(response.body());
-                    adapter.notifyDataSetChanged();
+                    if(response.body().isSuccess){
+                        roomId = response.body().roomId;
+                        adapter.addData(response.body().matchListData);
+
+                        Log.e("matchlistsize", String.valueOf(response.body().matchListData.size()));
+                    }
                 }
                 else {
                     Log.e("response","is not successful");
@@ -81,8 +86,7 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
             }
 
             @Override
-            public void onFailure(Call<List<MatchListData>> call, Throwable t) {
-
+            public void onFailure(Call<MatchListResponse> call, Throwable t) {
                 Log.e("onfailure",t.toString());
             }
         });
@@ -91,7 +95,7 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
 
     @Override
     public void onHolderitemClick(MatchData matchData) {
-        startActivity(OddsActivity.getInstance(getContext(), matchData));
+        startActivity(OddsActivity.getInstance(getContext(), matchData , roomId));
     }
 
     @Override

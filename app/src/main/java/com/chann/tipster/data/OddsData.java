@@ -4,12 +4,14 @@ package com.chann.tipster.data;
 import com.google.gson.annotations.SerializedName;
 
 public class OddsData {
+    @SerializedName("isSuccess")
     public boolean isSuccess;
+
     @SerializedName("is_live_odds")
     public boolean isLive;
 
     @SerializedName("point")
     public Point point;
-    @SerializedName("odds")
-    public Odds odds;
+//    @SerializedName("odds")
+//    public Odds odds;
 }
