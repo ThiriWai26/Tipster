@@ -11,8 +11,8 @@ import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Register;
 import com.chann.tipster.data.RoomListOfLeague;
 
-import java.util.List;
 
+import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -27,11 +27,11 @@ public interface ApiEnd {
 
     @FormUrlEncoded
     @POST("/api/login")
-    Call<Login> userLogin(@Field("phone_number") String phoneNumber, @Field("password") String password);
+    Observable<Login> userLogin(@Field("phone_number") String phoneNumber, @Field("password") String password);
 
     @FormUrlEncoded
     @POST("/api/register")
-    Call<Register> userRegister(@Field("phone_number") String phoneNumber, @Field("password") String password);
+    Observable<Register> userRegister(@Field("phone_number") String phoneNumber, @Field("password") String password);
 
     @Multipart
     @POST("/api/profile_edit")
@@ -39,7 +39,7 @@ public interface ApiEnd {
 
     @FormUrlEncoded
     @POST("/api/profile")
-    Call<Profile> getProfile(@Field("token") String token);
+    Observable<Profile> getProfile(@Field("token") String token);
 
     @FormUrlEncoded
     @POST("/api/matchList")

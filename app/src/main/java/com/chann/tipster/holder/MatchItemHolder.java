@@ -25,6 +25,7 @@ public class MatchItemHolder extends RecyclerView.ViewHolder{
     private TextView tvTime , tvLocalScore, tvVisitorScore, tvLocalHandi ,tvVisitorHandi , tvLocalName , tvVistiorName;
     private ImageView imgVisitor, imgLocal;
     private ConstraintLayout viewLeague;
+    private View divider;
 
     public MatchItemHolder(@NonNull View itemView , OnHolderItemClickListener listener) {
         super(itemView);
@@ -34,6 +35,8 @@ public class MatchItemHolder extends RecyclerView.ViewHolder{
     }
 
     private void initHolder(View itemView) {
+
+        divider = itemView.findViewById(R.id.divider);
         viewLeague = itemView.findViewById(R.id.viewLeague);
 
         tvTime = itemView.findViewById( R.id.tvTime);
@@ -51,7 +54,11 @@ public class MatchItemHolder extends RecyclerView.ViewHolder{
     }
 
     @SuppressLint("SetTextI18n")
-    public void bindData(final MatchData data){
+    public void bindData(final MatchData data , boolean isLastItem){
+
+        if(isLastItem){
+            divider.setVisibility(View.GONE);
+        }
 
         tvTime.setText(data.time);
         tvLocalScore.setText(String.valueOf(data.localTeamScore));

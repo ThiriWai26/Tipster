@@ -14,6 +14,10 @@ import com.chann.tipster.data.Register;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.google.android.material.textfield.TextInputEditText;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private TextInputEditText etPh, etPwd, etConfirmPwd;
     private String ph, pwd, confirmPwd;
-
+    private CompositeDisposable disposable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
         etPh = findViewById(R.id.ph);
         etPwd = findViewById(R.id.pwd);
         etConfirmPwd = findViewById(R.id.confirmPwd);
+
+        disposable = new CompositeDisposable();
 
     }
 
@@ -60,26 +66,33 @@ public class RegisterActivity extends AppCompatActivity {
             etConfirmPwd.setError("Enter Password");
         }
 
-        RetrofitService.getApiEnd().userRegister(ph, pwd).enqueue(new Callback<Register>() {
-            @Override
-            public void onResponse(Call<Register> call, Response<Register> response) {
-                if (response.isSuccessful()) {
+        Disposable register = RetrofitService.getApiEnd().userRegister(ph, pwd)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult , this::handleError);
 
-                    if (response.body().isSuccess()) {
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Phone number has already taken", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Register> call, Throwable t) {
-
-            }
-        });
+        disposable.add(register);
 
 
+    }
+
+    private void handleError(Throwable throwable) {
+    }
+
+    private void handleResult(Register register) {
+
+        if(register.isSuccess()){
+
+            finish();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Phone number has already taken", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposable.clear();
     }
 }

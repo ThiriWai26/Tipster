@@ -30,6 +30,7 @@ public class MatchDataHolder extends RecyclerView.ViewHolder {
 
     private void init(View itemView) {
 
+
         tvLeageName = itemView.findViewById(R.id.tv_league_name);
         recyclerView = itemView.findViewById(R.id.recyclerView);
         adapter = new MatchItemAdapter(listener);

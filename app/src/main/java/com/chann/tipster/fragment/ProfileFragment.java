@@ -35,6 +35,10 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -52,6 +56,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView tvSave,tvName,tvRank;
     private String editName = "";
     private String imagePath = "";
+    private CompositeDisposable disposable;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -70,33 +75,27 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private void getProfileFeatures() {
 
-        RetrofitService.getApiEnd().getProfile(Token.token).enqueue(new Callback<Profile>() {
-            @Override
-            public void onResponse(Call<Profile> call, Response<Profile> response) {
-                if(response.isSuccessful()){
+       Disposable profile = RetrofitService.getApiEnd().getProfile(Token.token)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult , this::handleError);
+       disposable.add(profile);
+    }
 
-                    if(response.body().isSuccess){
+    private void handleError(Throwable throwable) {
+    }
 
-                        Picasso.get().load(RetrofitService.BASE_URL+"/api/get_image/"+response.body().image).resize(100,100).into(imgProfile);
-                        tvName.setText(response.body().name);
-                        tvRank.setText(response.body().tipStarRank);
-                        Log.e("image",response.body().image);
+    private void handleResult(Profile profile) {
 
-                    }else {
-                        Toast.makeText(getContext(),"Sorry , something went wrong.",Toast.LENGTH_LONG).show();
-                    }
-
-                }else {
-                    Toast.makeText(getContext(),"Sorry , something went wrong.",Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Profile> call, Throwable t) {
-
-                Log.e("onfailure", t.toString());
-            }
-        });
+        if(profile.isSuccess){
+            Picasso.get().load(RetrofitService.BASE_URL+"/api/get_image/"+profile.image).resize(100,100).into(imgProfile);
+            tvName.setText(profile.name);
+            tvRank.setText(profile.tipStarRank);
+            Log.e("image",profile.image);
+        }
+        else {
+            Toast.makeText(getContext(),"Sorry , something went wrong.",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void init(View view) {
@@ -109,6 +108,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         imgProfile.setOnClickListener(this);
         tvSave.setOnClickListener(this);
         tvName.setOnClickListener(this);
+
+        disposable = new CompositeDisposable();
 
 
     }

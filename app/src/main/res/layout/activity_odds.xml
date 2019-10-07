@@ -11,6 +11,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:elevation="2dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_back_white_24dp"
+                    android:onClick="onBackAction"/>
+                <TextView
+                    android:fontFamily="@font/roboto_light"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="8dp"
+                    android:text="Match Detail"/>
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -159,11 +187,10 @@
             <LinearLayout
                 android:id="@+id/layout_handicap"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_xl"
                 android:layout_marginEnd="@dimen/margin_xl"
                 android:gravity="center_vertical"
-                android:onClick="onLocalTeamBetClick"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/margin_md"
                 android:paddingTop="@dimen/margin_md"
@@ -173,30 +200,22 @@
                 <ImageView
                     android:id="@+id/imgLocalProfile"
                     android:layout_width="64dp"
-                    android:layout_height="32dp"
-                    android:visibility="gone" />
+                    android:layout_height="32dp" />
 
                 <TextView
-                    android:id="@+id/tvLocalName"
+                    android:id="@+id/tvLocalValue"
                     style="@style/BetTvStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <!--                <com.google.android.material.button.MaterialButton-->
-                <!--                    style="@style/BetBtnStyle"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginRight="@dimen/margin_lg"-->
-                <!--                    android:onClick="onLocalTeamBetClick"-->
-                <!--                    android:text="Bet" />-->
-                <TextView
-                    android:id="@+id/tvLocalValue"
-                    style="@style/BetTvStyle"
+                <com.google.android.material.button.MaterialButton
+                    style="@style/BetBtnStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:onClick="onLocalTeamBetClick"/>
+                    android:onClick="onLocalTeamBetClick"
+                    android:text="Bet" />
 
             </LinearLayout>
 
@@ -207,11 +226,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_xl"
                 android:layout_marginEnd="@dimen/margin_xl"
                 android:gravity="center_vertical"
-                android:onClick="onVisitorTeamBetClick"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/margin_md"
                 android:paddingTop="@dimen/margin_md"
@@ -220,34 +238,23 @@
 
                 <ImageView
                     android:id="@+id/imgVisitorProfile"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tvVisitorName"
-                    style="@style/BetTvStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text=""/>
-
-                <!--                <com.google.android.material.button.MaterialButton-->
-                <!--                    style="@style/BetBtnStyle"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginRight="@dimen/margin_lg"-->
-                <!--                    android:onClick="onVisitorTeamBetClick"-->
-                <!--                    android:text="Bet" />-->
+                    android:layout_width="64dp"
+                    android:layout_height="32dp" />
 
                 <TextView
                     android:id="@+id/tvVisitorValue"
                     style="@style/BetTvStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/BetBtnStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:onClick="onLocalTeamBetClick"
-                    android:text="" />
+                    android:onClick="onVisitorTeamBetClick"
+                    android:text="Bet" />
 
             </LinearLayout>
 
@@ -255,14 +262,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/divider_color" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#E7E5E3">
+
                 <TextView
                     android:id="@+id/tvOverUnder"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:background="#E7E5E3"
+
                     android:fontFamily="@font/roboto_medium"
                     android:gravity="center_vertical"
                     android:paddingStart="@dimen/margin_md"
@@ -277,6 +287,7 @@
                     android:id="@+id/tvOver"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
+                    android:layout_toRightOf="@id/tvOverUnder"
                     android:background="#E7E5E3"
                     android:fontFamily="@font/roboto_medium"
                     android:gravity="center_vertical"
@@ -284,22 +295,17 @@
                     android:paddingLeft="@dimen/margin_md"
                     android:paddingEnd="@dimen/margin_md"
                     android:paddingRight="@dimen/margin_md"
-                    android:layout_marginRight="48dp"
-                    android:layout_alignParentRight="true"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
             </RelativeLayout>
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_xl"
                 android:layout_marginEnd="@dimen/margin_xl"
                 android:gravity="center_vertical"
-                android:onClick="onOverBetClick"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/margin_md"
                 android:paddingTop="@dimen/margin_md"
@@ -308,19 +314,20 @@
 
                 <TextView
                     style="@style/BetTvStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="64dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_weight="2"
+                    android:gravity="start"
                     android:paddingRight="@dimen/margin_lg"
                     android:src="@drawable/logo_tipstar"
                     android:text="Over" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tvOver"-->
-<!--                    style="@style/BetTvStyle"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="2" />-->
+                <!--                <TextView-->
+                <!--                    android:id="@+id/tvOver"-->
+                <!--                    style="@style/BetTvStyle"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_weight="2" />-->
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/BetBtnStyle"
@@ -328,8 +335,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
                     android:onClick="onOverBetClick"
-                    android:text="Bet"
-                    android:visibility="gone" />
+                    android:text="Bet" />
 
             </LinearLayout>
 
@@ -340,11 +346,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_xl"
                 android:layout_marginEnd="@dimen/margin_xl"
                 android:gravity="center_vertical"
-                android:onClick="onUnderBetClick"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/margin_md"
                 android:paddingTop="@dimen/margin_md"
@@ -353,9 +358,9 @@
 
                 <TextView
                     style="@style/BetTvStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="64dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_weight="2"
                     android:paddingRight="@dimen/margin_lg"
                     android:src="@drawable/logo_tipstar"
                     android:text="Under" />
@@ -365,7 +370,8 @@
                     style="@style/BetTvStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    android:visibility="gone" />
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/BetBtnStyle"
@@ -373,8 +379,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
                     android:onClick="onUnderBetClick"
-                    android:text="Bet"
-                    android:visibility="gone" />
+                    android:text="Bet" />
 
             </LinearLayout>
 

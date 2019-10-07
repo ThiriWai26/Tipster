@@ -37,7 +37,7 @@ public class OddsActivity extends AppCompatActivity {
 
     private static MatchData league;
     private OddsData oddsData;
-    private TextView tvTime, tvLocalScore, tvVisitorScore, tvLocalName, tvVistiorName, tvDate , localName , visitorName;
+    private TextView tvTime, tvLocalScore, tvVisitorScore, tvLocalName, tvVistiorName, tvDate;
     private ImageView imgVisitor, imgLocal;
 
     private ImageView imgLocalProfile, imgVisitorProfile;
@@ -111,8 +111,6 @@ public class OddsActivity extends AppCompatActivity {
         tvOver = findViewById(R.id.tvOver);
         tvUnder = findViewById(R.id.tvUnder);
 
-        localName = findViewById(R.id.tvLocalName);
-        visitorName = findViewById(R.id.tvVisitorName);
     }
 
 
@@ -124,8 +122,6 @@ public class OddsActivity extends AppCompatActivity {
         tvVisitorScore.setText(String.valueOf(league.visitorTeamScore));
         tvLocalName.setText(league.localTeamName);
         tvVistiorName.setText(league.visitorTeamName);
-        localName.setText(league.localTeamName);
-        visitorName.setText(league.visitorTeamName);
 
         Picasso.get().load(league.localTeamLogo).resize(50, 50).into(imgLocal);
         Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgVisitor);
@@ -413,4 +409,8 @@ public class OddsActivity extends AppCompatActivity {
 
     }
 
+    public void onBackAction(View view) {
+
+        finish();
+    }
 }

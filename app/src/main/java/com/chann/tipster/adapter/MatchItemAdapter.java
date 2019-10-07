@@ -17,7 +17,9 @@ public class MatchItemAdapter extends RecyclerView.Adapter<MatchItemHolder> {
 
     private List<MatchData> matchData = new ArrayList<>();
     private OnHolderItemClickListener listener;
-    public MatchItemAdapter(OnHolderItemClickListener listener){
+    private int totalcount;
+
+    public MatchItemAdapter(OnHolderItemClickListener listener) {
         this.listener = listener;
     }
 
@@ -25,13 +27,17 @@ public class MatchItemAdapter extends RecyclerView.Adapter<MatchItemHolder> {
     @Override
     public MatchItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return MatchItemHolder.create(inflater,parent,listener);
+        return MatchItemHolder.create(inflater, parent, listener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MatchItemHolder holder, int position) {
 
-        holder.bindData(matchData.get(position));
+        if (position < matchData.size()-1)
+            holder.bindData(matchData.get(position), false);
+
+        else
+            holder.bindData(matchData.get(position) , true);
     }
 
     @Override
@@ -39,10 +45,9 @@ public class MatchItemAdapter extends RecyclerView.Adapter<MatchItemHolder> {
         return matchData.size();
     }
 
-    public void addData(List<MatchData> matchData){
+    public void addData(List<MatchData> matchData) {
         this.matchData = matchData;
     }
-
 
 
 }

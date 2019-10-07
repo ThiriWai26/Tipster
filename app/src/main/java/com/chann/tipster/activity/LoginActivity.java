@@ -3,6 +3,7 @@ package com.chann.tipster.activity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +34,11 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String EMAIL = "email";
     private LoginButton loginButton;
     private AccessToken mAccessToken;
+    private CompositeDisposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions("email", "public_profile");
         checkLoginStatus();
+
+        disposable = new CompositeDisposable();
 
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -88,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("CheckResult")
     public void onLogin(View view) {
         ph = etph.getText().toString();
         pwd = etpwd.getText().toString();
@@ -103,37 +113,32 @@ public class LoginActivity extends AppCompatActivity {
             etpwd.setError("Enter password");
         }
 
-        RetrofitService.getApiEnd().userLogin(ph, pwd).enqueue(new Callback<Login>() {
-            @Override
-            public void onResponse(Call<Login> call, Response<Login> response) {
-
-                Log.e("getApiEnd:", "yoat tal");
-                if (response.isSuccessful()) {
-                    if (response.body().isSuccess()) {
-
-                        Token.token = response.body().getToken();
-                        startActivity(MainActivity.getInstance(getApplicationContext()));
-                        finish();
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), response.body().getErrorMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Login> call, Throwable t) {
-
-                Log.e("loginFailure:", t.toString());
-            }
-        });
-
-//        startActivity(MainActivity.getInstance(getApplicationContext()));
+        Disposable login = RetrofitService.getApiEnd().userLogin(ph, pwd)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
+        disposable.add(login);
     }
+
+    private void handleResult(Login login) {
+        if (login.isSuccess()) {
+            Token.token = login.getToken();
+            startActivity(MainActivity.getInstance(getApplicationContext()));
+            finish();
+
+        }
+        else {
+            Toast.makeText(getApplicationContext(),login.getErrorMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void handleError(Throwable t) {
+        Log.e("loginFailure:", t.toString());
+    }
+
 
     public void onRegister(View view) {
         startActivity(RegisterActivity.startIntent(this));
-        finish();
     }
 
 
@@ -164,10 +169,10 @@ public class LoginActivity extends AppCompatActivity {
                     String id = object.getString("id");
                     String image_url = "https://graph.facebook.com/" + id + "/picture?type=normal";
 
-                    Log.e("account_id",id);
+                    Log.e("account_id", id);
                     Log.e("image_url", image_url);
-                    Log.e("first_name",first_name);
-                    Log.e("last_name",last_name);
+                    Log.e("first_name", first_name);
+                    Log.e("last_name", last_name);
 
 
                 } catch (JSONException e) {
@@ -190,7 +195,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void reload(int miliseconds){
+    private void reload(int miliseconds) {
 
         final Handler handler = new Handler();
         final Runnable runnable = new Runnable() {
@@ -202,6 +207,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
-        handler.postDelayed(runnable,miliseconds);
+        handler.postDelayed(runnable, miliseconds);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposable.clear();
     }
 }

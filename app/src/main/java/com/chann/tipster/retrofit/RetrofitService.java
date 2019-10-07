@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -32,7 +33,7 @@ public class RetrofitService {
 
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit service = new Retrofit.Builder().baseUrl(BASE_URL)
-                .addConverterFactory(ScalarsConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -44,6 +45,8 @@ public class RetrofitService {
         return apiEnd;
     }
 
-
+//
+//    RxJava2CallAdapterFactory.create()
+//    ScalarsConverterFactory.create()
 
 }
