@@ -21,9 +21,16 @@
     <!--        android:title="@string/navi_tipstar" />-->
 
 
-    <item android:id="@+id/menu_item_matchlist"
+    <item
+        android:id="@+id/menu_item_matchlist"
         android:icon="@drawable/ic_ranking"
-        android:title="@string/navi_matchList"/>
+        android:title="@string/navi_matchList" />
+
+
+    <item
+        android:id="@+id/menu_item_history"
+        android:icon="@drawable/logo_tipstar"
+        android:title="@string/title_bet_history" />
 
 
     <item
@@ -32,10 +39,10 @@
         android:title="@string/navi_profile" />
 
 
-<!--    <item-->
-<!--        android:id="@+id/menu_item_bet_history"-->
-<!--        android:icon="@drawable/ic_bet_history"-->
-<!--        android:title="@string/navi_bet_history" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/menu_item_bet_history"-->
+    <!--        android:icon="@drawable/ic_bet_history"-->
+    <!--        android:title="@string/navi_bet_history" />-->
     <item
         android:id="@+id/menu_item_ranking"
         android:icon="@drawable/ic_menu_rank"

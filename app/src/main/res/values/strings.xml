@@ -25,6 +25,11 @@
     <string name="hint_pwd">Password</string>
     <string name="hint_pwd_confirm">Confirmed Password</string>
 
+    <string name="title_match_list">Match List</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_bet_history">Bet History</string>
+    <string name="title_ranking">Ranking</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

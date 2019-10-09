@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private String editName = "";
     private String imagePath = "";
     private CompositeDisposable disposable;
+    private ProgressBar progressBar;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -88,6 +90,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private void handleResult(Profile profile) {
 
+        progressBar.setVisibility(View.GONE);
         if(profile.isSuccess){
             Picasso.get().load(RetrofitService.BASE_URL+"/api/get_image/"+profile.image).resize(100,100).into(imgProfile);
             tvName.setText(profile.name);
@@ -101,6 +104,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private void init(View view) {
 
+        progressBar = view.findViewById(R.id.progressBar);
         imgProfile = view.findViewById( R.id.profile);
         tvSave = view.findViewById(R.id.tvSave);
         tvName = view.findViewById(R.id.tvName);

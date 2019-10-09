@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.chann.tipster.R;
 import com.chann.tipster.activity.OddsActivity;
@@ -45,6 +46,7 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
     private int roomId;
     private ImageView ivRating;
     private CompositeDisposable disposable;
+    private ProgressBar progressBar;
 
     public MatchListFragment() {
         // Required empty public constructor
@@ -62,6 +64,7 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
 
     private void initFragment(View view) {
 
+        progressBar = view.findViewById(R.id.progressBar);
         disposable = new CompositeDisposable();
 
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -95,6 +98,7 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
 
     private void handleResult(MatchListResponse matchListResponse) {
 
+        progressBar.setVisibility(View.GONE);
         if(matchListResponse.isSuccess){
 
             roomId = matchListResponse.roomId;

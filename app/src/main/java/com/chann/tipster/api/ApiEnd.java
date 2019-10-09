@@ -1,5 +1,6 @@
 package com.chann.tipster.api;
 
+import com.chann.tipster.data.BetHistoryResponse;
 import com.chann.tipster.data.BetResponse;
 import com.chann.tipster.data.CurrentCoin;
 import com.chann.tipster.data.EditProfile;
@@ -10,6 +11,7 @@ import com.chann.tipster.data.OddsData;
 import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Register;
 import com.chann.tipster.data.RoomListOfLeague;
+import com.chann.tipster.data.StandingResponse;
 
 
 import io.reactivex.Observable;
@@ -64,4 +66,11 @@ public interface ApiEnd {
     Observable<CurrentCoin> getCurrentCoin(@Field("token") String token , @Field("type") int typeId, @Field("room_id") int roomId);
 
 
+    @FormUrlEncoded
+    @POST("/api/ongoing_history")
+    Observable<BetHistoryResponse> getBetHistory(@Field("token") String token , @Field("type") int type);
+
+    @FormUrlEncoded
+    @POST("/api/league_standing")
+    Observable<StandingResponse> getUserStanding(@Field("token") String token , @Field("type") int leagueType , @Field("id") int roomId);
 }
