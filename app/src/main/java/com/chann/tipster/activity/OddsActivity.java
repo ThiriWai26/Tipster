@@ -29,6 +29,10 @@ import com.chann.tipster.data.Token;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.squareup.picasso.Picasso;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,9 +51,11 @@ public class OddsActivity extends AppCompatActivity {
     private static int room_id;
     private int betAmount = 0;
 
-    private int typeId = 1 , betType , label , betHandicap , betValue , handcap , value;
+    private CompositeDisposable disposable;
 
-    public static Intent getInstance(Context context, MatchData matchData , int roomId) {
+    private int typeId = 1, betType, label, betHandicap, betValue, handcap, value;
+
+    public static Intent getInstance(Context context, MatchData matchData, int roomId) {
         league = matchData;
         room_id = roomId;
         Intent intent = new Intent(context, OddsActivity.class);
@@ -66,26 +72,34 @@ public class OddsActivity extends AppCompatActivity {
         getOdd();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposable.clear();
+    }
+
+    @SuppressLint("CheckResult")
     private void getOdd() {
-        RetrofitService.getApiEnd().getOddsData(Token.token, league.id , typeId , room_id).enqueue(new Callback<OddsData>() {
-            @Override
-            public void onResponse(Call<OddsData> call, Response<OddsData> response) {
-                if(response.isSuccessful()){
-                    if(response.body().isSuccess){
-                        oddsData  = response.body();
-                    }
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
 
-            @Override
-            public void onFailure(Call<OddsData> call, Throwable t) {
+        Disposable subscribe = RetrofitService.getApiEnd().getOddsData(Token.token, league.id, typeId, room_id)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-                Log.e("failure",t.toString());
-            }
-        });
+        disposable.add(subscribe);
+
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(OddsData oddsData) {
+        if (oddsData.isSuccess) {
+            this.oddsData = oddsData;
+        } else {
+            Log.e("response", "fail");
+        }
     }
 
 
@@ -111,6 +125,8 @@ public class OddsActivity extends AppCompatActivity {
         tvOver = findViewById(R.id.tvOver);
         tvUnder = findViewById(R.id.tvUnder);
 
+        disposable = new CompositeDisposable();
+
     }
 
 
@@ -130,24 +146,24 @@ public class OddsActivity extends AppCompatActivity {
         Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgVisitorProfile);
 
         betHandicap = league.handiCap.handicap;
-        betValue= league.handiCap.value;
+        betValue = league.handiCap.value;
 
         handcap = league.overUnder.totalScore;
         value = league.overUnder.value;
 
-        if(league.handiCap.label.equals("Home")){
+        if (league.handiCap.label.equals("Home")) {
 
-            if(league.handiCap.value>0)
-                tvLocalValue.setText(league.handiCap.handicap+"(+"+ league.handiCap.value+")");
+            if (league.handiCap.value > 0)
+                tvLocalValue.setText(league.handiCap.handicap + "(+" + league.handiCap.value + ")");
             else
-                tvLocalValue.setText(league.handiCap.handicap+"("+ league.handiCap.value+")");
+                tvLocalValue.setText(league.handiCap.handicap + "(" + league.handiCap.value + ")");
 
-        }else {
+        } else {
 
-            if(league.handiCap.value>0)
-                tvVisitorValue.setText(league.handiCap.handicap+"(+"+ league.handiCap.value+")");
+            if (league.handiCap.value > 0)
+                tvVisitorValue.setText(league.handiCap.handicap + "(+" + league.handiCap.value + ")");
             else {
-                tvVisitorValue.setText(league.handiCap.handicap+"("+ league.handiCap.value+")");
+                tvVisitorValue.setText(league.handiCap.handicap + "(" + league.handiCap.value + ")");
             }
         }
 
@@ -173,9 +189,9 @@ public class OddsActivity extends AppCompatActivity {
         label = 1;
 
         final Dialog dialog = new Dialog(this);
-        final RadioButton minBtn , maxBtn;
+        final RadioButton minBtn, maxBtn;
         ImageView imgTeamLogo;
-        TextView tvCancel ,tvBet ,tvHandicapValue , labelOverUnder , tvOverUnderValue;
+        TextView tvCancel, tvBet, tvHandicapValue, labelOverUnder, tvOverUnderValue;
 
         dialog.setContentView(R.layout.dialog_bet);
         imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
@@ -206,18 +222,17 @@ public class OddsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Log.e("bet","success");
+                Log.e("bet", "success");
 
-                if(minBtn.isChecked()){
+                if (minBtn.isChecked()) {
                     betAmount = Integer.parseInt(minBtn.getText().toString());
-                    Log.e("min_bet_amount",String.valueOf(betAmount));
-                }
-                else if(maxBtn.isChecked()){
+                    Log.e("min_bet_amount", String.valueOf(betAmount));
+                } else if (maxBtn.isChecked()) {
                     betAmount = Integer.parseInt(maxBtn.getText().toString());
-                    Log.e("max_bet_amount",String.valueOf(betAmount));
+                    Log.e("max_bet_amount", String.valueOf(betAmount));
                 }
 
-                onBet(betAmount ,betHandicap,betValue,1,1 , dialog);
+                onBet(betAmount, betHandicap, betValue, 1, 1, dialog);
 
             }
         });
@@ -234,7 +249,7 @@ public class OddsActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this);
         final RadioButton minBtn, maxBtn;
         ImageView imgTeamLogo;
-        TextView tvCancel ,tvBet ,tvHandicapValue ,labelOverUnder , tvOverUnderValue;
+        TextView tvCancel, tvBet, tvHandicapValue, labelOverUnder, tvOverUnderValue;
 
         dialog.setContentView(R.layout.dialog_bet);
         imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
@@ -267,14 +282,13 @@ public class OddsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(minBtn.isChecked()){
+                if (minBtn.isChecked()) {
                     betAmount = Integer.parseInt(minBtn.getText().toString());
-                }
-                else if(maxBtn.isChecked()){
+                } else if (maxBtn.isChecked()) {
                     betAmount = Integer.parseInt(maxBtn.getText().toString());
                 }
 
-                onBet(betAmount ,betHandicap,betValue,2,1,dialog);
+                onBet(betAmount, betHandicap, betValue, 2, 1, dialog);
                 dialog.dismiss();
             }
         });
@@ -287,7 +301,7 @@ public class OddsActivity extends AppCompatActivity {
 
         final Dialog dialog = new Dialog(this);
         final RadioButton minBtn, maxBtn;
-        TextView tvOverUnder,tvCancel ,tvBet ,tvOverUnderValue , tvHanddicapValue;
+        TextView tvOverUnder, tvCancel, tvBet, tvOverUnderValue, tvHanddicapValue;
         ImageView imgTeamLogo;
 
         dialog.setContentView(R.layout.dialog_bet);
@@ -318,14 +332,13 @@ public class OddsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(minBtn.isChecked()){
+                if (minBtn.isChecked()) {
                     betAmount = Integer.parseInt(minBtn.getText().toString());
-                }
-                else if(maxBtn.isChecked()){
+                } else if (maxBtn.isChecked()) {
                     betAmount = Integer.parseInt(maxBtn.getText().toString());
                 }
 
-                onBet(betAmount,handcap,value,1,2,dialog);
+                onBet(betAmount, handcap, value, 1, 2, dialog);
             }
         });
         dialog.show();
@@ -338,14 +351,14 @@ public class OddsActivity extends AppCompatActivity {
 
         final Dialog dialog = new Dialog(this);
         final RadioButton minBtn, maxBtn;
-        TextView tvOverUnder,tvCancel ,tvBet , tvOverUnderValue ,tvHandicapValue;
-        ImageView  imgTeamLogo;
+        TextView tvOverUnder, tvCancel, tvBet, tvOverUnderValue, tvHandicapValue;
+        ImageView imgTeamLogo;
 
         dialog.setContentView(R.layout.dialog_bet);
         tvCancel = dialog.findViewById(R.id.tvCancel);
         tvBet = dialog.findViewById(R.id.tvBet);
 
-        tvOverUnder= dialog.findViewById(R.id.labelOverUnder);
+        tvOverUnder = dialog.findViewById(R.id.labelOverUnder);
         tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
         minBtn = dialog.findViewById(R.id.minAmount);
         maxBtn = dialog.findViewById(R.id.maxAmount);
@@ -360,53 +373,43 @@ public class OddsActivity extends AppCompatActivity {
         minBtn.setText(String.valueOf(oddsData.point.min));
         maxBtn.setText(String.valueOf(oddsData.point.max));
 
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-        tvBet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        tvCancel.setOnClickListener(view1 -> dialog.dismiss());
 
-                if(minBtn.isChecked()){
-                    betAmount = Integer.parseInt(minBtn.getText().toString());
-                }
-                else if(maxBtn.isChecked()){
-                    betAmount = Integer.parseInt(maxBtn.getText().toString());
-                }
-                onBet(betAmount,handcap,value,2,2,dialog);
+        tvBet.setOnClickListener(view1 -> {
+            if (minBtn.isChecked()) {
+                betAmount = Integer.parseInt(minBtn.getText().toString());
+            } else if (maxBtn.isChecked()) {
+                betAmount = Integer.parseInt(maxBtn.getText().toString());
             }
-        });
+            onBet(betAmount, handcap, value, 2, 2, dialog);
+        } );
+
         dialog.show();
     }
 
-    private void onBet( int betAmount , int betHandicap , int betValue , int label , int bettype , Dialog dialog){
+    private void onBet(int betAmount, int betHandicap, int betValue, int label, int bettype, Dialog dialog) {
 
         dialog.dismiss();
 //        Log.e("")
+        final Disposable subscribe = RetrofitService.getApiEnd().bet(Token.token, typeId, room_id, league.id, league.fixtureId, betAmount, betHandicap, betValue, label, betType)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleBetResult, this::handleBetError);
 
-        RetrofitService.getApiEnd().bet(Token.token , typeId , room_id , league.id , league.fixtureId ,betAmount ,betHandicap , betValue , label , bettype).enqueue(new Callback<BetResponse>() {
-            @Override
-            public void onResponse(Call<BetResponse> call, Response<BetResponse> response) {
+        disposable.add(subscribe);
 
-                if(response.isSuccessful()){
-                    if(response.body().isSuccess){
-                        Toast.makeText(OddsActivity.this , "Bet Successfully.",Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        Toast.makeText(OddsActivity.this , response.body().errorMessage,Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
+    }
 
-            @Override
-            public void onFailure(Call<BetResponse> call, Throwable t) {
+    private void handleBetError(Throwable throwable) {
+        Log.e("bet_failure",throwable.toString());
+    }
 
-            }
-        });
-
+    private void handleBetResult(BetResponse betResponse) {
+        if (betResponse.isSuccess) {
+            Toast.makeText(OddsActivity.this, "Bet Successfully.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(OddsActivity.this, betResponse.errorMessage, Toast.LENGTH_LONG).show();
+        }
     }
 
     public void onBackAction(View view) {

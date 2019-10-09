@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -18,10 +19,15 @@ import android.widget.ImageView;
 
 import com.chann.tipster.R;
 import com.chann.tipster.data.EditProfile;
+import com.chann.tipster.data.Token;
 import com.chann.tipster.retrofit.RetrofitService;
 
 import java.io.File;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -32,11 +38,14 @@ import retrofit2.Response;
 public class EditProfileActivity extends AppCompatActivity {
 
     private ImageView imageView;
+    private CompositeDisposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        disposable = new CompositeDisposable();
 
         imageView = findViewById(R.id.imageView);
 
@@ -101,6 +110,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("CheckResult")
     public void uploadServer (String imagePath){
 
         RequestBody name = RequestBody.create( MediaType.parse("multipart/form-data") , "Chan Myae Moe");
@@ -112,28 +122,31 @@ public class EditProfileActivity extends AppCompatActivity {
         image = MultipartBody.Part.createFormData("image",file.getName(),imageBody);
 
         Log.e("file name",file.getName());
-        RetrofitService.getApiEnd().profileEdit(token,name,image).enqueue(new Callback<EditProfile>() {
-            @Override
-            public void onResponse(Call<EditProfile> call, Response<EditProfile> response) {
-                if(response.isSuccessful()){
-                    if(response.body().isSuccess){
-                        Log.e("upload","successful");
-                    }
-                    else {
-                        Log.e("upload","fail");
-                    }
-                }
-                else{
-                    Log.e("response","fail");
-                }
-            }
+        Disposable subscribe = RetrofitService.getApiEnd().profileEdit(token, name, image)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
+        disposable.add(subscribe);
 
-            @Override
-            public void onFailure(Call<EditProfile> call, Throwable t) {
+    }
 
-                Log.e("onfailure",t.toString());
-            }
-        });
+    private void handleError(Throwable throwable) {
+        Log.e("onfailure",throwable.toString());
+    }
 
+    private void handleResult(EditProfile editProfile) {
+
+        if(editProfile.isSuccess){
+            Log.e("upload","successful");
+        }
+        else {
+            Log.e("upload","fail");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposable.clear();
     }
 }

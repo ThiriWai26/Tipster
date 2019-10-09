@@ -2,6 +2,7 @@ package com.chann.tipster.fragment;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -180,6 +181,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        disposable.clear();
+    }
+
+    @SuppressLint("CheckResult")
     private void uploadServer() {
 
         if(editName.equals("")){
@@ -206,35 +214,28 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             image = MultipartBody.Part.createFormData("image",file.getName(),imageBody);
 
             Log.e("file name",file.getName());
-            RetrofitService.getApiEnd().profileEdit(token,name,image).enqueue(new Callback<EditProfile>() {
-                @Override
-                public void onResponse(Call<EditProfile> call, Response<EditProfile> response) {
-                    if(response.isSuccessful()){
-                        if(response.body().isSuccess){
-                            Log.e("upload","successful");
-                            Toast.makeText(getContext(),"Update Successfully",Toast.LENGTH_LONG).show();
-                        }
-                        else {
-                            Log.e("upload","fail");
-                            Toast.makeText(getContext(),"Update fail",Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    else{
-                        Log.e("upload","not successful");
-                        Toast.makeText(getContext(),"Update fail",Toast.LENGTH_LONG).show();
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<EditProfile> call, Throwable t) {
-                    Log.e("onfailure",t.toString());
-                    Toast.makeText(getContext(),"Sorry , something went wrong.",Toast.LENGTH_LONG).show();
-                }
-            });
+            Disposable subscribe = RetrofitService.getApiEnd().profileEdit(token, name, image)
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::handleEditProfile, this::handleError);
+            disposable.add(subscribe);
         }
 
 
 
+    }
+
+    private void handleEditProfile(EditProfile editProfile) {
+
+        if(editProfile.isSuccess){
+            Log.e("upload","successful");
+            Toast.makeText(getContext(),"Update Successfully",Toast.LENGTH_LONG).show();
+        }
+        else {
+            Log.e("upload","fail");
+            Toast.makeText(getContext(),"Update fail",Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

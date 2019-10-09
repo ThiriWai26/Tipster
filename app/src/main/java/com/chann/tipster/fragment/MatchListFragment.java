@@ -27,6 +27,10 @@ import com.chann.tipster.retrofit.RetrofitService;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +44,7 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
     private MatchDataAdapter adapter;
     private int roomId;
     private ImageView ivRating;
+    private CompositeDisposable disposable;
 
     public MatchListFragment() {
         // Required empty public constructor
@@ -57,6 +62,8 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
 
     private void initFragment(View view) {
 
+        disposable = new CompositeDisposable();
+
         recyclerView = view.findViewById(R.id.recyclerView);
         adapter = new MatchDataAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -68,28 +75,35 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
 
     private void getMatchList() {
 
-        RetrofitService.getApiEnd().getMatchList(Token.token).enqueue(new Callback<MatchListResponse>() {
-            @Override
-            public void onResponse(Call<MatchListResponse> call, Response<MatchListResponse> response) {
+        Disposable subscribe = RetrofitService.getApiEnd().getMatchList(Token.token)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult , this::handleError);
 
-                if(response.isSuccessful()){
-                    if(response.body().isSuccess){
-                        roomId = response.body().roomId;
-                        adapter.addData(response.body().matchListData);
+        disposable.add(subscribe);
+    }
 
-                        Log.e("matchlistsize", String.valueOf(response.body().matchListData.size()));
-                    }
-                }
-                else {
-                    Log.e("response","is not successful");
-                }
-            }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        disposable.clear();
+    }
 
-            @Override
-            public void onFailure(Call<MatchListResponse> call, Throwable t) {
-                Log.e("onfailure",t.toString());
-            }
-        });
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(MatchListResponse matchListResponse) {
+
+        if(matchListResponse.isSuccess){
+
+            roomId = matchListResponse.roomId;
+            adapter.addData(matchListResponse.matchListData);
+            Log.e("matchlistsize", String.valueOf(matchListResponse.matchListData.size()));
+        }
+        else {
+            Log.e("response","is not successful");
+        }
     }
 
 

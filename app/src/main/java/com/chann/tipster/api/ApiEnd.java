@@ -35,7 +35,7 @@ public interface ApiEnd {
 
     @Multipart
     @POST("/api/profile_edit")
-    Call<EditProfile> profileEdit(@Part("token") RequestBody token , @Part("name") RequestBody name , @Part MultipartBody.Part image);
+    Observable<EditProfile> profileEdit(@Part("token") RequestBody token , @Part("name") RequestBody name , @Part MultipartBody.Part image);
 
     @FormUrlEncoded
     @POST("/api/profile")
@@ -43,25 +43,25 @@ public interface ApiEnd {
 
     @FormUrlEncoded
     @POST("/api/matchList")
-    Call<MatchListResponse> getMatchList(@Field("token") String token);
+    Observable<MatchListResponse> getMatchList(@Field("token") String token);
 
     @FormUrlEncoded
     @POST("/api/odds")
-    Call<OddsData> getOddsData(@Field("token") String token , @Field("match_id") int matchId , @Field("type") int type , @Field("room_id") int roomId);
+    Observable<OddsData> getOddsData(@Field("token") String token , @Field("match_id") int matchId , @Field("type") int type , @Field("room_id") int roomId);
 
     @FormUrlEncoded
     @POST("/api/bet")
-    Call<BetResponse> bet(@Field("token") String token , @Field("type") int type , @Field("room_id") int roomId , @Field("match_id") int matchId,
+    Observable<BetResponse> bet(@Field("token") String token , @Field("type") int type , @Field("room_id") int roomId , @Field("match_id") int matchId,
                           @Field("fixture_id") int fixtureId, @Field("bet_amount") int betAmount, @Field("bet_handicap") int betHandiCap , @Field("bet_value") int betValue,
                           @Field("label") int label, @Field("bet_type") int betType);
 
     @FormUrlEncoded
     @POST("/api/league_list")
-    Call<RoomListOfLeague> getRoomListOfLeague(@Field("token") String token , @Field("type") int typeId);
+    Observable<RoomListOfLeague> getRoomListOfLeague(@Field("token") String token , @Field("type") int typeId);
 
     @FormUrlEncoded
     @POST("/api/current_coin")
-    Call<CurrentCoin> getCurrentCoin(@Field("token") String token , @Field("type") int typeId, @Field("room_id") int roomId);
+    Observable<CurrentCoin> getCurrentCoin(@Field("token") String token , @Field("type") int typeId, @Field("room_id") int roomId);
 
 
 }
