@@ -1,69 +1,65 @@
 package com.chann.tipster.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import com.chann.tipster.R;
-import com.chann.tipster.api.ApiEnd;
 import com.chann.tipster.data.Register;
+import com.chann.tipster.databinding.ActivityRegisterBinding;
 import com.chann.tipster.retrofit.RetrofitService;
-import com.google.android.material.textfield.TextInputEditText;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private TextInputEditText etPh, etPwd, etConfirmPwd;
+
     private String ph, pwd, confirmPwd;
     private CompositeDisposable disposable;
+    private ActivityRegisterBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+//        setContentView(R.layout.activity_register);
 
-        init();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
+        disposable = new CompositeDisposable();
     }
 
     public static Intent startIntent(Context context) {
         return new Intent(context, RegisterActivity.class);
     }
 
-    private void init() {
-
-        etPh = findViewById(R.id.ph);
-        etPwd = findViewById(R.id.pwd);
-        etConfirmPwd = findViewById(R.id.confirmPwd);
-
-        disposable = new CompositeDisposable();
-
-    }
 
     public void onRegister(View view) {
 
-        ph = String.valueOf(etPh.getText());
-        pwd = String.valueOf(etPwd.getText());
-        confirmPwd = String.valueOf(etConfirmPwd.getText());
+        ph = binding.ph.getText().toString();
+        pwd = binding.pwd.getText().toString();
+        confirmPwd = binding.confirmPwd.getText().toString();
 
-        if (ph == null) {
-            etPh.setError("Enter Phone Number");
+        if (ph.isEmpty()) {
+
+            binding.ph.setError("Enter phone number");
+        }
+        if (pwd.isEmpty()) {
+            binding.pwd.setError("Enter password");
+        }
+        if (confirmPwd.isEmpty()) {
+            binding.confirmPwd.setError("Enter password again");
         }
 
-        if (pwd == null) {
-            etPwd.setError("Enter Password");
-        }
-        if (confirmPwd == null) {
-            etConfirmPwd.setError("Enter Password");
+        if (!(pwd.equals(confirmPwd))) {
+            binding.pwd.setError("Password doesn't match.");
+            binding.confirmPwd.setError("Password doesn't match.");
+
         }
 
         Disposable register = RetrofitService.getApiEnd().userRegister(ph, pwd)
@@ -81,11 +77,16 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void handleResult(Register register) {
 
+        binding.progressBar.setVisibility(View.VISIBLE);
+
         if(register.isSuccess()){
 
+            binding.progressBar.setVisibility(View.GONE);
             finish();
         }
         else {
+
+            binding.progressBar.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "Phone number has already taken", Toast.LENGTH_LONG).show();
         }
     }

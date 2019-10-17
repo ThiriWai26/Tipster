@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="userlogin"
+            type="com.chann.tipster.data.UserLogin" />
+    </data>
+
 <FrameLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,6 +46,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_ph_no"
                         android:imeOptions="actionNext"
+                        android:text="@={userlogin.ph}"
                         android:inputType="phone" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -55,6 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_pwd"
+                        android:text="@={userlogin.pwd}"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword" />
 
@@ -93,9 +103,12 @@
 
         </LinearLayout>
 
-<!--        <ProgressBar-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center" />-->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
     </FrameLayout>
+</layout>

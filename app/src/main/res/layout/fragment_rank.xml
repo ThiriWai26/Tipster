@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="data"
+            type="com.chann.tipster.data.StandingResponse" />
+    </data>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_md"
-                    android:text="2"
+                    android:text="@{String.valueOf(data.rank)}"
                     android:textColor="@color/grey_dark"
                     android:textSize="@dimen/compat_text_size_lg" />
                 <TextView
@@ -47,7 +53,7 @@
                     android:textSize="@dimen/compat_text_size_lg"
                     android:textColor="@color/grey_dark"
                     android:layout_marginBottom="@dimen/margin_md"
-                    android:text="1000"/>
+                    android:text="@{String.valueOf(data.coins)}"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,3 +114,4 @@
         />
 
 </FrameLayout>
+</layout>

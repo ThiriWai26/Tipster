@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -27,7 +28,6 @@
             android:paddingTop="@dimen/margin_md"
             android:paddingEnd="@dimen/compat_margin_sm"
             android:paddingBottom="@dimen/margin_md"
-            android:text="Superliga"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/league_title_size"
             android:textStyle="bold"/>
@@ -40,3 +40,4 @@
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_league"/>
 </LinearLayout>
+</layout>

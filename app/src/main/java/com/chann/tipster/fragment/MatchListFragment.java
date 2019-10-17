@@ -2,6 +2,7 @@ package com.chann.tipster.fragment;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.chann.tipster.data.MatchListData;
 import com.chann.tipster.data.MatchListResponse;
 import com.chann.tipster.data.RoomListOfLeague;
 import com.chann.tipster.data.Token;
+import com.chann.tipster.databinding.FragmentMatchListBinding;
 import com.chann.tipster.holderInterface.OnHolderItemClickListener;
 import com.chann.tipster.retrofit.RetrofitService;
 
@@ -41,13 +43,11 @@ import retrofit2.Response;
  */
 public class MatchListFragment extends Fragment implements OnHolderItemClickListener , View.OnClickListener{
 
-    private RecyclerView recyclerView;
     private MatchDataAdapter adapter;
     private int roomId;
     private ImageView ivRating;
     private CompositeDisposable disposable;
-    private ProgressBar progressBar;
-
+    private FragmentMatchListBinding binding;
     public MatchListFragment() {
         // Required empty public constructor
     }
@@ -57,21 +57,17 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_match_list, container, false);
-        initFragment(view);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_match_list,container,false);
+        View view = binding.getRoot();
+        initFragment();
         return view;
     }
 
-    private void initFragment(View view) {
-
-        progressBar = view.findViewById(R.id.progressBar);
+    private void initFragment() {
         disposable = new CompositeDisposable();
-
-        recyclerView = view.findViewById(R.id.recyclerView);
         adapter = new MatchDataAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         getMatchList();
     }
@@ -98,7 +94,7 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
 
     private void handleResult(MatchListResponse matchListResponse) {
 
-        progressBar.setVisibility(View.GONE);
+        binding.progressBar.setVisibility(View.GONE);
         if(matchListResponse.isSuccess){
 
             roomId = matchListResponse.roomId;

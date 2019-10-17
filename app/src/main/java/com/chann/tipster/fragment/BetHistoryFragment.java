@@ -3,6 +3,7 @@ package com.chann.tipster.fragment;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +19,7 @@ import com.chann.tipster.R;
 import com.chann.tipster.adapter.BetHistoryAdapter;
 import com.chann.tipster.data.BetHistoryResponse;
 import com.chann.tipster.data.Token;
-import com.chann.tipster.holder.BetHistoryHolder;
+import com.chann.tipster.databinding.FragmentBetHistoryBinding;
 import com.chann.tipster.retrofit.RetrofitService;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,12 +31,9 @@ import io.reactivex.schedulers.Schedulers;
  * A simple {@link Fragment} subclass.
  */
 public class BetHistoryFragment extends Fragment {
-
-    private RecyclerView recyclerView;
     private BetHistoryAdapter adapter;
     private CompositeDisposable disposable;
-    private ProgressBar progressBar;
-    private TextView tvNoHistory;
+    private FragmentBetHistoryBinding betHistoryBinding;
 
     public BetHistoryFragment() {
         // Required empty public constructor
@@ -46,28 +44,17 @@ public class BetHistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_bet_history, container, false);
-        init(view);
-        return view;
-    }
-
-    private void init(View view) {
-
-        progressBar = view.findViewById(R.id.progressBar);
-        tvNoHistory = view.findViewById(R.id.tv_no_history);
-        recyclerView = view.findViewById(R.id.recyclerView);
+        betHistoryBinding = DataBindingUtil.inflate(inflater , R.layout.fragment_bet_history , container ,false);
         adapter = new BetHistoryAdapter();
         disposable = new CompositeDisposable();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(adapter);
-
-       Disposable subscribe = RetrofitService.getApiEnd().getBetHistory(Token.token , 1)
+        betHistoryBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        betHistoryBinding.recyclerView.setAdapter(adapter);
+        Disposable subscribe = RetrofitService.getApiEnd().getBetHistory(Token.token , 1)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult , this::handleError);
-
-       disposable.add(subscribe);
-
+        disposable.add(subscribe);
+        return betHistoryBinding.getRoot();
     }
 
     private void handleError(Throwable throwable) {
@@ -82,9 +69,9 @@ public class BetHistoryFragment extends Fragment {
 
     private void handleResult(BetHistoryResponse betHistoryResponse) {
 
-        progressBar.setVisibility(View.GONE);
+        betHistoryBinding.progressBar.setVisibility(View.GONE);
         if(betHistoryResponse.betHistoryData.size() == 0){
-            tvNoHistory.setVisibility(View.VISIBLE);
+            betHistoryBinding.tvNoHistory.setVisibility(View.VISIBLE);
         }
         Log.e("betHistory",String.valueOf(betHistoryResponse.betHistoryData.size()));
         adapter.addData(betHistoryResponse.betHistoryData);

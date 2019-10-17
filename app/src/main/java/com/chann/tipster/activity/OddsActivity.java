@@ -1,15 +1,12 @@
 package com.chann.tipster.activity;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,13 +16,10 @@ import android.widget.Toast;
 
 import com.chann.tipster.R;
 import com.chann.tipster.data.BetResponse;
-import com.chann.tipster.data.Data;
-import com.chann.tipster.data.LeagueData;
 import com.chann.tipster.data.MatchData;
-import com.chann.tipster.data.Odds;
 import com.chann.tipster.data.OddsData;
-import com.chann.tipster.data.RoomListOfLeague;
 import com.chann.tipster.data.Token;
+import com.chann.tipster.databinding.ActivityOddsBinding;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.squareup.picasso.Picasso;
 
@@ -33,25 +27,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class OddsActivity extends AppCompatActivity {
 
     private static MatchData league;
     private OddsData oddsData;
-    private TextView tvTime, tvLocalScore, tvVisitorScore, tvLocalName, tvVistiorName, tvDate;
-    private ImageView imgVisitor, imgLocal;
-
-    private ImageView imgLocalProfile, imgVisitorProfile;
-    private TextView tvLocalValue, tvVisitorValue;
-
-    private TextView tvOver, tvUnder;
     private static int room_id;
     private int betAmount = 0;
-
     private CompositeDisposable disposable;
+    private ActivityOddsBinding binding;
 
     private int typeId = 1, betType, label, betHandicap, betValue, handcap, value;
 
@@ -67,7 +50,8 @@ public class OddsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_odds);
-        init();
+        binding = DataBindingUtil.setContentView(this , R.layout.activity_odds);
+        disposable = new CompositeDisposable();
         bindData();
         getOdd();
     }
@@ -103,47 +87,14 @@ public class OddsActivity extends AppCompatActivity {
     }
 
 
-    private void init() {
-        tvDate = findViewById(R.id.tvDate);
-        tvTime = findViewById(R.id.tvTime);
-
-        tvLocalScore = findViewById(R.id.tvLocalTeamScore);
-        tvVisitorScore = findViewById(R.id.tvVisitorTeamScore);
-
-        tvLocalName = findViewById(R.id.tvLocalTeamName);
-        tvVistiorName = findViewById(R.id.tvVisitorTeamName);
-
-        imgVisitor = findViewById(R.id.visitorProfile);
-        imgLocal = findViewById(R.id.localProfile);
-
-        imgLocalProfile = findViewById(R.id.imgLocalProfile);
-        imgVisitorProfile = findViewById(R.id.imgVisitorProfile);
-
-        tvLocalValue = findViewById(R.id.tvLocalValue);
-        tvVisitorValue = findViewById(R.id.tvVisitorValue);
-
-        tvOver = findViewById(R.id.tvOver);
-        tvUnder = findViewById(R.id.tvUnder);
-
-        disposable = new CompositeDisposable();
-
-    }
-
 
     private void bindData() {
 
-        tvDate.setText(league.date);
-        tvTime.setText(league.time);
-        tvLocalScore.setText(String.valueOf(league.localTeamScore));
-        tvVisitorScore.setText(String.valueOf(league.visitorTeamScore));
-        tvLocalName.setText(league.localTeamName);
-        tvVistiorName.setText(league.visitorTeamName);
+        Picasso.get().load(league.localTeamLogo).resize(50, 50).into(binding.localProfile);
+        Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(binding.visitorProfile);
 
-        Picasso.get().load(league.localTeamLogo).resize(50, 50).into(imgLocal);
-        Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgVisitor);
-
-        Picasso.get().load(league.localTeamLogo).resize(50, 50).into(imgLocalProfile);
-        Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgVisitorProfile);
+        Picasso.get().load(league.localTeamLogo).resize(50, 50).into(binding.imgLocalProfile);
+        Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(binding.imgVisitorProfile);
 
         betHandicap = league.handiCap.handicap;
         betValue = league.handiCap.value;
@@ -154,30 +105,30 @@ public class OddsActivity extends AppCompatActivity {
         if (league.handiCap.label.equals("Home")) {
 
             if (league.handiCap.value > 0)
-                tvLocalValue.setText(league.handiCap.handicap + "(+" + league.handiCap.value + ")");
+                binding.tvLocalValue.setText(league.handiCap.handicap + "(+" + league.handiCap.value + ")");
             else
-                tvLocalValue.setText(league.handiCap.handicap + "(" + league.handiCap.value + ")");
+                binding.tvLocalValue.setText(league.handiCap.handicap + "(" + league.handiCap.value + ")");
 
         } else {
 
             if (league.handiCap.value > 0)
-                tvVisitorValue.setText(league.handiCap.handicap + "(+" + league.handiCap.value + ")");
+                binding.tvVisitorValue.setText(league.handiCap.handicap + "(+" + league.handiCap.value + ")");
             else {
-                tvVisitorValue.setText(league.handiCap.handicap + "(" + league.handiCap.value + ")");
+                binding.tvVisitorValue.setText(league.handiCap.handicap + "(" + league.handiCap.value + ")");
             }
         }
 
         if (league.overUnder.value > 0) {
 
             String overValue = String.format("%d(+%d)", league.overUnder.totalScore, league.overUnder.value);
-            tvOver.setText(overValue);
-            tvUnder.setText(overValue);
+            binding.tvOver.setText(overValue);
+            binding.tvUnder.setText(overValue);
 
         } else {
 
             String overValue = String.format("%d(%d)", league.overUnder.totalScore, league.overUnder.value);
-            tvOver.setText(overValue);
-            tvUnder.setText(overValue);
+            binding.tvOver.setText(overValue);
+            binding.tvUnder.setText(overValue);
         }
 
 
@@ -207,7 +158,7 @@ public class OddsActivity extends AppCompatActivity {
         tvOverUnderValue.setVisibility(View.GONE);
 
         Picasso.get().load(league.localTeamLogo).resize(50, 50).into(imgTeamLogo);
-        tvHandicapValue.setText(tvLocalValue.getText().toString());
+        tvHandicapValue.setText(binding.tvLocalValue.getText().toString());
         minBtn.setText(String.valueOf(oddsData.point.min));
         maxBtn.setText(String.valueOf(oddsData.point.max));
 
@@ -260,7 +211,7 @@ public class OddsActivity extends AppCompatActivity {
         maxBtn = dialog.findViewById(R.id.maxAmount);
 
         Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgTeamLogo);
-        tvHandicapValue.setText(tvVisitorValue.getText().toString());
+        tvHandicapValue.setText(binding.tvVisitorValue.getText().toString());
         minBtn.setText(String.valueOf(oddsData.point.min));
         maxBtn.setText(String.valueOf(oddsData.point.max));
 
@@ -318,7 +269,7 @@ public class OddsActivity extends AppCompatActivity {
         imgTeamLogo.setVisibility(View.GONE);
 
         tvOverUnder.setText("Over");
-        tvOverUnderValue.setText(tvOver.getText().toString());
+        tvOverUnderValue.setText(binding.tvOver.getText().toString());
         minBtn.setText(String.valueOf(oddsData.point.min));
         maxBtn.setText(String.valueOf(oddsData.point.max));
 
@@ -369,7 +320,7 @@ public class OddsActivity extends AppCompatActivity {
         imgTeamLogo.setVisibility(View.GONE);
 
         tvOverUnder.setText("Under");
-        tvOverUnderValue.setText(tvUnder.getText().toString());
+        tvOverUnderValue.setText(binding.tvUnder.getText().toString());
         minBtn.setText(String.valueOf(oddsData.point.min));
         maxBtn.setText(String.valueOf(oddsData.point.max));
 

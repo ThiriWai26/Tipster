@@ -1,8 +1,5 @@
 package com.chann.tipster.activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,52 +8,49 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import com.chann.tipster.R;
 import com.chann.tipster.data.Login;
 import com.chann.tipster.data.Token;
+import com.chann.tipster.databinding.ActivityLoginBinding;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
-
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextInputEditText etph, etpwd;
-    private String ph = "", pwd = "";
     private CallbackManager callbackManager;
     private static final String EMAIL = "email";
     private LoginButton loginButton;
     private AccessToken mAccessToken;
     private CompositeDisposable disposable;
+    private ActivityLoginBinding binding;
+    private String ph = "", pwd = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+
 
 //        FacebookSdk.sdkInitialize(getApplicationContext());
 //        AppEventsLogger.activateApp(this);
@@ -65,8 +59,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void init() {
 
-        etph = findViewById(R.id.ph);
-        etpwd = findViewById(R.id.pwd);
 
         loginButton = findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
@@ -99,35 +91,38 @@ public class LoginActivity extends AppCompatActivity {
 
     @SuppressLint("CheckResult")
     public void onLogin(View view) {
-        ph = etph.getText().toString();
-        pwd = etpwd.getText().toString();
-        Log.e("Da har :", "onLogin ");
-        Log.e("ph", ph);
-        Log.e("pwd", pwd);
 
-        if (ph == "") {
-            etph.setError("Enter phone number");
+        binding.progressBar.setVisibility(View.VISIBLE);
+
+        ph = binding.ph.getText().toString();
+        pwd = binding.pwd.getText().toString();
+        if (ph.isEmpty()) {
+            binding.ph.setError("Enter phone number");
         }
 
-        if (pwd == "") {
-            etpwd.setError("Enter password");
+        if (pwd.isEmpty()) {
+            binding.pwd.setError("Enter password");
         }
 
-        Disposable login = RetrofitService.getApiEnd().userLogin(ph, pwd)
+
+        Disposable subscribe = RetrofitService.getApiEnd().userLogin(ph, pwd)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult, this::handleError);
-        disposable.add(login);
+
+        disposable.add(subscribe);
     }
 
     private void handleResult(Login login) {
         if (login.isSuccess()) {
+            binding.progressBar.setVisibility(View.GONE);
             Token.token = login.getToken();
             startActivity(MainActivity.getInstance(getApplicationContext()));
             finish();
 
         }
         else {
+            binding.progressBar.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(),login.getErrorMessage(), Toast.LENGTH_LONG).show();
         }
     }

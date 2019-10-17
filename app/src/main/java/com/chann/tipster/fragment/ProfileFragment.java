@@ -15,6 +15,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
@@ -32,6 +33,7 @@ import com.chann.tipster.R;
 import com.chann.tipster.data.EditProfile;
 import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Token;
+import com.chann.tipster.databinding.FragmentProfileBinding;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.squareup.picasso.Picasso;
 
@@ -44,22 +46,15 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragment implements View.OnClickListener {
-
-
-    private de.hdodenhof.circleimageview.CircleImageView imgProfile;
-    private TextView tvSave,tvName,tvRank;
+public class ProfileFragment extends Fragment {
     private String editName = "";
     private String imagePath = "";
     private CompositeDisposable disposable;
-    private ProgressBar progressBar;
+    private FragmentProfileBinding binding;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -70,19 +65,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        init(view);
-        getProfileFeatures();
-        return view;
-    }
 
-    private void getProfileFeatures() {
+        disposable = new CompositeDisposable();
 
-       Disposable profile = RetrofitService.getApiEnd().getProfile(Token.token)
+        binding = DataBindingUtil.inflate(inflater , R.layout.fragment_profile , container , false);
+        binding.setFragment(this);
+        Disposable profile = RetrofitService.getApiEnd().getProfile(Token.token)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult , this::handleError);
-       disposable.add(profile);
+        disposable.add(profile);
+        return binding.getRoot();
     }
 
     private void handleError(Throwable throwable) {
@@ -90,112 +83,65 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private void handleResult(Profile profile) {
 
-        progressBar.setVisibility(View.GONE);
+        binding.setProfile(profile);
+        binding.progressBar.setVisibility(View.GONE);
         if(profile.isSuccess){
-            Picasso.get().load(RetrofitService.BASE_URL+"/api/get_image/"+profile.image).resize(100,100).into(imgProfile);
-            tvName.setText(profile.name);
-            tvRank.setText(profile.tipStarRank);
-            Log.e("image",profile.image);
+            Picasso.get().load(RetrofitService.BASE_URL+"/api/get_image/"+profile.image).resize(100,100).placeholder(R.drawable.img_user).into(binding.profile);
         }
         else {
             Toast.makeText(getContext(),"Sorry , something went wrong.",Toast.LENGTH_LONG).show();
         }
     }
 
-    private void init(View view) {
+    public void onClickProfile(View view){
 
-        progressBar = view.findViewById(R.id.progressBar);
-        imgProfile = view.findViewById( R.id.profile);
-        tvSave = view.findViewById(R.id.tvSave);
-        tvName = view.findViewById(R.id.tvName);
-        tvRank = view.findViewById(R.id.tvRank);
+        if (ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this.getActivity(),
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    2);
+        } else {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
 
-        imgProfile.setOnClickListener(this);
-        tvSave.setOnClickListener(this);
-        tvName.setOnClickListener(this);
-
-        disposable = new CompositeDisposable();
-
-
-    }
-
-    @Override
-    public void onClick(final View view) {
-
-       if(view == imgProfile){
-
-           if (ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                   != PackageManager.PERMISSION_GRANTED) {
-               ActivityCompat.requestPermissions(this.getActivity(),
-                       new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                       2);
-           } else {
-               Intent intent = new Intent();
-               intent.setType("image/*");
-               intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-               intent.setAction(Intent.ACTION_GET_CONTENT);
-               startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
-
-           }
-
-       }
-       if(view == tvName){
-
-           final EditText etUsername ;
-           final TextView save , tvCancel;
-
-           final Dialog dialog = new Dialog(getContext());
-           dialog.setContentView(R.layout.dialog_edit_profile);
-
-           etUsername = dialog.findViewById(R.id.etUsername);
-           save = dialog.findViewById(R.id.tvSave);
-           tvCancel = dialog.findViewById(R.id.tvCancel);
-
-           tvCancel.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   dialog.dismiss();
-               }
-           });
-
-           save.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   editName = etUsername.getText().toString();
-
-                   if(editName.equals("")){
-                       etUsername.setError("Enter user name");
-                   }
-                   else {
-                       tvName.setText(editName);
-                       tvSave.setVisibility(View.VISIBLE);
-                       dialog.dismiss();
-                   }
-               }
-           });
-
-           dialog.show();
-
-       }
-       if( view == tvSave){
-
-            uploadServer();
-
-       }
+        }
 
     }
+    public void onClickName(View v){
+        final EditText etUsername ;
+        final TextView save , tvCancel;
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        disposable.clear();
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_edit_profile);
+
+        etUsername = dialog.findViewById(R.id.etUsername);
+        save = dialog.findViewById(R.id.tvSave);
+        tvCancel = dialog.findViewById(R.id.tvCancel);
+
+        tvCancel.setOnClickListener(view -> dialog.dismiss());
+
+        save.setOnClickListener(view -> {
+            editName = etUsername.getText().toString();
+
+            if(editName.equals("")){
+                etUsername.setError("Enter user name");
+            }
+            else {
+                binding.tvName.setText(editName);
+                binding.tvSave.setVisibility(View.VISIBLE);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
-
-    @SuppressLint("CheckResult")
-    private void uploadServer() {
-
+    public void onClickSave(View view){
         if(editName.equals("")){
-            editName = tvName.getText().toString();
+            editName =  binding.tvName.getText().toString();
         }
 
         if( imagePath.equals("")){
@@ -203,7 +149,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
         else {
 
-            tvSave.setVisibility(View.GONE);
+            binding.tvSave.setVisibility(View.GONE);
 
             RequestBody name = RequestBody.create( MediaType.parse("multipart/form-data") , editName);
             RequestBody token = RequestBody.create( MediaType.parse("multipart/form-data"), Token.token);
@@ -225,10 +171,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     .subscribe(this::handleEditProfile, this::handleError);
             disposable.add(subscribe);
         }
-
-
-
     }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        disposable.clear();
+    }
+
 
     private void handleEditProfile(EditProfile editProfile) {
 
@@ -250,10 +201,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
             Uri uri = data.getData();
 
-            imgProfile.setImageURI(uri);
+            binding.profile.setImageURI(uri);
 
             imagePath = getImageFilePath(data.getData());
-            tvSave.setVisibility(View.VISIBLE);
+            binding.tvSave.setVisibility(View.VISIBLE);
             
         }
     }

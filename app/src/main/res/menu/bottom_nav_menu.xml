@@ -29,7 +29,7 @@
 
     <item
         android:id="@+id/menu_item_history"
-        android:icon="@drawable/logo_tipstar"
+        android:icon="@drawable/ic_history"
         android:title="@string/title_bet_history" />
 
 

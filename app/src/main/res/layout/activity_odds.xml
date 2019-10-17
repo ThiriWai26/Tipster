@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="data"
+            type="com.chann.tipster.data.MatchData" />
+    </data>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -67,6 +73,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/roboto_light"
                 android:padding="@dimen/margin_md"
+                android:text="@{data.date}"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvVs"
@@ -80,6 +87,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_light"
                 android:padding="@dimen/margin_md"
+                android:text="@{data.time}"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/tvDate"
@@ -92,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="@android:color/white"
+                android:text="@{String.valueOf(data.localTeamScore)}"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/tvVs"
@@ -103,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="@android:color/white"
+                android:text="@{String.valueOf(data.visitorTeamScore)}"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/tvVs"
@@ -135,6 +145,7 @@
                 android:layout_marginRight="32dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_light"
+                android:text="@{data.localTeamName}"
                 android:gravity="end"
                 android:maxLines="2"
                 android:textColor="@android:color/white"
@@ -152,6 +163,7 @@
                 android:layout_marginRight="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_light"
+                android:text="@{data.visitorTeamName}"
                 android:gravity="start"
                 android:maxLines="2"
                 android:textColor="@android:color/white"
@@ -448,7 +460,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_lg"
-                android:onClick="@{()->viewModel.onTryAgain()}"
                 android:text="Try again"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
@@ -459,3 +470,4 @@
     </LinearLayout>
 
 </ScrollView>
+</layout>
