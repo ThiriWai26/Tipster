@@ -17,10 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private FragmentManager manager;
+    private FragmentTransaction transaction;
 
     public static Intent getInstance(Context context) {
         return new Intent(context, MainActivity.class);
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
 
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
 
@@ -39,41 +45,45 @@ public class MainActivity extends AppCompatActivity {
         loadFragment(new MatchListFragment());
 
 
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        navView.setOnNavigationItemSelectedListener(menuItem -> {
 
-                switch (menuItem.getItemId()) {
+            switch (menuItem.getItemId()) {
 
-                    case R.id.menu_item_matchlist:
-                        toolbar.setTitle(R.string.title_match_list);
-                        loadFragment(new MatchListFragment());
-                        return true;
+                case R.id.menu_item_matchlist:
+                    if (manager.getBackStackEntryCount() >= 1)
+                        manager.popBackStack();
+                    toolbar.setTitle(R.string.title_match_list);
+                    loadFragment(new MatchListFragment());
+                    return true;
 
-                    case R.id.menu_item_profile:
-                        toolbar.setTitle(R.string.title_profile);
-                        loadFragment(new ProfileFragment());
-                        return true;
+                case R.id.menu_item_profile:
+                    if (manager.getBackStackEntryCount() >= 1)
+                        manager.popBackStack();
+                    toolbar.setTitle(R.string.title_profile);
+                    loadFragment(new ProfileFragment());
+                    return true;
 
-                    case R.id.menu_item_ranking:
-                        toolbar.setTitle(R.string.title_ranking);
-                        loadFragment(new RankFragment());
-                        return true;
+                case R.id.menu_item_ranking:
+                    if (manager.getBackStackEntryCount() >= 1)
+                        manager.popBackStack();
+                    toolbar.setTitle(R.string.title_ranking);
+                    loadFragment(new RankFragment());
+                    return true;
 
-                    case R.id.menu_item_history:
-                        toolbar.setTitle(R.string.title_bet_history);
-                        loadFragment(new BetHistoryFragment());
-                        return true;
-                }
-                return false;
+                case R.id.menu_item_history:
+                    if (manager.getBackStackEntryCount() >= 1)
+                        manager.popBackStack();
+                    toolbar.setTitle(R.string.title_bet_history);
+                    loadFragment(new BetHistoryFragment());
+                    return true;
             }
+            return false;
         });
 
     }
 
     private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+        transaction.replace(R.id.frame_container, fragment).addToBackStack("Tag").commit();
     }
 
 }

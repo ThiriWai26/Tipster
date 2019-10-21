@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
     private static final String EMAIL = "email";
-    private LoginButton loginButton;
     private AccessToken mAccessToken;
     private CompositeDisposable disposable;
     private ActivityLoginBinding binding;
@@ -60,15 +59,14 @@ public class LoginActivity extends AppCompatActivity {
     private void init() {
 
 
-        loginButton = findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
-        loginButton.setReadPermissions("email", "public_profile");
+        binding.loginButton.setReadPermissions("email", "public_profile");
         checkLoginStatus();
 
         disposable = new CompositeDisposable();
 
         // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        binding.loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // App code
@@ -149,11 +147,14 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "User Logged out", Toast.LENGTH_LONG).show();
                 } else
                     loadUserProfile(currentAccessToken);
+                Log.e("accesstoken",currentAccessToken.getToken());
             }
         };
     }
 
     private void loadUserProfile(AccessToken newAccessToken) {
+
+        Log.e("accesstoken",newAccessToken.getToken());
         GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {

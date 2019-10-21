@@ -26,7 +26,6 @@
             android:orientation="vertical">
 
             <TextView
-
                 android:id="@+id/tvSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,6 +88,7 @@
                 android:paddingStart="16dp"
                 android:paddingTop="@dimen/margin_md"
                 android:paddingEnd="16dp"
+                android:onClick="@{()->fragment.onClickItem(1)}"
                 android:paddingBottom="@dimen/margin_md">
 
                 <ImageView
@@ -133,7 +133,8 @@
                 android:paddingStart="16dp"
                 android:paddingTop="@dimen/margin_md"
                 android:paddingEnd="16dp"
-                android:paddingBottom="@dimen/margin_md">
+                android:paddingBottom="@dimen/margin_md"
+                android:onClick="@{()->fragment.onClickItem(2)}">
 
                 <ImageView
                     android:layout_width="32dp"
@@ -177,7 +178,8 @@
                 android:paddingStart="16dp"
                 android:paddingTop="@dimen/margin_md"
                 android:paddingEnd="16dp"
-                android:paddingBottom="@dimen/margin_md">
+                android:paddingBottom="@dimen/margin_md"
+                android:onClick="@{()->fragment.onClickItem(3)}">
 
                 <ImageView
                     android:layout_width="32dp"
@@ -221,7 +223,8 @@
                 android:paddingStart="16dp"
                 android:paddingTop="@dimen/margin_md"
                 android:paddingEnd="16dp"
-                android:paddingBottom="@dimen/margin_md">
+                android:paddingBottom="@dimen/margin_md"
+                android:onClick="@{()->fragment.onClickItem(4)}">
 
                 <ImageView
                     android:layout_width="32dp"
@@ -267,7 +270,8 @@
                 android:paddingStart="16dp"
                 android:paddingTop="@dimen/margin_md"
                 android:paddingEnd="16dp"
-                android:paddingBottom="@dimen/margin_md">
+                android:paddingBottom="@dimen/margin_md"
+                android:onClick="@{()->fragment.onClickItem(5)}">
 
                 <ImageView
                     android:layout_width="32dp"

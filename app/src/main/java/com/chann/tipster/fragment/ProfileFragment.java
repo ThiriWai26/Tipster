@@ -224,5 +224,37 @@ public class ProfileFragment extends Fragment {
 
         return null;
     }
-    
+
+    public void onClickItem(int itemType){
+
+        Fragment fragment;
+        if(itemType==1){
+            fragment = new RankFragment();
+            loadFragment(fragment);
+        }
+        if(itemType==2){
+
+            fragment = new BetHistoryFragment();
+            loadFragment(fragment);
+        }
+        if(itemType==3){
+
+            fragment = new RankFragment();
+            loadFragment(fragment);
+        }
+        if(itemType==4){
+
+            fragment = new RankFragment();
+            loadFragment(fragment);
+        }
+        if(itemType==5){
+            fragment = new RankFragment();
+            loadFragment(fragment);
+        }
+        Log.e("onclickitem",String.valueOf(itemType));
+
+    }
+    private void loadFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("Tag").commit();
+    }
 }
