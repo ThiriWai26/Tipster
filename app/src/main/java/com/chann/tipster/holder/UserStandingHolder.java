@@ -30,7 +30,7 @@ public class UserStandingHolder extends RecyclerView.ViewHolder {
         binding.setData(data);
         binding.executePendingBindings();
         binding.setItemListener(listener);
-        Picasso.get().load(RetrofitService.BASE_URL + "/api/get_image/" + data.image).resize(50, 50).into(binding.ivProfile);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/get_image/" + data.image).resize(50, 50).placeholder(R.drawable.logo_tipstar).into(binding.ivProfile);
         binding.tvNo.setText(String.valueOf(positon + 1));
     }
     public static UserStandingHolder create (LayoutInflater inflater , ViewGroup parent , OnClickItemListener listener){

@@ -73,4 +73,12 @@ public interface ApiEnd {
     @FormUrlEncoded
     @POST("/api/league_standing")
     Observable<StandingResponse> getUserStanding(@Field("token") String token , @Field("type") int leagueType , @Field("id") int roomId);
+
+    @FormUrlEncoded
+    @POST("/api/facebook_register")
+    Observable<Register> facebookRegister(@Field("facebook_token") String fbToken , @Field("name") String name);
+
+    @FormUrlEncoded
+    @POST("/api/facebook_login")
+    Observable<Login> facebookLogin(@Field("facebook_token") String fbToken);
 }

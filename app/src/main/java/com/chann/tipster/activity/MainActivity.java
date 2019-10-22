@@ -1,10 +1,14 @@
 package com.chann.tipster.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.chann.tipster.R;
 import com.chann.tipster.fragment.BetHistoryFragment;
@@ -12,13 +16,6 @@ import com.chann.tipster.fragment.MatchListFragment;
 import com.chann.tipster.fragment.ProfileFragment;
 import com.chann.tipster.fragment.RankFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +39,11 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
 
         toolbar.setTitle(R.string.title_match_list);
-        loadFragment(new MatchListFragment());
+        manager.addOnBackStackChangedListener(() -> {
+            if (manager.getBackStackEntryCount() < 1)
+                navView.getMenu().getItem(0).setChecked(true);
+        });
+        transaction.replace(R.id.frame_container, new MatchListFragment()).commit();
 
 
         navView.setOnNavigationItemSelectedListener(menuItem -> {
@@ -83,7 +84,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadFragment(Fragment fragment) {
-        transaction.replace(R.id.frame_container, fragment).addToBackStack("Tag").commit();
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment).addToBackStack("tag");
+        transaction.commit();
     }
 
 }

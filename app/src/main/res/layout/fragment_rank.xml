@@ -11,107 +11,119 @@
     android:layout_height="match_parent"
     tools:context=".fragment.RankFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="215dp"
-            android:gravity="center">
-
-            <LinearLayout
-                android:id="@+id/layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:orientation="vertical"
-                android:textAlignment="gravity"
-                android:layout_marginRight="36dp">
-
-                <TextView
-                    android:id="@+id/tv_rank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_md"
-                    android:text="@{String.valueOf(data.rank)}"
-                    android:textColor="@color/grey_dark"
-                    android:textSize="@dimen/compat_text_size_lg" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/grey_dark"
-                    android:textSize="@dimen/compat_text_size_md"
-                    android:layout_marginBottom="@dimen/margin_md"
-                    android:text="Your Ranking"/>
-                <TextView
-                    android:id="@+id/tv_coin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/compat_text_size_lg"
-                    android:textColor="@color/grey_dark"
-                    android:layout_marginBottom="@dimen/margin_md"
-                    android:text="@{String.valueOf(data.coins)}"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/compat_text_size_md"
-                    android:textColor="@color/grey_dark"
-                    android:text="Winning Point"/>
-            </LinearLayout>
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_profile"
-                android:layout_toRightOf="@id/layout"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:src="@drawable/logo_tipstar"/>
-        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""/>
-            <TextView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginRight="@dimen/margin_lg"
-                android:text=""/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:layout_weight="3"
-                android:textSize="@dimen/league_title_size"
-                android:text="Name"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="0dp"
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="215dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="36dp"
+                    android:gravity="right"
+                    android:orientation="vertical"
+                    android:textAlignment="gravity">
+
+                    <TextView
+                        android:id="@+id/tv_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_md"
+                        android:text="@{String.valueOf(data.rank)}"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="@dimen/compat_text_size_lg" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_md"
+                        android:text="Your Ranking"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="@dimen/compat_text_size_md"/>
+
+                    <TextView
+                        android:id="@+id/tv_coin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_md"
+                        android:text="@{String.valueOf(data.coins)}"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="@dimen/compat_text_size_lg"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Winning Point"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="@dimen/compat_text_size_md"/>
+                </LinearLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_toRightOf="@id/layout"
+                    android:src="@drawable/logo_tipstar"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""/>
+
+                <TextView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="@dimen/margin_lg"
+                    android:text=""/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Name"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/league_title_size"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Points"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/league_title_size"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:layout_weight="1"
-                android:textSize="@dimen/league_title_size"
-                android:text="Points"/>
+                tools:listitem="@layout/history_item"/>
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
+    </ScrollView>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/history_item"/>
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        />
-
+            android:layout_gravity="center" />
 </FrameLayout>
+
 </layout>

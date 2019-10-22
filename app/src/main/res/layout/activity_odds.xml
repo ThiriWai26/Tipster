@@ -4,6 +4,9 @@
         <variable
             name="data"
             type="com.chann.tipster.data.MatchData" />
+        <variable
+            name="oddsActivity"
+            type="com.chann.tipster.activity.OddsActivity" />
     </data>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -226,7 +229,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:onClick="onLocalTeamBetClick"
+                    android:onClick="@{(v)-> oddsActivity.onLocalTeamBetClick(v)}"
                     android:text="Bet" />
 
             </LinearLayout>
@@ -265,7 +268,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:onClick="onVisitorTeamBetClick"
+                    android:onClick="@{(v)->oddsActivity.onVisitorTeamBetClick(v)}"
                     android:text="Bet" />
 
             </LinearLayout>
@@ -346,7 +349,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:onClick="onOverBetClick"
+                    android:onClick="@{(v)->oddsActivity.onOverBetClick(v)}"
                     android:text="Bet" />
 
             </LinearLayout>
@@ -390,7 +393,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:onClick="onUnderBetClick"
+                    android:onClick="@{(v)->oddsActivity.onUnderBetClick(v)}"
                     android:text="Bet" />
 
             </LinearLayout>

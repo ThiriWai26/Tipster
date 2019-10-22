@@ -65,7 +65,7 @@ public class RankFragment extends Fragment implements OnClickItemListener {
             binding.progressBar.setVisibility(View.GONE);
             adapter.addData(standingResponse.userStandings);
             adapter.notifyDataSetChanged();
-            Picasso.get().load(RetrofitService.BASE_URL + "/api/get_image/" + standingResponse.image).resize(50, 50).into(binding.ivProfile);
+            Picasso.get().load(RetrofitService.BASE_URL + "/api/get_image/" + standingResponse.image).resize(50, 50).placeholder(R.drawable.logo_tipstar).into(binding.ivProfile);
         }
         else {
             Log.e("response","fail");

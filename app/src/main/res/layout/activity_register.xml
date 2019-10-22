@@ -92,8 +92,15 @@
                         android:text="@string/label_register"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white" />
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/loginButton"
+                        android:layout_width="@dimen/view_width"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:onClick="facebookRegister"/>
 
                 </LinearLayout>
+
 
             </LinearLayout>
 

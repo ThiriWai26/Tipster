@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chann.tipster.R;
+import com.chann.tipster.activity.LoginActivity;
 import com.chann.tipster.data.EditProfile;
 import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Token;
@@ -79,6 +81,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private void handleError(Throwable throwable) {
+
+        Log.e("profile edit",throwable.toString());
     }
 
     private void handleResult(Profile profile) {
@@ -238,18 +242,42 @@ public class ProfileFragment extends Fragment {
             loadFragment(fragment);
         }
         if(itemType==3){
-
-            fragment = new RankFragment();
-            loadFragment(fragment);
+            Toast.makeText(getContext(),"About App",Toast.LENGTH_LONG).show();
         }
         if(itemType==4){
-
-            fragment = new RankFragment();
-            loadFragment(fragment);
+            Toast.makeText(getContext(),"Setting",Toast.LENGTH_LONG).show();
         }
         if(itemType==5){
-            fragment = new RankFragment();
-            loadFragment(fragment);
+
+            final TextView save , tvCancel;
+
+            final Dialog dialog = new Dialog(getContext());
+            dialog.setContentView(R.layout.dialog_logout);
+
+            save = dialog.findViewById(R.id.tvSave);
+            tvCancel = dialog.findViewById(R.id.tvCancel);
+
+            tvCancel.setOnClickListener(view -> dialog.dismiss());
+
+            save.setOnClickListener(view -> {
+                SharedPreferences pref;// 0 - for private mode
+                SharedPreferences.Editor editor;
+                pref = getContext().getApplicationContext().getSharedPreferences("MyPref", 0);
+                editor = pref.edit();
+
+
+                editor.putString("Token", null);
+                editor.apply();
+                editor.commit();
+                dialog.dismiss();
+
+                Intent intent = new Intent(getContext() , LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            });
+
+            dialog.show();
+
         }
         Log.e("onclickitem",String.valueOf(itemType));
 

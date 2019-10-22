@@ -81,8 +81,10 @@ public class OddsActivity extends AppCompatActivity {
     private void handleResult(OddsData oddsData) {
         if (oddsData.isSuccess) {
             this.oddsData = oddsData;
+            binding.setOddsActivity(this);
         } else {
-            Log.e("response", "fail");
+          Toast.makeText(this, "The match is finished" , Toast.LENGTH_LONG ).show();
+
         }
     }
 

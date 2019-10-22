@@ -2,6 +2,7 @@ package com.chann.tipster.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -25,7 +26,6 @@ import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,46 +43,48 @@ public class LoginActivity extends AppCompatActivity {
     private CompositeDisposable disposable;
     private ActivityLoginBinding binding;
     private String ph = "", pwd = "";
+    private SharedPreferences pref;// 0 - for private mode
+    private SharedPreferences.Editor editor;
+    private String token = "hello";
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-
-
-//        FacebookSdk.sdkInitialize(getApplicationContext());
-//        AppEventsLogger.activateApp(this);
-        init();
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        editor = pref.edit();
+        token = pref.getString("Token", null);
+        disposable = new CompositeDisposable();
+        checkLoginStatus();
     }
 
     private void init() {
 
-
-        callbackManager = CallbackManager.Factory.create();
-        binding.loginButton.setReadPermissions("email", "public_profile");
-        checkLoginStatus();
-
-        disposable = new CompositeDisposable();
-
-        // Callback registration
-        binding.loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-                Log.e("onError_1", exception.toString());
-            }
-        });
+//        callbackManager = CallbackManager.Factory.create();
+//        binding.loginButton.setReadPermissions("email", "public_profile");
+//
+//        // Callback registration
+//        binding.loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                // App code
+//                Log.e("accessToken", loginResult.getAccessToken().getToken());
+////                loadUserProfile(loginResult.getAccessToken());
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                // App code
+//            }
+//
+//            @Override
+//            public void onError(FacebookException exception) {
+//                // App code
+//                Log.e("onError_1", exception.toString());
+//            }
+//        });
 
     }
 
@@ -115,6 +117,11 @@ public class LoginActivity extends AppCompatActivity {
         if (login.isSuccess()) {
             binding.progressBar.setVisibility(View.GONE);
             Token.token = login.getToken();
+            Log.e("user token ", login.getToken());
+
+            editor.putString("Token", login.getToken());
+            editor.apply();
+            editor.commit();
             startActivity(MainActivity.getInstance(getApplicationContext()));
             finish();
 
@@ -135,59 +142,71 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-        AccessTokenTracker tokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                if (currentAccessToken == null) {
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+////        callbackManager.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, data);
+//        AccessTokenTracker tokenTracker = new AccessTokenTracker() {
+//            @Override
+//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+//                if (currentAccessToken == null) {
+//
+//                    Toast.makeText(getApplicationContext(), "User Logged out", Toast.LENGTH_LONG).show();
+//                } else
+//                    loadUserProfile(currentAccessToken);
+//            }
+//        };
+//        if (AccessToken.getCurrentAccessToken() != null) {
+//            loadUserProfile(AccessToken.getCurrentAccessToken());
+//        }
+//    }
 
-                    Toast.makeText(getApplicationContext(), "User Logged out", Toast.LENGTH_LONG).show();
-                } else
-                    loadUserProfile(currentAccessToken);
-                Log.e("accesstoken",currentAccessToken.getToken());
-            }
-        };
-    }
-
-    private void loadUserProfile(AccessToken newAccessToken) {
-
-        Log.e("accesstoken",newAccessToken.getToken());
-        GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                try {
-                    String first_name = object.getString("first_name");
-                    String last_name = object.getString("last_name");
-                    String email = object.getString("email");
-                    String id = object.getString("id");
-                    String image_url = "https://graph.facebook.com/" + id + "/picture?type=normal";
-
-                    Log.e("account_id", id);
-                    Log.e("image_url", image_url);
-                    Log.e("first_name", first_name);
-                    Log.e("last_name", last_name);
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "first_name,last_name,email,id");
-        request.setParameters(parameters);
-        request.executeAsync();
-
-    }
+//    private void loadUserProfile(AccessToken newAccessToken) {
+//
+//        GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
+//            @Override
+//            public void onCompleted(JSONObject object, GraphResponse response) {
+//                try {
+//                    String first_name = object.getString("first_name");
+//                    String last_name = object.getString("last_name");
+//                    String email = object.getString("email");
+//                    String id = object.getString("id");
+//                    String image_url = "https://graph.facebook.com/" + id + "/picture?type=normal";
+//
+//                    Log.e("account_id", id);
+//                    Log.e("image_url", image_url);
+//                    Log.e("user name",first_name +" "+last_name);
+//
+//                    Disposable subscribe = RetrofitService.getApiEnd().facebookRegister(newAccessToken.getToken(), first_name + " " + last_name)
+//                            .subscribeOn(Schedulers.computation())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(LoginActivity.this::handleResult , LoginActivity.this::handleError);
+//                    disposable.add(subscribe);
+//
+//
+//                } catch (JSONException e) {
+//                    Log.e("error",e.getMessage());
+//                }
+//
+//            }
+//        });
+//
+//        Bundle parameters = new Bundle();
+//        parameters.putString("fields", "first_name,last_name,email,id");
+//        request.setParameters(parameters);
+//        request.executeAsync();
+//
+//    }
 
     private void checkLoginStatus() {
-        if (AccessToken.getCurrentAccessToken() != null) {
-            loadUserProfile(AccessToken.getCurrentAccessToken());
+        if (token != null) {
+            Token.token = token;
+            startActivity(MainActivity.getInstance(getApplicationContext()));
+            finish();
+        }
+
+        else {
+            init();
         }
     }
 
@@ -210,5 +229,21 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         disposable.clear();
+    }
+
+    public void facebookLogin(View view) {
+        editor = pref.edit();
+        String fbAccessToken = pref.getString("fb_token", null);
+        if(fbAccessToken != null){
+            Disposable subscribe = RetrofitService.getApiEnd().facebookLogin(fbAccessToken)
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::handleResult, this::handleError);
+            disposable.add(subscribe);
+        }
+        else {
+            Toast.makeText(this, "Not register yet.",Toast.LENGTH_LONG).show();
+
+        }
     }
 }
