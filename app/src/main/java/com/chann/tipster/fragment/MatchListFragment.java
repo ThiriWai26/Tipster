@@ -115,8 +115,6 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
     @Override
     public void onClick(View view) {
 
-
-
     }
 }
 

@@ -12,7 +12,6 @@ import com.chann.tipster.R;
 import com.chann.tipster.data.BetHistoryData;
 import com.chann.tipster.data.ExpandAndCollapseViewUtil;
 import com.chann.tipster.databinding.BetHistoryItemBinding;
-import com.squareup.picasso.Picasso;
 
 
 public class BetHistoryHolder extends RecyclerView.ViewHolder {
@@ -30,10 +29,6 @@ public class BetHistoryHolder extends RecyclerView.ViewHolder {
 
         binding.setData(data);
         binding.executePendingBindings();
-
-        Picasso.get().load(data.localLogo).resize(50, 50).into(binding.ivLocalLogo);
-        Picasso.get().load(data.visitorLogo).resize(50, 50).into(binding.ivVisitorLogo);
-
 
         if (data.betType == 1 && data.label == 1) {
             binding.tvBetTeamName.setText(data.localName);

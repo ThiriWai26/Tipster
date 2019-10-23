@@ -44,9 +44,6 @@ public class MatchItemHolder extends RecyclerView.ViewHolder{
             binding.divider.setVisibility(View.GONE);
         }
 
-        Picasso.get().load(data.localTeamLogo).resize(50,50).into(binding.localProfile);
-        Picasso.get().load(data.visitorTeamLogo).resize(50,50).into(binding.visitorProfile);
-
         if(data.handiCap.label.equals("Home")){
 
             if(data.handiCap.value>0)

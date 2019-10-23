@@ -68,7 +68,11 @@ public interface ApiEnd {
 
     @FormUrlEncoded
     @POST("/api/ongoing_history")
-    Observable<BetHistoryResponse> getBetHistory(@Field("token") String token , @Field("type") int type);
+    Observable<BetHistoryResponse> getOngoing(@Field("token") String token , @Field("type") int type);
+
+    @FormUrlEncoded
+    @POST("/api/finished_history")
+    Observable<BetHistoryResponse> getOnfinish(@Field("token") String token , @Field("type") int type);
 
     @FormUrlEncoded
     @POST("/api/league_standing")

@@ -1,6 +1,11 @@
 package com.chann.tipster.data;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
 import com.google.gson.annotations.SerializedName;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -43,10 +48,10 @@ public class MatchData {
     public String time;
 
     @SerializedName("local_team_score")
-    public int localTeamScore;
+    public Integer localTeamScore;
 
     @SerializedName("visitor_team_score")
-    public int visitorTeamScore;
+    public Integer visitorTeamScore;
 
     @SerializedName("status")
     public String status;
@@ -62,5 +67,10 @@ public class MatchData {
 
     @SerializedName("tmp_over_under")
     public OverUnder overUnder;
+
+    @BindingAdapter("loadImage")
+    public static void loadImage(ImageView view , String url){
+        Picasso.get().load(url).resize(50,50).into(view);
+    }
 
 }

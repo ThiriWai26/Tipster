@@ -1,6 +1,11 @@
 package com.chann.tipster.data;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
 import com.google.gson.annotations.SerializedName;
+import com.squareup.picasso.Picasso;
 
 public class BetHistoryData {
 
@@ -38,10 +43,10 @@ public class BetHistoryData {
     public String visitorName;
 
     @SerializedName("local_score")
-    public int localScore;
+    public Integer localScore;
 
     @SerializedName("visitor_score")
-    public int visitorScore;
+    public Integer visitorScore;
 
     @SerializedName("local_logo")
     public String localLogo;
@@ -55,4 +60,8 @@ public class BetHistoryData {
     @SerializedName("bet_type")
     public int betType;
 
+    @BindingAdapter("loadImage")
+    public static void loadImage(ImageView view,String url){
+        Picasso.get().load(url).resize(50, 50).into(view);
+    }
 }

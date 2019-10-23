@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="data"
             type="com.chann.tipster.data.BetHistoryData" />
+        <import type="android.view.View"/>
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout1"
@@ -22,7 +23,9 @@
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="8dp" />
+            android:layout_marginRight="8dp"
+            app:loadImage="@{data.localLogo}"
+            />
 
         <ImageView
             android:id="@+id/iv_visitor_logo"
@@ -30,7 +33,8 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="16dp" />
+            android:layout_marginRight="16dp"
+            app:loadImage="@{data.visitorLogo}"/>
 
         <TextView
             android:id="@+id/tv_local_name"
@@ -76,6 +80,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
                 android:minHeight="40dp"
+                android:visibility="@{data.localScore==null ? View.GONE : View.VISIBLE}"
                 android:text="@{String.valueOf(data.localScore)}"
                 android:textColor="@color/grey_dark"
                 android:textSize="18sp" />
@@ -98,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
+                android:visibility="@{data.visitorScore==null ? View.GONE : View.VISIBLE}"
                 android:text="@{String.valueOf(data.visitorScore)}"
                 android:minHeight="40dp"
                 android:textColor="@color/grey_dark"
