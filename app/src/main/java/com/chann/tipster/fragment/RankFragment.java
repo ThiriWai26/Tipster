@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chann.tipster.R;
@@ -18,6 +19,7 @@ import com.chann.tipster.data.StandingResponse;
 import com.chann.tipster.data.Token;
 import com.chann.tipster.databinding.FragmentRankBinding;
 import com.chann.tipster.retrofit.RetrofitService;
+import com.chann.tipster.viewmodel.RankViewModel;
 import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,10 +31,9 @@ import io.reactivex.schedulers.Schedulers;
  * A simple {@link Fragment} subclass.
  */
 public class RankFragment extends Fragment implements OnClickItemListener {
-
-    private CompositeDisposable disposable;
     private UserStandingAdapter adapter;
     private FragmentRankBinding binding;
+    private RankViewModel model;
 
     public RankFragment() {
         // Required empty public constructor
@@ -44,36 +45,24 @@ public class RankFragment extends Fragment implements OnClickItemListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_rank, container, false);
-        disposable = new CompositeDisposable();
+        model = ViewModelProviders.of(this).get(RankViewModel.class);
         adapter = new UserStandingAdapter(this);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
 
-        Disposable subscribe = RetrofitService.getApiEnd().getUserStanding(Token.token, 1, 1)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleResult, this::handleError);
-        disposable.add(subscribe);
+        model.getData().observe(this , standingResponse -> {
+            if(standingResponse.isSuccess) {
+                binding.progressBar.setVisibility(View.GONE);
+                adapter.addData(standingResponse.userStandings);
+                adapter.notifyDataSetChanged();
+                Picasso.get().load(RetrofitService.BASE_URL + "/api/get_image/" + standingResponse.image).resize(50, 50).placeholder(R.drawable.logo_tipstar).into(binding.ivProfile);
+            }
+            else {
+                Log.e("response","fail");
+            }
+        });
 
         return binding.getRoot();
-    }
-
-
-    private void handleResult(StandingResponse standingResponse) {
-
-        if(standingResponse.isSuccess) {
-            binding.progressBar.setVisibility(View.GONE);
-            adapter.addData(standingResponse.userStandings);
-            adapter.notifyDataSetChanged();
-            Picasso.get().load(RetrofitService.BASE_URL + "/api/get_image/" + standingResponse.image).resize(50, 50).placeholder(R.drawable.logo_tipstar).into(binding.ivProfile);
-        }
-        else {
-            Log.e("response","fail");
-        }
-    }
-
-    private void handleError(Throwable throwable) {
-        Log.e("onfailure",throwable.toString());
     }
 
 
@@ -86,6 +75,6 @@ public class RankFragment extends Fragment implements OnClickItemListener {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        disposable.clear();
+        model.disposable.clear();
     }
 }

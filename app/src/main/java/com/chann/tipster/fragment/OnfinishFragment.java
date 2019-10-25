@@ -2,29 +2,20 @@ package com.chann.tipster.fragment;
 
 
 import android.os.Bundle;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.chann.tipster.R;
 import com.chann.tipster.adapter.BetHistoryAdapter;
-import com.chann.tipster.adapter.BetHistoryPagerAdapter;
-import com.chann.tipster.data.BetHistoryResponse;
-import com.chann.tipster.data.Token;
-import com.chann.tipster.databinding.FragmentBetHistoryBinding;
 import com.chann.tipster.databinding.FragmentOnfinishBinding;
-import com.chann.tipster.retrofit.RetrofitService;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import com.chann.tipster.viewmodel.OnFinishViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,8 +23,8 @@ import io.reactivex.schedulers.Schedulers;
 public class OnfinishFragment extends Fragment {
 
     private BetHistoryAdapter adapter;
-    private CompositeDisposable disposable;
     private FragmentOnfinishBinding binding;
+    private OnFinishViewModel model;
 
     public OnfinishFragment() {
         // Required empty public constructor
@@ -47,36 +38,28 @@ public class OnfinishFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater , R.layout.fragment_onfinish , container ,false);
 
         adapter = new BetHistoryAdapter();
-        disposable = new CompositeDisposable();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
-        Disposable subscribe = RetrofitService.getApiEnd().getOnfinish(Token.token , 1)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleResult , this::handleError);
-        disposable.add(subscribe);
+
+        model = ViewModelProviders.of(this).get(OnFinishViewModel.class);
+        model.getData().observe(this , betHistoryResponse -> {
+            binding.progressBar.setVisibility(View.GONE);
+            if(betHistoryResponse.betHistoryData.size() == 0){
+                binding.tvNoHistory.setVisibility(View.VISIBLE);
+            }
+            Log.e("betHistory",String.valueOf(betHistoryResponse.betHistoryData.size()));
+            adapter.addData(betHistoryResponse.betHistoryData);
+            adapter.notifyDataSetChanged();
+        });
         return binding.getRoot();
     }
 
-    private void handleError(Throwable throwable) {
-        Log.e("history_throwable",throwable.toString());
-    }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        disposable.clear();
-    }
-
-    private void handleResult(BetHistoryResponse betHistoryResponse) {
-
-        binding.progressBar.setVisibility(View.GONE);
-        if(betHistoryResponse.betHistoryData.size() == 0){
-            binding.tvNoHistory.setVisibility(View.VISIBLE);
-        }
-        Log.e("betHistory",String.valueOf(betHistoryResponse.betHistoryData.size()));
-        adapter.addData(betHistoryResponse.betHistoryData);
-        adapter.notifyDataSetChanged();
+        model.disposable.clear();
     }
 
 }
