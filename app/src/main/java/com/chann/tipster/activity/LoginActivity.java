@@ -142,62 +142,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-////        callbackManager.onActivityResult(requestCode, resultCode, data);
-//        super.onActivityResult(requestCode, resultCode, data);
-//        AccessTokenTracker tokenTracker = new AccessTokenTracker() {
-//            @Override
-//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-//                if (currentAccessToken == null) {
-//
-//                    Toast.makeText(getApplicationContext(), "User Logged out", Toast.LENGTH_LONG).show();
-//                } else
-//                    loadUserProfile(currentAccessToken);
-//            }
-//        };
-//        if (AccessToken.getCurrentAccessToken() != null) {
-//            loadUserProfile(AccessToken.getCurrentAccessToken());
-//        }
-//    }
-
-//    private void loadUserProfile(AccessToken newAccessToken) {
-//
-//        GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
-//            @Override
-//            public void onCompleted(JSONObject object, GraphResponse response) {
-//                try {
-//                    String first_name = object.getString("first_name");
-//                    String last_name = object.getString("last_name");
-//                    String email = object.getString("email");
-//                    String id = object.getString("id");
-//                    String image_url = "https://graph.facebook.com/" + id + "/picture?type=normal";
-//
-//                    Log.e("account_id", id);
-//                    Log.e("image_url", image_url);
-//                    Log.e("user name",first_name +" "+last_name);
-//
-//                    Disposable subscribe = RetrofitService.getApiEnd().facebookRegister(newAccessToken.getToken(), first_name + " " + last_name)
-//                            .subscribeOn(Schedulers.computation())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe(LoginActivity.this::handleResult , LoginActivity.this::handleError);
-//                    disposable.add(subscribe);
-//
-//
-//                } catch (JSONException e) {
-//                    Log.e("error",e.getMessage());
-//                }
-//
-//            }
-//        });
-//
-//        Bundle parameters = new Bundle();
-//        parameters.putString("fields", "first_name,last_name,email,id");
-//        request.setParameters(parameters);
-//        request.executeAsync();
-//
-//    }
-
     private void checkLoginStatus() {
         if (token != null) {
             Token.token = token;
@@ -210,20 +154,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void reload(int miliseconds) {
-
-        final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-
-
-                //some code for repeat
-            }
-        };
-
-        handler.postDelayed(runnable, miliseconds);
-    }
 
     @Override
     protected void onDestroy() {
