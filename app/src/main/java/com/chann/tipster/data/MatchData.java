@@ -68,7 +68,7 @@ public class MatchData {
     @SerializedName("tmp_over_under")
     public OverUnder overUnder;
 
-    @BindingAdapter("loadImage")
+    @BindingAdapter("getImage")
     public static void loadImage(ImageView view , String url){
         Picasso.get().load(url).resize(50,50).into(view);
     }

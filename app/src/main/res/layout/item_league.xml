@@ -119,7 +119,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tvLocalTeamScore"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:loadImage="@{data.localTeamLogo}"/>
+            app:getImage="@{data.localTeamLogo}"/>
 
         <ImageView
             android:id="@+id/visitorProfile"
@@ -129,7 +129,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvVisitorTeamScore"
             app:layout_constraintTop_toTopOf="parent"
-            app:loadImage="@{data.visitorTeamLogo}"/>
+            app:getImage="@{data.visitorTeamLogo}" />
 
         <TextView
             android:id="@+id/tvLocalTeamName"

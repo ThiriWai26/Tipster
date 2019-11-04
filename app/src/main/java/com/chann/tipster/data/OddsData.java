@@ -1,9 +1,12 @@
 package com.chann.tipster.data;
 
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class OddsData {
+public class OddsData extends BaseObservable {
     @SerializedName("isSuccess")
     public boolean isSuccess;
 
@@ -12,6 +15,9 @@ public class OddsData {
 
     @SerializedName("point")
     public Point point;
-//    @SerializedName("odds")
-//    public Odds odds;
+
+    @Bindable
+    @SerializedName("bet_done")
+    public BetDone betDone;
+
 }

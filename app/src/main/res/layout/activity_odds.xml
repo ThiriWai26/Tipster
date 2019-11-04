@@ -7,6 +7,10 @@
         <variable
             name="oddsActivity"
             type="com.chann.tipster.activity.OddsActivity" />
+        <variable
+            name="odds"
+            type="com.chann.tipster.data.OddsData" />
+        <import type="android.graphics.Color"/>
     </data>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -225,12 +229,14 @@
                     android:layout_weight="1" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLocal"
                     style="@style/BetBtnStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:onClick="@{(v)-> oddsActivity.onLocalTeamBetClick(v)}"
-                    android:text="Bet" />
+                    android:text="Bet"
+                    android:onClick="@{(v)->oddsActivity.onLocalTeamBetClick(v,odds.betDone.getLocal())}"
+                    android:textColor="@{odds.betDone.getLocal()? @color/red : @color/blue}" />
 
             </LinearLayout>
 
@@ -264,12 +270,14 @@
                     android:layout_weight="2" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVisitor"
                     style="@style/BetBtnStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:onClick="@{(v)->oddsActivity.onVisitorTeamBetClick(v)}"
-                    android:text="Bet" />
+                    android:text="Bet"
+                    android:onClick="@{(v)->oddsActivity.onVisitorTeamBetClick(v,odds.betDone.getVisitor())}"
+                    android:textColor="@{odds.betDone.getVisitor()? @color/red : @color/blue}"/>
 
             </LinearLayout>
 
@@ -345,12 +353,14 @@
                 <!--                    android:layout_weight="2" />-->
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnOver"
                     style="@style/BetBtnStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:onClick="@{(v)->oddsActivity.onOverBetClick(v)}"
-                    android:text="Bet" />
+                    android:text="Bet"
+                    android:onClick="@{(v)->oddsActivity.onOverBetClick(v,odds.betDone.getOver())}"
+                    android:textColor="@{odds.betDone.getOver()? @color/red : @color/blue}"/>
 
             </LinearLayout>
 
@@ -389,12 +399,14 @@
                     android:visibility="gone" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUnder"
                     style="@style/BetBtnStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:onClick="@{(v)->oddsActivity.onUnderBetClick(v)}"
-                    android:text="Bet" />
+                    android:text="Bet"
+                    android:onClick="@{(v)->oddsActivity.onUnderBetClick(v,odds.betDone.getUnder())}"
+                    android:textColor="@{odds.betDone.getUnder()?@color/red : @color/blue}"/>
 
             </LinearLayout>
 

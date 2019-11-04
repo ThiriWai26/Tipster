@@ -54,8 +54,8 @@ public interface ApiEnd {
     @FormUrlEncoded
     @POST("/api/bet")
     Observable<BetResponse> bet(@Field("token") String token , @Field("type") int type , @Field("room_id") int roomId , @Field("match_id") int matchId,
-                          @Field("fixture_id") int fixtureId, @Field("bet_amount") int betAmount, @Field("bet_handicap") int betHandiCap , @Field("bet_value") int betValue,
-                          @Field("label") int label, @Field("bet_type") int betType);
+                          @Field("fixture_id") int fixtureId, @Field("bet_amount") int betAmount,
+                          @Field("label") int label, @Field("bet_type") int betType, @Field("odds_id") int oddsId);
 
     @FormUrlEncoded
     @POST("/api/league_list")

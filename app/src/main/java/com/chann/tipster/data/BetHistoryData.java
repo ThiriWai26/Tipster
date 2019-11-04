@@ -28,7 +28,7 @@ public class BetHistoryData {
     public String time;
 
     @SerializedName("outcomes")
-    public String outcomes;
+    public Integer outcomes;
 
     @SerializedName("winning")
     public String winning;
