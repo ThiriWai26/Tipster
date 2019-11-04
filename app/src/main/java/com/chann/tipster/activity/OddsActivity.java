@@ -292,6 +292,8 @@ public class OddsActivity extends AppCompatActivity {
                     Log.e("max_bet_amount", String.valueOf(betAmount));
                 }
 
+                binding.btnLocal.setTextColor(getResources().getColor(R.color.red));
+                binding.btnVisitor.setTextColor(getResources().getColor(R.color.gray));
                 onBet(handiOddsId,betAmount, 2, 1, dialog);
 
             });
@@ -348,6 +350,8 @@ public class OddsActivity extends AppCompatActivity {
                     betAmount = Integer.parseInt(maxBtn.getText().toString());
                 }
 
+                binding.btnVisitor.setTextColor(getResources().getColor(R.color.red));
+                binding.btnLocal.setTextColor(getResources().getColor(R.color.gray));
                 onBet(handiOddsId,betAmount, 1, 1, dialog);
                 dialog.dismiss();
             });
@@ -401,6 +405,8 @@ public class OddsActivity extends AppCompatActivity {
                     betAmount = Integer.parseInt(maxBtn.getText().toString());
                 }
 
+                binding.btnOver.setTextColor(getResources().getColor(R.color.red));
+                binding.btnUnder.setTextColor(getResources().getColor(R.color.gray));
                 onBet(overOddsId,betAmount, 1, 2, dialog);
             });
             dialog.show();
@@ -452,6 +458,8 @@ public class OddsActivity extends AppCompatActivity {
                     betAmount = Integer.parseInt(maxBtn.getText().toString());
                 }
 
+                binding.btnUnder.setTextColor(getResources().getColor(R.color.red));
+                binding.btnOver.setTextColor(getResources().getColor(R.color.gray));
                 onBet(overOddsId,betAmount,2, 2, dialog);
             } );
 

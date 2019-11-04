@@ -31,7 +31,7 @@ public class BetHistoryData {
     public Integer outcomes;
 
     @SerializedName("winning")
-    public String winning;
+    public Integer winning;
 
     @SerializedName("match_id")
     public int matchId;

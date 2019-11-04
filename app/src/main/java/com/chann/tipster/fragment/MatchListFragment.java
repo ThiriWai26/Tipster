@@ -62,13 +62,14 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
             }
         });
 
+
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         model.compositeDisposable.clear();
-        model.disposable.dispose();
+//        model.disposable.dispose();
     }
 
     @Override
@@ -85,23 +86,23 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
     public void onResume() {
         super.onResume();
 
-        if (model.disposable.isDisposed()) {
-
-            model.getMatchList();
-
-        }
+//        if (model.disposable.isDisposed()) {
+//
+//            model.getMatchList();
+//
+//        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        model.disposable.dispose();
+//        model.disposable.dispose();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        model.disposable.dispose();
+//        model.disposable.dispose();
     }
 }
 

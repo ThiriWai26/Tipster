@@ -111,12 +111,6 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_centerInParent="true"
-        android:background="@color/divider_color" />
 
     <RelativeLayout
         android:id="@+id/layout"
@@ -147,7 +141,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="64dp"
             android:ellipsize="end"
-            android:text="@{data.winning == null?String.valueOf(data.coin) : String.valueOf(data.outcomes)}"
+            android:text="@{String.valueOf(data.coin)}"
             android:fontFamily="@font/roboto_light"
             android:gravity="center_vertical"
             android:maxLines="2"
@@ -169,7 +163,37 @@
             android:textColor="@android:color/black"
             android:textSize="12sp"/>
 
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/tv_bet_team_name"-->
+<!--            android:layout_marginLeft="64dp"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:minHeight="40dp"-->
+<!--            android:textColor="@color/red"-->
+<!--            android:textSize="14sp"-->
+<!--            android:typeface="sans"-->
+<!--            android:text='@{data.winning == 1? "Winning coin" : "Losing coin"}'/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_bet_amount"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="64dp"
+            android:fontFamily="@font/roboto_light"
+            android:minHeight="40dp"
+            android:textColor="@color/red"
+            android:textSize="12sp"
+            android:typeface="sans"
+            android:text='@{data.winning == 1? "+"+ String.valueOf(data.outcomes) : "-"+String.valueOf(data.outcomes)}'/>
+
 
     </RelativeLayout>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:background="@color/divider_color" />
 </LinearLayout>
 </layout>

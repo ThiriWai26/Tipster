@@ -1,5 +1,6 @@
 package com.chann.tipster.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -25,19 +26,21 @@ public class MatchItemAdapter extends RecyclerView.Adapter<MatchItemHolder> {
 
     @NonNull
     @Override
-    public MatchItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MatchItemHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         return MatchItemHolder.create(inflater, parent, listener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MatchItemHolder holder, int position) {
+    public void onBindViewHolder(final MatchItemHolder holder, int position) {
 
         if (position < matchData.size()-1)
             holder.bindData(matchData.get(position), false);
 
         else
             holder.bindData(matchData.get(position) , true);
+
+        Log.e("match name",matchData.get(position).localTeamName);
     }
 
     @Override
@@ -45,7 +48,9 @@ public class MatchItemAdapter extends RecyclerView.Adapter<MatchItemHolder> {
         return matchData.size();
     }
 
-    public void addData(List<MatchData> matchData) {
+    public void addData(final List<MatchData> matchData) {
+
+        Log.e("laeagueSize",String.valueOf(matchData.size()));
         this.matchData = matchData;
     }
 

@@ -25,7 +25,7 @@ public class MatchItemHolder extends RecyclerView.ViewHolder{
     private OnHolderItemClickListener listener;
     private ItemLeagueBinding binding;
 
-    public MatchItemHolder(@NonNull ItemLeagueBinding binding , OnHolderItemClickListener listener) {
+    public MatchItemHolder(final ItemLeagueBinding binding , OnHolderItemClickListener listener) {
         super(binding.getRoot());
         this.listener = listener;
         this.binding = binding;

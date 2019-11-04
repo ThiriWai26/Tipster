@@ -34,7 +34,7 @@ public class MatchListViewModel extends AndroidViewModel {
 
     }
 
-    private void loadData(Long aLong) {
+    private void loadData() {
         Disposable subscribe = RetrofitService.getApiEnd().getMatchList(Token.token)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -48,11 +48,12 @@ public class MatchListViewModel extends AndroidViewModel {
         if(matchListResponse == null){
             matchListResponse = new MutableLiveData<>();
         }
-        disposable = Observable.interval(1000, 30000,
-                TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::loadData);
+//        disposable = Observable.interval(1000, 30000,
+//                TimeUnit.MILLISECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::loadData);
 
+        loadData();
         return matchListResponse;
     }
 
