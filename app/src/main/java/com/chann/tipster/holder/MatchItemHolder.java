@@ -25,7 +25,7 @@ public class MatchItemHolder extends RecyclerView.ViewHolder{
     private OnHolderItemClickListener listener;
     private ItemLeagueBinding binding;
 
-    public MatchItemHolder(final ItemLeagueBinding binding , OnHolderItemClickListener listener) {
+    public MatchItemHolder(@NonNull ItemLeagueBinding binding , OnHolderItemClickListener listener) {
         super(binding.getRoot());
         this.listener = listener;
         this.binding = binding;
@@ -34,31 +34,30 @@ public class MatchItemHolder extends RecyclerView.ViewHolder{
     @SuppressLint("SetTextI18n")
     public void bindData(final MatchData data , boolean isLastItem){
 
-        binding.setData(data);
-        binding.executePendingBindings();
-        binding.setItemClickListener(listener);
+            binding.setData(data);
+            binding.executePendingBindings();
+            binding.setItemClickListener(listener);
 
 
-        if(isLastItem){
-
-            binding.divider.setVisibility(View.GONE);
-        }
-
-        if(data.handiCap.label.equals("Home")){
-
-            if(data.handiCap.value>0)
-            binding.localHandiCap.setText(data.handiCap.handicap+"(+"+ data.handiCap.value+")");
-            else
-                binding.localHandiCap.setText(data.handiCap.handicap+"("+ data.handiCap.value+")");
-
-        }else {
-
-            if(data.handiCap.value>0)
-            binding.visitorHandiCap.setText(data.handiCap.handicap+"(+"+ data.handiCap.value+")");
-            else {
-                binding.visitorHandiCap.setText(data.handiCap.handicap+"("+ data.handiCap.value+")");
+            if (isLastItem) {
+                binding.divider.setVisibility(View.GONE);
             }
-        }
+
+            if (data.handiCap.label.equals("Home")) {
+
+                if (data.handiCap.value > 0)
+                    binding.localHandiCap.setText(data.handiCap.handicap + "(+" + data.handiCap.value + ")");
+                else
+                    binding.localHandiCap.setText(data.handiCap.handicap + "(" + data.handiCap.value + ")");
+
+            } else {
+
+                if (data.handiCap.value > 0)
+                    binding.visitorHandiCap.setText(data.handiCap.handicap + "(+" + data.handiCap.value + ")");
+                else {
+                    binding.visitorHandiCap.setText(data.handiCap.handicap + "(" + data.handiCap.value + ")");
+                }
+            }
 
     }
 

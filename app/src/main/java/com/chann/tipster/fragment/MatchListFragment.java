@@ -55,6 +55,7 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
             if (matchListResponse.isSuccess) {
 
                 roomId = matchListResponse.roomId;
+
                 adapter.addData(matchListResponse.matchListData);
                 Log.e("matchlistsize", String.valueOf(matchListResponse.matchListData.size()));
             } else {

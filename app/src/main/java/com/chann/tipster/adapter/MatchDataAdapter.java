@@ -24,14 +24,13 @@ public class MatchDataAdapter extends RecyclerView.Adapter<MatchDataHolder> {
     }
     @NonNull
     @Override
-    public MatchDataHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public MatchDataHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         return MatchDataHolder.create(inflater , parent, listener);
     }
 
     @Override
-    public void onBindViewHolder(final MatchDataHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull MatchDataHolder holder, int position) {
         holder.bindData(matchListDataList.get(position));
     }
 
@@ -41,10 +40,8 @@ public class MatchDataAdapter extends RecyclerView.Adapter<MatchDataHolder> {
     }
 
     public void addData (final List<MatchListData> matchListDataList){
-
         this.matchListDataList = matchListDataList;
         notifyDataSetChanged();
-
     }
 
 }

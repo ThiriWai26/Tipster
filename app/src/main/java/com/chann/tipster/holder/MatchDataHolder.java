@@ -23,7 +23,7 @@ public class MatchDataHolder extends RecyclerView.ViewHolder {
     private MatchItemAdapter adapter;
 
     
-    public MatchDataHolder(final View itemView , OnHolderItemClickListener listener) {
+    public MatchDataHolder(@NonNull View itemView , OnHolderItemClickListener listener) {
         super(itemView);
         this.listener = listener;
         init(itemView);
@@ -41,11 +41,13 @@ public class MatchDataHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bindData (final MatchListData matchListData){
+    public void bindData (final MatchListData matchListData ){
 
-        tvLeageName.setText(matchListData.leagueName);
-        Log.e("leagueTitle",matchListData.leagueName);
-        adapter.addData(matchListData.matchData);
+
+            tvLeageName.setText(matchListData.leagueName);
+            Log.e("leagueTitle", matchListData.leagueName);
+            adapter.addData(matchListData.matchData);
+
 
     }
 
