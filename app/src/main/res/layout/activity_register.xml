@@ -97,7 +97,8 @@
                         android:layout_width="@dimen/view_width"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:onClick="facebookRegister"/>
+                        android:onClick="facebookRegister"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
 

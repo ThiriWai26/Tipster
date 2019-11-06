@@ -11,6 +11,7 @@
             name="odds"
             type="com.chann.tipster.data.OddsData" />
         <import type="android.graphics.Color"/>
+        <import type="android.view.View"/>
     </data>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -226,7 +227,15 @@
                     style="@style/BetTvStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"/>
+
+<!--                <TextView-->
+<!--                    style="@style/BetTvStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:visibility='@{data.handiCap.label.equals("Home")? View.GONE : View.VISIBLE}' />-->
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLocal"
@@ -236,7 +245,16 @@
                     android:layout_marginRight="@dimen/margin_lg"
                     android:text="Bet"
                     android:onClick="@{(v)->oddsActivity.onLocalTeamBetClick(v,odds.betDone.getLocal())}"
-                    android:textColor="@{odds.betDone.getLocal()? @color/red : @color/blue}" />
+                    android:textColor="@{odds.betDone.getVisitor()? @color/gray : @color/blue}"
+                    android:visibility="@{odds.betDone.getLocal()? View.GONE : View.VISIBLE}"/>
+                <com.google.android.material.button.MaterialButton
+                    style="@style/BetBtnStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lg"
+                    android:text="Bet"
+                    android:textColor="@color/red"
+                    android:visibility="@{odds.betDone.getLocal()? View.VISIBLE : View.GONE}"/>
 
             </LinearLayout>
 
@@ -267,7 +285,15 @@
                     style="@style/BetTvStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"/>
+
+<!--                <TextView-->
+<!--                    style="@style/BetTvStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="2"-->
+<!--                    android:visibility='@{data.handiCap.label.equals("Away")? View.GONE : View.VISIBLE}' />-->
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnVisitor"
@@ -277,7 +303,16 @@
                     android:layout_marginRight="@dimen/margin_lg"
                     android:text="Bet"
                     android:onClick="@{(v)->oddsActivity.onVisitorTeamBetClick(v,odds.betDone.getVisitor())}"
-                    android:textColor="@{odds.betDone.getVisitor()? @color/red : @color/blue}"/>
+                    android:textColor="@{odds.betDone.getLocal()? @color/gray : @color/blue}"
+                    android:visibility="@{odds.betDone.getVisitor()? View.GONE : View.VISIBLE}"/>
+                <com.google.android.material.button.MaterialButton
+                    style="@style/BetBtnStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lg"
+                    android:text="Bet"
+                    android:textColor="@color/red"
+                    android:visibility="@{odds.betDone.getVisitor()? View.VISIBLE : View.GONE}"/>
 
             </LinearLayout>
 
@@ -295,7 +330,6 @@
                     android:id="@+id/tvOverUnder"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-
                     android:fontFamily="@font/roboto_medium"
                     android:gravity="center_vertical"
                     android:paddingStart="@dimen/margin_md"
@@ -319,7 +353,7 @@
                     android:paddingEnd="@dimen/margin_md"
                     android:paddingRight="@dimen/margin_md"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
             </RelativeLayout>
 
@@ -360,7 +394,18 @@
                     android:layout_marginRight="@dimen/margin_lg"
                     android:text="Bet"
                     android:onClick="@{(v)->oddsActivity.onOverBetClick(v,odds.betDone.getOver())}"
-                    android:textColor="@{odds.betDone.getOver()? @color/red : @color/blue}"/>
+                    android:textColor="@{odds.betDone.getUnder()? @color/gray : @color/blue}"
+                    android:visibility="@{odds.betDone.getOver()? View.GONE : View.VISIBLE}"/>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/BetBtnStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lg"
+                    android:text="Bet"
+                    android:textColor="@color/red"
+                    android:visibility="@{odds.betDone.getOver()? View.VISIBLE : View.GONE}"/>
+
 
             </LinearLayout>
 
@@ -406,7 +451,17 @@
                     android:layout_marginRight="@dimen/margin_lg"
                     android:text="Bet"
                     android:onClick="@{(v)->oddsActivity.onUnderBetClick(v,odds.betDone.getUnder())}"
-                    android:textColor="@{odds.betDone.getUnder()?@color/red : @color/blue}"/>
+                    android:textColor="@{odds.betDone.getOver()?@color/gray : @color/blue}"
+                    android:visibility="@{odds.betDone.getUnder()? View.GONE : View.VISIBLE}"/>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/BetBtnStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lg"
+                    android:text="Bet"
+                    android:textColor="@color/red"
+                    android:visibility="@{odds.betDone.getUnder()? View.VISIBLE : View.GONE}"/>
 
             </LinearLayout>
 

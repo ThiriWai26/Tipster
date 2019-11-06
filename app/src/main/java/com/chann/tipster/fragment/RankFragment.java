@@ -15,17 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.chann.tipster.R;
 import com.chann.tipster.adapter.UserStandingAdapter;
 import com.chann.tipster.api.OnClickItemListener;
-import com.chann.tipster.data.StandingResponse;
-import com.chann.tipster.data.Token;
 import com.chann.tipster.databinding.FragmentRankBinding;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.chann.tipster.viewmodel.RankViewModel;
 import com.squareup.picasso.Picasso;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,10 +45,17 @@ public class RankFragment extends Fragment implements OnClickItemListener {
 
         model.getData().observe(this , standingResponse -> {
             if(standingResponse.isSuccess) {
+
+                binding.setData(standingResponse);
                 binding.progressBar.setVisibility(View.GONE);
                 adapter.addData(standingResponse.userStandings);
                 adapter.notifyDataSetChanged();
-                Picasso.get().load(RetrofitService.BASE_URL + "/api/get_image/" + standingResponse.image).resize(50, 50).placeholder(R.drawable.logo_tipstar).into(binding.ivProfile);
+                if (standingResponse.user.image != null)
+                    Picasso.get().load(RetrofitService.BASE_URL + "/api/get_image/" + standingResponse.user.image).resize(400, 400).placeholder(R.drawable.logo_tipstar).into(binding.ivProfile);
+
+                else
+                    Picasso.get().load( standingResponse.user.fbProfile).resize(400, 400).placeholder(R.drawable.logo_tipstar).into(binding.ivProfile);
+
             }
             else {
                 Log.e("response","fail");

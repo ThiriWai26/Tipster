@@ -132,6 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
                 try {
                     String first_name = object.getString("first_name");
                     String last_name = object.getString("last_name");
+                    String middle_name = object.getString("middle_name");
                     String email = object.getString("email");
                     String id = object.getString("id");
                     String image_url = "https://graph.facebook.com/" + id + "/picture?type=normal";
@@ -144,11 +145,11 @@ public class RegisterActivity extends AppCompatActivity {
                     editor.apply();
                     editor.commit();
 
-                    Disposable subscribe = RetrofitService.getApiEnd().facebookRegister(newAccessToken.getToken(), first_name + " " + last_name)
-                            .subscribeOn(Schedulers.computation())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(RegisterActivity.this::handleResult, RegisterActivity.this::handleError);
-                    disposable.add(subscribe);
+//                    Disposable subscribe = RetrofitService.getApiEnd().facebookLogin(newAccessToken.getToken(), first_name + " "+middle_name+" " + last_name)
+//                            .subscribeOn(Schedulers.computation())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(RegisterActivity.this::handleResult, RegisterActivity.this::handleError);
+//                    disposable.add(subscribe);
 
 
                 } catch (JSONException e) {

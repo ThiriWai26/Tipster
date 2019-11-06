@@ -7,6 +7,8 @@
         <variable
             name="fragment"
             type="com.chann.tipster.fragment.ProfileFragment" />
+
+        <import type="android.view.View"/>
     </data>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -314,6 +316,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="16dp"
                 android:background="@color/divider_color" />
+
 
         </LinearLayout>
 

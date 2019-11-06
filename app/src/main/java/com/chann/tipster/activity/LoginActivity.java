@@ -145,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
     private void checkLoginStatus() {
         if (token != null) {
             Token.token = token;
+            Log.e("token",token);
             startActivity(MainActivity.getInstance(getApplicationContext()));
             finish();
         }
@@ -161,19 +162,110 @@ public class LoginActivity extends AppCompatActivity {
         disposable.clear();
     }
 
-    public void facebookLogin(View view) {
-        editor = pref.edit();
-        String fbAccessToken = pref.getString("fb_token", null);
-        if(fbAccessToken != null){
-            Disposable subscribe = RetrofitService.getApiEnd().facebookLogin(fbAccessToken)
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::handleResult, this::handleError);
-            disposable.add(subscribe);
-        }
-        else {
-            Toast.makeText(this, "Not register yet.",Toast.LENGTH_LONG).show();
+//    public void facebookLogin(View view) {
+//        editor = pref.edit();
+//        String fbAccessToken = pref.getString("fb_token", null);
+//        if(fbAccessToken != null){
+//            Disposable subscribe = RetrofitService.getApiEnd().facebookLogin(fbAccessToken)
+//                    .subscribeOn(Schedulers.computation())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(this::handleResult, this::handleError);
+//            disposable.add(subscribe);
+//        }
+//        else {
+//            Toast.makeText(this, "Not register yet.",Toast.LENGTH_LONG).show();
+//
+//        }
+//    }
 
-        }
+
+    private void loadUserProfile(AccessToken newAccessToken) {
+
+        GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                try {
+                    String first_name = object.getString("first_name");
+                    String last_name = object.getString("last_name");
+                    String email = object.getString("email");
+                    String id = object.getString("id");
+                    String image_url = "https://graph.facebook.com/" + id + "/picture?type=normal";
+
+                    Log.e("account_id", id);
+                    Log.e("image_url", image_url);
+                    Log.e("user name", first_name + " " + last_name);
+
+                    editor.putString("fb_token", newAccessToken.getToken());
+                    editor.apply();
+                    editor.commit();
+
+                    Disposable subscribe = RetrofitService.getApiEnd().facebookLogin(newAccessToken.getToken(), first_name + " " + last_name , image_url)
+                            .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(LoginActivity.this::handleResult , LoginActivity.this::handleError);
+                    disposable.add(subscribe);
+
+
+                } catch (JSONException e) {
+                    Log.e("error", e.getMessage());
+                }
+
+            }
+        });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "first_name,last_name,email,id");
+        request.setParameters(parameters);
+        request.executeAsync();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+//        AccessTokenTracker tokenTracker = new AccessTokenTracker() {
+//            @Override
+//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+//                if (currentAccessToken == null) {
+//
+//                    Toast.makeText(getApplicationContext(), "User Logged out", Toast.LENGTH_LONG).show();
+//                } else
+//                    loadUserProfile(currentAccessToken);
+//            }
+//        };
+//        if (AccessToken.getCurrentAccessToken() != null) {
+//            loadUserProfile(AccessToken.getCurrentAccessToken());
+//        }
+    }
+
+
+    public void facebookLogin(View view) {
+
+        callbackManager = CallbackManager.Factory.create();
+        binding.loginButton.setReadPermissions("email", "public_profile");
+
+        // Callback registration
+
+        binding.loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                Log.e("accessToken", loginResult.getAccessToken().getToken());
+                loadUserProfile(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Log.e("onError_1", exception.toString());
+            }
+        });
+
     }
 }

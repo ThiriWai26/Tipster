@@ -18,8 +18,6 @@ public class BetHistoryData {
     @SerializedName("value")
     public int value;
 
-    @SerializedName("handicap")
-    public int handicap;
 
     @SerializedName("date")
     public String date;
@@ -36,32 +34,17 @@ public class BetHistoryData {
     @SerializedName("match_id")
     public int matchId;
 
-    @SerializedName("local_name")
-    public String localName;
-
-    @SerializedName("visitor_name")
-    public String visitorName;
-
-    @SerializedName("local_score")
-    public Integer localScore;
-
-    @SerializedName("visitor_score")
-    public Integer visitorScore;
-
-    @SerializedName("local_logo")
-    public String localLogo;
-
-    @SerializedName("visitor_logo")
-    public String visitorLogo;
-
-    @SerializedName("total_score")
-    public int totalScore;
-
     @SerializedName("bet_type")
     public int betType;
 
+    @SerializedName("match")
+    public BetHisMatch match;
+
+    @SerializedName("odds")
+    public BetHisOdds odds;
+
     @BindingAdapter("loadImage")
-    public static void loadImage(ImageView view,String url){
+    public static void getImage(ImageView view, String url){
         Picasso.get().load(url).resize(50, 50).into(view);
     }
 }

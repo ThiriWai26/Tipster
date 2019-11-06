@@ -36,37 +36,39 @@
                     android:textAlignment="gravity">
 
                     <TextView
-                        android:id="@+id/tv_rank"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_md"
-                        android:text="@{String.valueOf(data.rank)}"
-                        android:textColor="@color/grey_dark"
-                        android:textSize="@dimen/compat_text_size_lg" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_md"
                         android:text="Your Ranking"
                         android:textColor="@color/grey_dark"
-                        android:textSize="@dimen/compat_text_size_md"/>
+                        android:textSize="@dimen/compat_text_size_md" />
+
+
+                    <TextView
+                        android:id="@+id/tv_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_md"
+                        android:text="@{String.valueOf(data.user.rank)}"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="@dimen/compat_text_size_lg" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Winning Point"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="@dimen/compat_text_size_md" />
 
                     <TextView
                         android:id="@+id/tv_coin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_md"
-                        android:text="@{String.valueOf(data.coins)}"
+                        android:text="@{String.valueOf(data.user.coins)}"
                         android:textColor="@color/grey_dark"
-                        android:textSize="@dimen/compat_text_size_lg"/>
+                        android:textSize="@dimen/compat_text_size_lg" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Winning Point"
-                        android:textColor="@color/grey_dark"
-                        android:textSize="@dimen/compat_text_size_md"/>
+
                 </LinearLayout>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -116,7 +118,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/history_item"/>
+                tools:listitem="@layout/bet_history_item"/>
         </LinearLayout>
     </ScrollView>
         <ProgressBar

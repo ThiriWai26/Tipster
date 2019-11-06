@@ -9,11 +9,8 @@ public class MatchListResponse {
     @SerializedName("isSuccess")
     public boolean isSuccess;
 
-    @SerializedName("room_id")
-    public int roomId;
-
-    @SerializedName("current_date")
-    public String currentDate;
+    @SerializedName("room")
+    public Room room;
 
     @SerializedName("data")
     public List<MatchListData>  matchListData;

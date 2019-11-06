@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -25,7 +26,7 @@ import com.chann.tipster.viewmodel.MatchListViewModel;
 public class MatchListFragment extends Fragment implements OnHolderItemClickListener , View.OnClickListener{
 
     private MatchDataAdapter adapter;
-    private int roomId;
+    private Integer roomId;
     private FragmentMatchListBinding binding;
     private MatchListViewModel model;
     public MatchListFragment() {
@@ -54,9 +55,19 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
             binding.progressBar.setVisibility(View.GONE);
             if (matchListResponse.isSuccess) {
 
-                roomId = matchListResponse.roomId;
+                roomId = matchListResponse.room.roomId;
 
-                adapter.addData(matchListResponse.matchListData);
+                if(matchListResponse.room.roomId != null ){
+                    if(matchListResponse.room.isActive){
+                        adapter.addData(matchListResponse.matchListData);
+                    }
+                    else {
+                        binding.tvStartDate.setText(String.format("Tipster will be started at %s %s .",matchListResponse.room.startDate , matchListResponse.room.startTime));
+                    }
+                }
+                else
+                    binding.tvStartDate.setText("No room created");
+
                 Log.e("matchlistsize", String.valueOf(matchListResponse.matchListData.size()));
             } else {
                 Log.e("response", "is not successful");
@@ -70,11 +81,13 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
     public void onDestroyView() {
         super.onDestroyView();
         model.compositeDisposable.clear();
-//        model.disposable.dispose();
+        model.disposable.dispose();
     }
 
     @Override
     public void onHolderitemClick(MatchData matchData) {
+
+        Log.e("handicap",String.valueOf(matchData.handiCap.handicap));
         startActivity(OddsActivity.getInstance(getContext(), matchData , roomId));
     }
 
@@ -87,23 +100,23 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
     public void onResume() {
         super.onResume();
 
-//        if (model.disposable.isDisposed()) {
-//
-//            model.getMatchList();
-//
-//        }
+        if (model.disposable.isDisposed()) {
+
+            model.getMatchList();
+
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        model.disposable.dispose();
+        model.disposable.dispose();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-//        model.disposable.dispose();
+        model.disposable.dispose();
     }
 }
 

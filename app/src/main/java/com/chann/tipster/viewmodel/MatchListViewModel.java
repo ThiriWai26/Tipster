@@ -34,27 +34,26 @@ public class MatchListViewModel extends AndroidViewModel {
 
     }
 
-    private void loadData() {
-        Disposable subscribe = RetrofitService.getApiEnd().getMatchList(Token.token)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleResult , this::handleError);
-
-        compositeDisposable.add(subscribe);
-    }
 
     public LiveData<MatchListResponse> getMatchList(){
 
         if(matchListResponse == null){
             matchListResponse = new MutableLiveData<>();
         }
-//        disposable = Observable.interval(1000, 30000,
-//                TimeUnit.MILLISECONDS)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(this::loadData);
-
-        loadData();
+        disposable = Observable.interval(1000, 30000,
+                TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadData);
         return matchListResponse;
+    }
+
+    private void loadData(Long aLong) {
+        Disposable subscribe = RetrofitService.getApiEnd().getMatchList(Token.token)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult , this::handleError);
+
+        compositeDisposable.add(subscribe);
     }
 
     private void handleError(Throwable throwable) {

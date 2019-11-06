@@ -36,7 +36,7 @@ public class OddsActivity extends AppCompatActivity {
     private CompositeDisposable disposable;
     private ActivityOddsBinding binding;
 
-    private int typeId = 1, betType, label, handiOddsId, overOddsId, handcap, value;
+    private int typeId = 1, handiOddsId, overOddsId, handcap, value;
     private boolean isLiveOdds;
 
     public static Intent getInstance(Context context, MatchData matchData, int roomId) {
@@ -85,29 +85,6 @@ public class OddsActivity extends AppCompatActivity {
             isLiveOdds = oddsData.isLive;
             binding.setOdds(oddsData);
             binding.setOddsActivity(this);
-            //local bet color
-            if(oddsData.betDone.getLocal()){
-                binding.btnLocal.setTextColor(getResources().getColor(R.color.red));
-                binding.btnVisitor.setTextColor(getResources().getColor(R.color.gray));
-            }
-            //visitor bet color
-           if(oddsData.betDone.getVisitor()){
-                binding.btnVisitor.setTextColor(getResources().getColor(R.color.red));
-                binding.btnLocal.setTextColor(getResources().getColor(R.color.gray));
-            }
-
-            //over bet color
-            if(oddsData.betDone.getOver()){
-                binding.btnOver.setTextColor(getResources().getColor(R.color.red));
-                binding.btnUnder.setTextColor(getResources().getColor(R.color.gray));
-            }
-
-            //under bet color
-            if(oddsData.betDone.getUnder()){
-                binding.btnUnder.setTextColor(getResources().getColor(R.color.red));
-                binding.btnOver.setTextColor(getResources().getColor(R.color.gray));
-            }
-
 
         } else {
           Toast.makeText(this, "The match is finished" , Toast.LENGTH_LONG ).show();
@@ -163,84 +140,6 @@ public class OddsActivity extends AppCompatActivity {
 
     }
 
-    public void onOddsBet(View view, boolean isBet){
-
-        Log.e("yote","tal");
-
-        if(isLiveOdds || isBet){
-            Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
-        }
-        else {
-            final Dialog dialog = new Dialog(this);
-            final RadioButton minBtn, maxBtn;
-            ImageView imgTeamLogo;
-            TextView tvCancel, tvBet, tvHandicapValue, labelOverUnder, tvOverUnderValue;
-
-            dialog.setContentView(R.layout.dialog_bet);
-            imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
-            tvCancel = dialog.findViewById(R.id.tvCancel);
-            tvBet = dialog.findViewById(R.id.tvBet);
-            tvHandicapValue = dialog.findViewById(R.id.tvHandicapValue);
-            minBtn = dialog.findViewById(R.id.minAmount);
-            maxBtn = dialog.findViewById(R.id.maxAmount);
-            labelOverUnder = dialog.findViewById(R.id.labelOverUnder);
-            tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
-
-            if(betType == 1) {
-                labelOverUnder.setVisibility(View.GONE);
-                tvOverUnderValue.setVisibility(View.GONE);
-                if (label == 1){
-                    Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgTeamLogo);
-                    tvHandicapValue.setText(binding.tvVisitorValue.getText().toString());
-                }
-                else {
-                    Picasso.get().load(league.localTeamLogo).resize(50, 50).into(imgTeamLogo);
-                    tvHandicapValue.setText(binding.tvLocalValue.getText().toString());
-                }
-
-            }
-
-            else {
-                tvHandicapValue.setVisibility(View.GONE);
-                imgTeamLogo.setVisibility(View.GONE);
-
-                if(label == 1) {
-                    labelOverUnder.setText("Over");
-                    tvOverUnderValue.setText(binding.tvOver.getText().toString());
-                }
-                else {
-                    labelOverUnder.setText("Under");
-                    tvOverUnderValue.setText(binding.tvUnder.getText().toString());
-                }
-            }
-
-
-            minBtn.setText(String.valueOf(oddsData.point.min));
-            maxBtn.setText(String.valueOf(oddsData.point.max));
-
-
-            tvCancel.setOnClickListener(view1 -> dialog.dismiss());
-            tvBet.setOnClickListener(view12 -> {
-
-                Log.e("bet", "success");
-
-                if (minBtn.isChecked()) {
-                    betAmount = Integer.parseInt(minBtn.getText().toString());
-                    Log.e("min_bet_amount", String.valueOf(betAmount));
-                } else if (maxBtn.isChecked()) {
-                    betAmount = Integer.parseInt(maxBtn.getText().toString());
-                    Log.e("max_bet_amount", String.valueOf(betAmount));
-                }
-
-                oddsData.betDone.setLocal(true);
-
-
-            });
-
-            dialog.show();
-        }
-
-    }
 
     public void onLocalTeamBetClick(View view , boolean isBet ) {
 
@@ -251,9 +150,6 @@ public class OddsActivity extends AppCompatActivity {
             Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
         }
         else {
-
-            betType = 1;
-            label = 1;
 
             final Dialog dialog = new Dialog(this);
             final RadioButton minBtn, maxBtn;
@@ -292,9 +188,7 @@ public class OddsActivity extends AppCompatActivity {
                     Log.e("max_bet_amount", String.valueOf(betAmount));
                 }
 
-                binding.btnLocal.setTextColor(getResources().getColor(R.color.red));
-                binding.btnVisitor.setTextColor(getResources().getColor(R.color.gray));
-                onBet(handiOddsId,betAmount, 2, 1, dialog);
+                onBet(handiOddsId,betAmount, 1, 1, dialog);
 
             });
 
@@ -313,8 +207,6 @@ public class OddsActivity extends AppCompatActivity {
         }
         else {
 
-            betType = 1;
-            label = 2;
 
             final Dialog dialog = new Dialog(this);
             final RadioButton minBtn, maxBtn;
@@ -350,9 +242,7 @@ public class OddsActivity extends AppCompatActivity {
                     betAmount = Integer.parseInt(maxBtn.getText().toString());
                 }
 
-                binding.btnVisitor.setTextColor(getResources().getColor(R.color.red));
-                binding.btnLocal.setTextColor(getResources().getColor(R.color.gray));
-                onBet(handiOddsId,betAmount, 1, 1, dialog);
+                onBet(handiOddsId,betAmount, 2, 1, dialog);
                 dialog.dismiss();
             });
             dialog.show();
@@ -368,10 +258,6 @@ public class OddsActivity extends AppCompatActivity {
             Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
         }
         else {
-
-
-            betType = 2;
-            label = 1;
 
             final Dialog dialog = new Dialog(this);
             final RadioButton minBtn, maxBtn;
@@ -405,8 +291,6 @@ public class OddsActivity extends AppCompatActivity {
                     betAmount = Integer.parseInt(maxBtn.getText().toString());
                 }
 
-                binding.btnOver.setTextColor(getResources().getColor(R.color.red));
-                binding.btnUnder.setTextColor(getResources().getColor(R.color.gray));
                 onBet(overOddsId,betAmount, 1, 2, dialog);
             });
             dialog.show();
@@ -422,9 +306,6 @@ public class OddsActivity extends AppCompatActivity {
             Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
         }
         else {
-
-            betType = 2;
-            label = 2;
 
             final Dialog dialog = new Dialog(this);
             final RadioButton minBtn, maxBtn;
@@ -458,8 +339,6 @@ public class OddsActivity extends AppCompatActivity {
                     betAmount = Integer.parseInt(maxBtn.getText().toString());
                 }
 
-                binding.btnUnder.setTextColor(getResources().getColor(R.color.red));
-                binding.btnOver.setTextColor(getResources().getColor(R.color.gray));
                 onBet(overOddsId,betAmount,2, 2, dialog);
             } );
 
@@ -472,7 +351,7 @@ public class OddsActivity extends AppCompatActivity {
 
         dialog.dismiss();
 //        Log.e("")
-        final Disposable subscribe = RetrofitService.getApiEnd().bet(Token.token, typeId, room_id, league.id, league.fixtureId, betAmount, label, betType,oddsId)
+        final Disposable subscribe = RetrofitService.getApiEnd().bet(Token.token, typeId, room_id, league.id, league.fixtureId, betAmount, label, bettype,oddsId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleBetResult, this::handleBetError);

@@ -9,14 +9,8 @@ public class StandingResponse {
     @SerializedName("isSuccess")
     public boolean isSuccess;
 
-    @SerializedName("rank")
-    public int rank;
-
-    @SerializedName("image")
-    public String image;
-
-    @SerializedName("winning_coins")
-    public int coins;
+    @SerializedName("user")
+    public User user;
 
     @SerializedName("data")
     public List<UserStanding> userStandings;

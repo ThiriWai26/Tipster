@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chann.tipster.R;
 import com.chann.tipster.api.OnClickItemListener;
 import com.chann.tipster.data.UserStanding;
+import com.chann.tipster.databinding.BetHistoryItemBinding;
 import com.chann.tipster.databinding.HistoryItemBinding;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.squareup.picasso.Picasso;
@@ -30,7 +31,14 @@ public class UserStandingHolder extends RecyclerView.ViewHolder {
         binding.setData(data);
         binding.executePendingBindings();
         binding.setItemListener(listener);
-        Picasso.get().load(RetrofitService.BASE_URL + "/api/get_image/" + data.image).resize(50, 50).placeholder(R.drawable.logo_tipstar).into(binding.ivProfile);
+        if(data.image != null){
+            Picasso.get().load(RetrofitService.BASE_URL + "/api/get_image/" + data.image).resize(50, 50).placeholder(R.drawable.logo_tipstar).into(binding.ivProfile);
+        }
+        else {
+            Picasso.get().load(data.fbProfile).resize(50, 50).placeholder(R.drawable.logo_tipstar).into(binding.ivProfile);
+
+        }
+
         binding.tvNo.setText(String.valueOf(positon + 1));
     }
     public static UserStandingHolder create (LayoutInflater inflater , ViewGroup parent , OnClickItemListener listener){

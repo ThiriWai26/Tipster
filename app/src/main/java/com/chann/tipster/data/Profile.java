@@ -7,7 +7,9 @@ public class Profile {
     public boolean isSuccess;
     public String name;
     public String image;
-    public long coin;
+
+    @SerializedName("fb_profile")
+    public String fbProfile;
 
     @SerializedName("phone_number")
     public String phone;

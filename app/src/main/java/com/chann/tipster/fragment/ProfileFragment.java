@@ -37,6 +37,7 @@ import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Token;
 import com.chann.tipster.databinding.FragmentProfileBinding;
 import com.chann.tipster.retrofit.RetrofitService;
+import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -89,11 +90,12 @@ public class ProfileFragment extends Fragment {
 
         binding.setProfile(profile);
         binding.progressBar.setVisibility(View.GONE);
-        if(profile.isSuccess){
-            Picasso.get().load(RetrofitService.BASE_URL+"/api/get_image/"+profile.image).resize(100,100).placeholder(R.drawable.img_user).into(binding.profile);
+        if(profile.image != null){
+            Picasso.get().load(RetrofitService.BASE_URL+"/api/get_image/"+profile.image).resize(200,200).placeholder(R.drawable.img_user).into(binding.profile);
         }
         else {
-            Toast.makeText(getContext(),"Sorry , something went wrong.",Toast.LENGTH_LONG).show();
+            Picasso.get().load(profile.fbProfile).resize(200,200).placeholder(R.drawable.img_user).into(binding.profile);
+
         }
     }
 
@@ -265,7 +267,7 @@ public class ProfileFragment extends Fragment {
                 pref = getContext().getApplicationContext().getSharedPreferences("MyPref", 0);
                 editor = pref.edit();
 
-
+                LoginManager.getInstance().logOut();
                 editor.putString("Token", null);
                 editor.apply();
                 editor.commit();
@@ -282,6 +284,23 @@ public class ProfileFragment extends Fragment {
         Log.e("onclickitem",String.valueOf(itemType));
 
     }
+
+    public void fbLogout(View view){
+        SharedPreferences pref;// 0 - for private mode
+        SharedPreferences.Editor editor;
+        pref = getContext().getApplicationContext().getSharedPreferences("MyPref", 0);
+        editor = pref.edit();
+
+
+        editor.putString("Token", null);
+        editor.apply();
+        editor.commit();
+
+        Intent intent = new Intent(getContext() , LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
     private void loadFragment(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("Tag").commit();
     }

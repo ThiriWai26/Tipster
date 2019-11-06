@@ -30,11 +30,27 @@ public class BetHistoryHolder extends RecyclerView.ViewHolder {
         binding.setData(data);
         binding.executePendingBindings();
 
+        if(data.odds.label.equals("Home")){
+
+            String handiValue = data.odds.value < 0 ? String.format("%d(%d)",data.odds.handicap,data.odds.value):String.format("%d(+%d)",data.odds.handicap,data.odds.value);
+            binding.ivLocalLogo.setText(handiValue);
+        }
+
+        else if(data.odds.label.equals("Away")){
+
+            String handiValue = data.odds.value < 0 ? String.format("%d(%d)",data.odds.handicap,data.odds.value):String.format("%d(+%d)",data.odds.handicap,data.odds.value);
+            binding.ivVisitorLogo.setText(handiValue);
+        }
+        else {
+            String handiValue = data.odds.value < 0 ? String.format("%d(%d)",data.odds.handicap,data.odds.value):String.format("%d(+%d)",data.odds.handicap,data.odds.value);
+            binding.tvOverUnder.setText(handiValue);
+        }
+
         if (data.betType == 1 && data.label == 1) {
-            binding.tvBetTeamName.setText(data.localName);
+            binding.tvBetTeamName.setText(data.match.localName);
         }
         else if (data.betType == 1 && data.label == 2) {
-            binding.tvBetTeamName.setText(data.visitorName);
+            binding.tvBetTeamName.setText(data.match.visitorName);
         }
         else if (data.betType == 2 && data.label == 1) {
             binding.tvBetTeamName.setText("Over");
