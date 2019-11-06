@@ -145,11 +145,11 @@ public class RegisterActivity extends AppCompatActivity {
                     editor.apply();
                     editor.commit();
 
-//                    Disposable subscribe = RetrofitService.getApiEnd().facebookLogin(newAccessToken.getToken(), first_name + " "+middle_name+" " + last_name)
-//                            .subscribeOn(Schedulers.computation())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe(RegisterActivity.this::handleResult, RegisterActivity.this::handleError);
-//                    disposable.add(subscribe);
+                    Disposable subscribe = RetrofitService.getApiEnd().facebookRegister(newAccessToken.getToken(), first_name + " "+middle_name+" " + last_name , image_url)
+                            .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(RegisterActivity.this::handleResult, RegisterActivity.this::handleError);
+                    disposable.add(subscribe);
 
 
                 } catch (JSONException e) {

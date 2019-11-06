@@ -79,10 +79,10 @@ public interface ApiEnd {
     Observable<StandingResponse> getUserStanding(@Field("token") String token , @Field("type") int leagueType , @Field("id") int roomId);
 
     @FormUrlEncoded
-    @POST("/api/facebook_login")
+    @POST("/api/facebook_register")
     Observable<Login> facebookLogin(@Field("facebook_token") String fbToken , @Field("name") String name , @Field("fb_profile") String fbProfile);
 
     @FormUrlEncoded
-    @POST("/api/facebook_login")
-    Observable<Login> facebookLogin(@Field("facebook_token") String fbToken);
+    @POST("/api/facebook_register")
+    Observable<Register> facebookRegister(@Field("facebook_token") String fbToken , @Field("name") String name , @Field("fb_profile") String fbProfile);
 }
