@@ -43,6 +43,10 @@ public class UserStandingAdapter extends RecyclerView.Adapter<UserStandingHolder
     }
 
     public void addData(List<UserStanding> userStandings){
-        this.userStandings = userStandings;
+
+        if (this.userStandings == null)
+            this.userStandings = userStandings;
+        else
+            this.userStandings.addAll(userStandings);
     }
 }

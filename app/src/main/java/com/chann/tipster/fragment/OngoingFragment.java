@@ -29,6 +29,8 @@ public class OngoingFragment extends Fragment {
     private FragmentOngoingBinding binding;
     private OnGoingViewModel model;
     private LinearLayoutManager layoutManager;
+
+    private String nextPage;
     private boolean loading = false;
     private int pageNumber = 1;
     private final int VISIBLE_THRESHOLD = 1;
@@ -62,7 +64,7 @@ public class OngoingFragment extends Fragment {
                 totalItemCount = layoutManager.getItemCount();
                 lastVisibleItem = layoutManager
                         .findLastVisibleItemPosition();
-                if (!loading
+                if ( nextPage != null
                         && totalItemCount <= (lastVisibleItem + VISIBLE_THRESHOLD)) {
                     pageNumber++;
                     getOnGoingHistory(pageNumber);
@@ -77,12 +79,15 @@ public class OngoingFragment extends Fragment {
     }
 
     private void getOnGoingHistory(int pageNumber) {
+        Log.e("pageNumber",String.valueOf(pageNumber));
         model.getData(pageNumber).observe(this, betHistoryResponse -> {
             binding.progressBar.setVisibility(View.GONE);
             if (betHistoryResponse.betHistoryData.size() == 0) {
                 binding.tvNoHistory.setVisibility(View.VISIBLE);
             }
             Log.e("betHistory", String.valueOf(betHistoryResponse.betHistoryData.size()));
+
+            nextPage = betHistoryResponse.nextPage;
             adapter.addData(betHistoryResponse.betHistoryData);
             adapter.notifyDataSetChanged();
         });

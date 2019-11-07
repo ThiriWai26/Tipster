@@ -1,6 +1,4 @@
 package com.chann.tipster.activity;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -13,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.chann.tipster.R;
 import com.chann.tipster.data.BetResponse;
@@ -35,6 +36,7 @@ public class OddsActivity extends AppCompatActivity {
     private int betAmount = 0;
     private CompositeDisposable disposable;
     private ActivityOddsBinding binding;
+    private String handiOdds;
 
     private int typeId = 1, handiOddsId, overOddsId, handcap, value;
     private boolean isLiveOdds;
@@ -94,6 +96,7 @@ public class OddsActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("SetTextI18n")
     private void bindData() {
 
         Picasso.get().load(league.localTeamLogo).resize(50, 50).into(binding.localProfile);
@@ -108,31 +111,39 @@ public class OddsActivity extends AppCompatActivity {
         handcap = league.overUnder.totalScore;
         value = league.overUnder.value;
 
-        if (league.handiCap.label.equals("Home")) {
+        if (league.handiCap.handicap == 0) {
+            if (league.handiCap.value < 0)
+                handiOdds = "(L" + league.handiCap.value + ")";
 
-            if (league.handiCap.value > 0)
-                binding.tvLocalValue.setText(league.handiCap.handicap + "(+" + league.handiCap.value + ")");
             else
-                binding.tvLocalValue.setText(league.handiCap.handicap + "(" + league.handiCap.value + ")");
-
+                handiOdds = "(L" + "+" + league.handiCap.value + ")";
         } else {
+            if (league.handiCap.value <0)
+                handiOdds = "(" + league.handiCap.handicap + league.handiCap.value + ")";
 
-            if (league.handiCap.value > 0)
-                binding.tvVisitorValue.setText(league.handiCap.handicap + "(+" + league.handiCap.value + ")");
-            else {
-                binding.tvVisitorValue.setText(league.handiCap.handicap + "(" + league.handiCap.value + ")");
-            }
+            else
+                handiOdds = "(" + league.handiCap.handicap + "+" + league.handiCap.value + ")";
+
         }
 
-        if (league.overUnder.value > 0) {
+        if (league.handiCap.label.equals("Home")) {
 
-            String overValue = String.format("%d(+%d)", league.overUnder.totalScore, league.overUnder.value);
+            binding.tvLocalValue.setText(handiOdds);
+
+
+        } else {
+            binding.tvVisitorValue.setText(handiOdds);
+        }
+
+
+        if (league.overUnder.value < 0) {
+
+            @SuppressLint("DefaultLocale") String overValue = String.format("(%d%d)", league.overUnder.totalScore, league.overUnder.value);
             binding.tvOver.setText(overValue);
             binding.tvUnder.setText(overValue);
 
         } else {
-
-            String overValue = String.format("%d(%d)", league.overUnder.totalScore, league.overUnder.value);
+            @SuppressLint("DefaultLocale") String overValue = String.format("(%d+%d)", league.overUnder.totalScore, league.overUnder.value);
             binding.tvOver.setText(overValue);
             binding.tvUnder.setText(overValue);
         }

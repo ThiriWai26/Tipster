@@ -12,6 +12,9 @@ public class StandingResponse {
     @SerializedName("user")
     public User user;
 
+    @SerializedName("next_page_url")
+    public String nextPage;
+
     @SerializedName("data")
     public List<UserStanding> userStandings;
 }

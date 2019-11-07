@@ -29,6 +29,7 @@ public class OnfinishFragment extends Fragment {
     private OnFinishViewModel model;
     private LinearLayoutManager layoutManager;
     private boolean loading = false;
+    private String nextPage;
     private int pageNumber = 1;
     private final int VISIBLE_THRESHOLD = 1;
     private int lastVisibleItem, totalItemCount;
@@ -51,6 +52,7 @@ public class OnfinishFragment extends Fragment {
         binding.recyclerView.setAdapter(adapter);
 
         model = ViewModelProviders.of(this).get(OnFinishViewModel.class);
+        getOnFinishHistory(pageNumber);
 
         binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -60,11 +62,10 @@ public class OnfinishFragment extends Fragment {
                 totalItemCount = layoutManager.getItemCount();
                 lastVisibleItem = layoutManager
                         .findLastVisibleItemPosition();
-                if (!loading
-                        && totalItemCount <= (lastVisibleItem + VISIBLE_THRESHOLD)) {
+                if (nextPage != null && totalItemCount <= (lastVisibleItem + VISIBLE_THRESHOLD)) {
                     pageNumber++;
                     getOnFinishHistory(pageNumber);
-                    loading = true;
+
                 }
 
             }
@@ -74,12 +75,16 @@ public class OnfinishFragment extends Fragment {
     }
 
     private void getOnFinishHistory(int pageNumber) {
+
+        Log.e("pageNumber",String.valueOf(pageNumber));
         model.getData(pageNumber).observe(this , betHistoryResponse -> {
             binding.progressBar.setVisibility(View.GONE);
             if(betHistoryResponse.betHistoryData.size() == 0){
                 binding.tvNoHistory.setVisibility(View.VISIBLE);
             }
             Log.e("betHistory",String.valueOf(betHistoryResponse.betHistoryData.size()));
+
+            nextPage = betHistoryResponse.nextPage;
             adapter.addData(betHistoryResponse.betHistoryData);
             adapter.notifyDataSetChanged();
         });

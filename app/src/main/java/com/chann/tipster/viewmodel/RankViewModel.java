@@ -32,18 +32,18 @@ public class RankViewModel extends AndroidViewModel {
 
     }
 
-    public LiveData<StandingResponse> getData(){
+    public LiveData<StandingResponse> getData(int pageNumber){
 
         if(rankData == null){
             rankData = new MutableLiveData<>();
         }
-        loadData();
+        loadData(pageNumber);
 
         return rankData;
     }
 
-    private void loadData() {
-        Disposable subscribe = RetrofitService.getApiEnd().getUserStanding(Token.token, 1, 1)
+    private void loadData(int pageNumber) {
+        Disposable subscribe = RetrofitService.getApiEnd().getUserStanding(Token.token, 1, 1 , pageNumber)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult, this::handleError);
