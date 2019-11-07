@@ -39,6 +39,9 @@ public class BetHistoryAdapter extends RecyclerView.Adapter<BetHistoryHolder> {
 
     public void addData(List<BetHistoryData> betHistoryDataList){
 
-        this.betHistoryDataList = betHistoryDataList;
+        if (this.betHistoryDataList == null)
+            this.betHistoryDataList = betHistoryDataList;
+        else
+            this.betHistoryDataList.addAll(betHistoryDataList);
     }
 }

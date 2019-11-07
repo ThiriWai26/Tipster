@@ -32,13 +32,13 @@ public class MatchItemAdapter extends RecyclerView.Adapter<MatchItemHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MatchItemHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MatchItemHolder holder, final int position) {
 
         if (position < matchData.size()-1)
             holder.bindData(matchData.get(position), false );
 
-        else
-            holder.bindData(matchData.get(position) , true );
+        if(position == matchData.size()-1)
+            holder.bindData(matchData.get(position) , true);
 
         Log.e("match name",matchData.get(position).localTeamName);
     }

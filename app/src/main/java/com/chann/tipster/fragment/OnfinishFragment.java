@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chann.tipster.R;
 import com.chann.tipster.adapter.BetHistoryAdapter;
@@ -25,6 +27,12 @@ public class OnfinishFragment extends Fragment {
     private BetHistoryAdapter adapter;
     private FragmentOnfinishBinding binding;
     private OnFinishViewModel model;
+    private LinearLayoutManager layoutManager;
+    private boolean loading = false;
+    private int pageNumber = 1;
+    private final int VISIBLE_THRESHOLD = 1;
+    private int lastVisibleItem, totalItemCount;
+
 
     public OnfinishFragment() {
         // Required empty public constructor
@@ -38,11 +46,35 @@ public class OnfinishFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater , R.layout.fragment_onfinish , container ,false);
 
         adapter = new BetHistoryAdapter();
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        layoutManager = new LinearLayoutManager(getContext());
+        binding.recyclerView.setLayoutManager(layoutManager);
         binding.recyclerView.setAdapter(adapter);
 
         model = ViewModelProviders.of(this).get(OnFinishViewModel.class);
-        model.getData().observe(this , betHistoryResponse -> {
+
+        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                totalItemCount = layoutManager.getItemCount();
+                lastVisibleItem = layoutManager
+                        .findLastVisibleItemPosition();
+                if (!loading
+                        && totalItemCount <= (lastVisibleItem + VISIBLE_THRESHOLD)) {
+                    pageNumber++;
+                    getOnFinishHistory(pageNumber);
+                    loading = true;
+                }
+
+            }
+        });
+
+        return binding.getRoot();
+    }
+
+    private void getOnFinishHistory(int pageNumber) {
+        model.getData(pageNumber).observe(this , betHistoryResponse -> {
             binding.progressBar.setVisibility(View.GONE);
             if(betHistoryResponse.betHistoryData.size() == 0){
                 binding.tvNoHistory.setVisibility(View.VISIBLE);
@@ -51,9 +83,7 @@ public class OnfinishFragment extends Fragment {
             adapter.addData(betHistoryResponse.betHistoryData);
             adapter.notifyDataSetChanged();
         });
-        return binding.getRoot();
     }
-
 
 
     @Override

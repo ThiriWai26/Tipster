@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="data"
@@ -9,13 +10,11 @@
             name="itemClickListener"
             type="com.chann.tipster.holderInterface.OnHolderItemClickListener" />
     </data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/viewLeague"
@@ -23,23 +22,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:paddingTop="@dimen/margin_sm">
 
         <TextView
-            android:id="@+id/tvTime"
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_light"
             android:textColor="@color/grey_dark"
             android:textSize="12sp"
             android:typeface="serif"
-            android:text="@{data.time}"
+            android:text="@{data.date}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:text="@{data.time}"
+            android:textColor="@color/grey_dark"
+            android:textSize="12sp"
+            android:typeface="serif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
         <TextView
             android:id="@+id/tvVs"
@@ -55,7 +66,7 @@
             android:text=":"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/tvTime"
+            app:layout_constraintBottom_toTopOf="@+id/tvDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -93,23 +104,25 @@
             android:id="@+id/localHandiCap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/roboto"
             android:gravity="top"
             android:textColor="@android:color/black"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/tvLocalTeamScore"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvLocalTeamName"
             app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+
 
         <TextView
             android:id="@+id/visitorHandiCap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
+            android:layout_marginTop="4dp"
             android:textColor="@android:color/black"
-            android:textSize="12sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/localHandiCap"
-            app:layout_constraintEnd_toEndOf="@+id/tvVisitorTeamScore" />
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/tvTime"
+            app:layout_constraintStart_toStartOf="@+id/tvVisitorTeamName" />
 
         <ImageView
             android:id="@+id/localProfile"
@@ -184,6 +197,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         android:background="@color/divider_color" />
 </LinearLayout>
 </layout>

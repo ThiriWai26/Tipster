@@ -16,34 +16,12 @@
         android:text="Over"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/tvOverUnderValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_sm"
-        android:fontFamily="@font/roboto"
-        android:text="+50"
-        android:textColor="@android:color/black"
-        android:textSize="14sp" />
-
     <ImageView
         android:id="@+id/imgTeamLogo"
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_marginTop="@dimen/margin_lg" />
 
-    <TextView
-        android:id="@+id/tvHandicapValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_sm"
-        android:fontFamily="@font/roboto"
-        android:gravity="center"
-        android:paddingStart="@dimen/margin_sm"
-        android:paddingEnd="@dimen/margin_sm"
-        android:text="1(85)"
-        android:textColor="@color/colorPrimary"
-        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/etBetAmout"

@@ -39,7 +39,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_md"
-                        android:text="Your Ranking"
+                        android:text="Rank"
                         android:textColor="@color/grey_dark"
                         android:textSize="@dimen/compat_text_size_md" />
 
@@ -55,7 +55,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Winning Point"
+                        android:text="Point"
                         android:textColor="@color/grey_dark"
                         android:textSize="@dimen/compat_text_size_md" />
 

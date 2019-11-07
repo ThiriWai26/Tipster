@@ -143,206 +143,225 @@ public class OddsActivity extends AppCompatActivity {
 
     public void onLocalTeamBetClick(View view , boolean isBet ) {
 
-        if(isLiveOdds || isBet){
-            Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
-        }
-        else if(oddsData.betDone.getVisitor()){
-            Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
+        if(isLiveOdds){
+            Toast.makeText(this , "Live odds cannot be bet",Toast.LENGTH_LONG).show();
         }
         else {
+            if(isBet){
+                Toast.makeText(this , "This odds is already bet.",Toast.LENGTH_LONG).show();
+            }
 
-            final Dialog dialog = new Dialog(this);
-            final RadioButton minBtn, maxBtn;
-            ImageView imgTeamLogo;
-            TextView tvCancel, tvBet, tvHandicapValue, labelOverUnder, tvOverUnderValue;
-
-            dialog.setContentView(R.layout.dialog_bet);
-            imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
-            tvCancel = dialog.findViewById(R.id.tvCancel);
-            tvBet = dialog.findViewById(R.id.tvBet);
-            tvHandicapValue = dialog.findViewById(R.id.tvHandicapValue);
-            minBtn = dialog.findViewById(R.id.minAmount);
-            maxBtn = dialog.findViewById(R.id.maxAmount);
-            labelOverUnder = dialog.findViewById(R.id.labelOverUnder);
-            tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
-
-            labelOverUnder.setVisibility(View.GONE);
-            tvOverUnderValue.setVisibility(View.GONE);
-
-            Picasso.get().load(league.localTeamLogo).resize(50, 50).into(imgTeamLogo);
-            tvHandicapValue.setText(binding.tvLocalValue.getText().toString());
-            minBtn.setText(String.valueOf(oddsData.point.min));
-            maxBtn.setText(String.valueOf(oddsData.point.max));
-
-
-            tvCancel.setOnClickListener(view1 -> dialog.dismiss());
-            tvBet.setOnClickListener(view12 -> {
-
-                Log.e("bet", "success");
-
-                if (minBtn.isChecked()) {
-                    betAmount = Integer.parseInt(minBtn.getText().toString());
-                    Log.e("min_bet_amount", String.valueOf(betAmount));
-                } else if (maxBtn.isChecked()) {
-                    betAmount = Integer.parseInt(maxBtn.getText().toString());
-                    Log.e("max_bet_amount", String.valueOf(betAmount));
+            else {
+                if(oddsData.betDone.getVisitor()){
+                    Toast.makeText(this , "Only one item can be bet.",Toast.LENGTH_LONG).show();
                 }
+                else {
 
-                onBet(handiOddsId,betAmount, 1, 1, dialog);
+                    final Dialog dialog = new Dialog(this);
+                    final RadioButton minBtn, maxBtn;
+                    ImageView imgTeamLogo;
+                    TextView tvCancel, tvBet, labelOverUnder;
 
-            });
+                    dialog.setContentView(R.layout.dialog_bet);
+                    imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
+                    tvCancel = dialog.findViewById(R.id.tvCancel);
+                    tvBet = dialog.findViewById(R.id.tvBet);
+                    minBtn = dialog.findViewById(R.id.minAmount);
+                    maxBtn = dialog.findViewById(R.id.maxAmount);
+                    labelOverUnder = dialog.findViewById(R.id.labelOverUnder);
+                    labelOverUnder.setVisibility(View.GONE);
 
-            dialog.show();
+                    Picasso.get().load(league.localTeamLogo).resize(50, 50).into(imgTeamLogo);
+                    minBtn.setText(String.valueOf(oddsData.point.min));
+                    maxBtn.setText(String.valueOf(oddsData.point.max));
 
+
+                    tvCancel.setOnClickListener(view1 -> dialog.dismiss());
+                    tvBet.setOnClickListener(view12 -> {
+
+                        Log.e("bet", "success");
+
+                        if (minBtn.isChecked()) {
+                            betAmount = Integer.parseInt(minBtn.getText().toString());
+                            Log.e("min_bet_amount", String.valueOf(betAmount));
+                        } else if (maxBtn.isChecked()) {
+                            betAmount = Integer.parseInt(maxBtn.getText().toString());
+                            Log.e("max_bet_amount", String.valueOf(betAmount));
+                        }
+
+                        onBet(handiOddsId,betAmount, 1, 1, dialog);
+
+                    });
+
+                    dialog.show();
+
+                }
+            }
         }
+
 
     }
 
     public void onVisitorTeamBetClick(View view , boolean isBet ) {
-        if(isLiveOdds || isBet){
-            Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
-        }
-        else if(oddsData.betDone.getLocal()){
-            Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
+
+
+        if(isLiveOdds){
+            Toast.makeText(this , "Live odds cannot be bet",Toast.LENGTH_LONG).show();
         }
         else {
-
-
-            final Dialog dialog = new Dialog(this);
-            final RadioButton minBtn, maxBtn;
-            ImageView imgTeamLogo;
-            TextView tvCancel, tvBet, tvHandicapValue, labelOverUnder, tvOverUnderValue;
-
-            dialog.setContentView(R.layout.dialog_bet);
-            imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
-            tvCancel = dialog.findViewById(R.id.tvCancel);
-            tvBet = dialog.findViewById(R.id.tvBet);
-            tvHandicapValue = dialog.findViewById(R.id.tvHandicapValue);
-            minBtn = dialog.findViewById(R.id.minAmount);
-            maxBtn = dialog.findViewById(R.id.maxAmount);
-
-            Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgTeamLogo);
-            tvHandicapValue.setText(binding.tvVisitorValue.getText().toString());
-            minBtn.setText(String.valueOf(oddsData.point.min));
-            maxBtn.setText(String.valueOf(oddsData.point.max));
-
-            labelOverUnder = dialog.findViewById(R.id.labelOverUnder);
-            tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
-
-            labelOverUnder.setVisibility(View.GONE);
-            tvOverUnderValue.setVisibility(View.GONE);
-
-            tvCancel.setOnClickListener(view1 -> dialog.dismiss());
-
-            tvBet.setOnClickListener(view12 -> {
-
-                if (minBtn.isChecked()) {
-                    betAmount = Integer.parseInt(minBtn.getText().toString());
-                } else if (maxBtn.isChecked()) {
-                    betAmount = Integer.parseInt(maxBtn.getText().toString());
+            if(isBet){
+                Toast.makeText(this , "This odds is already bet.",Toast.LENGTH_LONG).show();
+            }
+            else {
+                if(oddsData.betDone.getLocal()){
+                    Toast.makeText(this , "Only one item can be bet.",Toast.LENGTH_LONG).show();
                 }
+                else {
 
-                onBet(handiOddsId,betAmount, 2, 1, dialog);
-                dialog.dismiss();
-            });
-            dialog.show();
+
+                    final Dialog dialog = new Dialog(this);
+                    final RadioButton minBtn, maxBtn;
+                    ImageView imgTeamLogo;
+                    TextView tvCancel, tvBet, labelOverUnder;
+
+                    dialog.setContentView(R.layout.dialog_bet);
+                    imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
+                    tvCancel = dialog.findViewById(R.id.tvCancel);
+                    tvBet = dialog.findViewById(R.id.tvBet);
+                    minBtn = dialog.findViewById(R.id.minAmount);
+                    maxBtn = dialog.findViewById(R.id.maxAmount);
+
+                    Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(imgTeamLogo);
+                    minBtn.setText(String.valueOf(oddsData.point.min));
+                    maxBtn.setText(String.valueOf(oddsData.point.max));
+
+                    labelOverUnder = dialog.findViewById(R.id.labelOverUnder);
+
+                    labelOverUnder.setVisibility(View.GONE);
+
+                    tvCancel.setOnClickListener(view1 -> dialog.dismiss());
+
+                    tvBet.setOnClickListener(view12 -> {
+
+                        if (minBtn.isChecked()) {
+                            betAmount = Integer.parseInt(minBtn.getText().toString());
+                        } else if (maxBtn.isChecked()) {
+                            betAmount = Integer.parseInt(maxBtn.getText().toString());
+                        }
+
+                        onBet(handiOddsId,betAmount, 2, 1, dialog);
+                        dialog.dismiss();
+                    });
+                    dialog.show();
+                }
+            }
         }
 
     }
 
     public void onOverBetClick(View view , boolean isBet) {
-        if(isLiveOdds || isBet){
-            Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
-        }
-        else if(oddsData.betDone.getUnder()){
-            Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
+
+        if(isLiveOdds){
+            Toast.makeText(this , "Live odds cannot be bet",Toast.LENGTH_LONG).show();
         }
         else {
-
-            final Dialog dialog = new Dialog(this);
-            final RadioButton minBtn, maxBtn;
-            TextView tvOverUnder, tvCancel, tvBet, tvOverUnderValue, tvHanddicapValue;
-            ImageView imgTeamLogo;
-
-            dialog.setContentView(R.layout.dialog_bet);
-            tvOverUnder = dialog.findViewById(R.id.labelOverUnder);
-            tvCancel = dialog.findViewById(R.id.tvCancel);
-            tvBet = dialog.findViewById(R.id.tvBet);
-            tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
-            minBtn = dialog.findViewById(R.id.minAmount);
-            maxBtn = dialog.findViewById(R.id.maxAmount);
-            tvHanddicapValue = dialog.findViewById(R.id.tvHandicapValue);
-            imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
-
-            tvHanddicapValue.setVisibility(View.GONE);
-            imgTeamLogo.setVisibility(View.GONE);
-
-            tvOverUnder.setText("Over");
-            tvOverUnderValue.setText(binding.tvOver.getText().toString());
-            minBtn.setText(String.valueOf(oddsData.point.min));
-            maxBtn.setText(String.valueOf(oddsData.point.max));
-
-            tvCancel.setOnClickListener(view1 -> dialog.dismiss());
-            tvBet.setOnClickListener(view12 -> {
-
-                if (minBtn.isChecked()) {
-                    betAmount = Integer.parseInt(minBtn.getText().toString());
-                } else if (maxBtn.isChecked()) {
-                    betAmount = Integer.parseInt(maxBtn.getText().toString());
+            if(isBet){
+                Toast.makeText(this , "This odds is already bet.",Toast.LENGTH_LONG).show();
+            }
+            else {
+                if(oddsData.betDone.getUnder()){
+                    Toast.makeText(this , "Only one item can be bet.",Toast.LENGTH_LONG).show();
                 }
 
-                onBet(overOddsId,betAmount, 1, 2, dialog);
-            });
-            dialog.show();
+                else {
+
+                    final Dialog dialog = new Dialog(this);
+                    final RadioButton minBtn, maxBtn;
+                    TextView tvOverUnder, tvCancel, tvBet;
+                    ImageView imgTeamLogo;
+
+                    dialog.setContentView(R.layout.dialog_bet);
+                    tvOverUnder = dialog.findViewById(R.id.labelOverUnder);
+                    tvCancel = dialog.findViewById(R.id.tvCancel);
+                    tvBet = dialog.findViewById(R.id.tvBet);
+                    minBtn = dialog.findViewById(R.id.minAmount);
+                    maxBtn = dialog.findViewById(R.id.maxAmount);
+                    imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
+
+                    imgTeamLogo.setVisibility(View.GONE);
+
+                    tvOverUnder.setText("Over");
+                    minBtn.setText(String.valueOf(oddsData.point.min));
+                    maxBtn.setText(String.valueOf(oddsData.point.max));
+
+                    tvCancel.setOnClickListener(view1 -> dialog.dismiss());
+                    tvBet.setOnClickListener(view12 -> {
+
+                        if (minBtn.isChecked()) {
+                            betAmount = Integer.parseInt(minBtn.getText().toString());
+                        } else if (maxBtn.isChecked()) {
+                            betAmount = Integer.parseInt(maxBtn.getText().toString());
+                        }
+
+                        onBet(overOddsId,betAmount, 1, 2, dialog);
+                    });
+                    dialog.show();
+                }
+            }
         }
 
     }
 
     public void onUnderBetClick(View view , boolean isBet) {
-        if(isLiveOdds || isBet){
-            Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
-        }
-        else if(oddsData.betDone.getOver()){
-            Toast.makeText(this , "Odds cannot be bet",Toast.LENGTH_LONG).show();
+
+        if(isLiveOdds){
+            Toast.makeText(this , "Live odds cannot be bet",Toast.LENGTH_LONG).show();
         }
         else {
+            if(isBet){
+                Toast.makeText(this , "This odds is already bet.",Toast.LENGTH_LONG).show();
+            }
+            else {
+                if(oddsData.betDone.getOver()){
+                    Toast.makeText(this , "Only one item can be bet.",Toast.LENGTH_LONG).show();
+                }
+                else {
 
-            final Dialog dialog = new Dialog(this);
-            final RadioButton minBtn, maxBtn;
-            TextView tvOverUnder, tvCancel, tvBet, tvOverUnderValue, tvHandicapValue;
-            ImageView imgTeamLogo;
+                    final Dialog dialog = new Dialog(this);
+                    final RadioButton minBtn, maxBtn;
+                    TextView tvOverUnder, tvCancel, tvBet;
+                    ImageView imgTeamLogo;
 
-            dialog.setContentView(R.layout.dialog_bet);
-            tvCancel = dialog.findViewById(R.id.tvCancel);
-            tvBet = dialog.findViewById(R.id.tvBet);
+                    dialog.setContentView(R.layout.dialog_bet);
+                    tvCancel = dialog.findViewById(R.id.tvCancel);
+                    tvBet = dialog.findViewById(R.id.tvBet);
 
-            tvOverUnder = dialog.findViewById(R.id.labelOverUnder);
-            tvOverUnderValue = dialog.findViewById(R.id.tvOverUnderValue);
-            minBtn = dialog.findViewById(R.id.minAmount);
-            maxBtn = dialog.findViewById(R.id.maxAmount);
-            tvHandicapValue = dialog.findViewById(R.id.tvHandicapValue);
-            imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
+                    tvOverUnder = dialog.findViewById(R.id.labelOverUnder);
+                    minBtn = dialog.findViewById(R.id.minAmount);
+                    maxBtn = dialog.findViewById(R.id.maxAmount);
+                    imgTeamLogo = dialog.findViewById(R.id.imgTeamLogo);
 
-            tvHandicapValue.setVisibility(View.GONE);
-            imgTeamLogo.setVisibility(View.GONE);
+                    imgTeamLogo.setVisibility(View.GONE);
 
-            tvOverUnder.setText("Under");
-            tvOverUnderValue.setText(binding.tvUnder.getText().toString());
-            minBtn.setText(String.valueOf(oddsData.point.min));
-            maxBtn.setText(String.valueOf(oddsData.point.max));
-            tvCancel.setOnClickListener(view1 -> dialog.dismiss());
+                    tvOverUnder.setText("Under");
+                    minBtn.setText(String.valueOf(oddsData.point.min));
+                    maxBtn.setText(String.valueOf(oddsData.point.max));
+                    tvCancel.setOnClickListener(view1 -> dialog.dismiss());
 
-            tvBet.setOnClickListener(view1 -> {
-                if (minBtn.isChecked()) {
-                    betAmount = Integer.parseInt(minBtn.getText().toString());
-                } else if (maxBtn.isChecked()) {
-                    betAmount = Integer.parseInt(maxBtn.getText().toString());
+                    tvBet.setOnClickListener(view1 -> {
+                        if (minBtn.isChecked()) {
+                            betAmount = Integer.parseInt(minBtn.getText().toString());
+                        } else if (maxBtn.isChecked()) {
+                            betAmount = Integer.parseInt(maxBtn.getText().toString());
+                        }
+
+                        onBet(overOddsId,betAmount,2, 2, dialog);
+                    } );
+
+                    dialog.show();
                 }
 
-                onBet(overOddsId,betAmount,2, 2, dialog);
-            } );
-
-            dialog.show();
+            }
         }
 
     }

@@ -31,17 +31,17 @@ public class OnFinishViewModel extends AndroidViewModel {
         disposable = new CompositeDisposable();
     }
 
-    public LiveData<BetHistoryResponse> getData(){
+    public LiveData<BetHistoryResponse> getData(int pageNumber){
         if(betData == null){
             betData = new MutableLiveData<>();
         }
-        loadData();
+        loadData(pageNumber);
         return betData;
     }
 
-    private void loadData() {
+    private void loadData(int pageNumber) {
 
-        Disposable subscribe = RetrofitService.getApiEnd().getOnfinish(Token.token , 1)
+        Disposable subscribe = RetrofitService.getApiEnd().getOnfinish(Token.token , 1 , pageNumber)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult , this::handleError);

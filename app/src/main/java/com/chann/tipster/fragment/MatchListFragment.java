@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chann.tipster.R;
@@ -48,6 +50,7 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
         adapter = new MatchDataAdapter(this);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         model = ViewModelProviders.of(this).get(MatchListViewModel.class);
 

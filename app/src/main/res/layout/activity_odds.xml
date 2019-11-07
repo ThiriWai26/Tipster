@@ -109,7 +109,7 @@
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="@android:color/white"
                 android:text="@{String.valueOf(data.localTeamScore)}"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/tvVs"
                 app:layout_constraintEnd_toStartOf="@+id/tvDate" />
@@ -243,10 +243,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:text="Bet"
                     android:onClick="@{(v)->oddsActivity.onLocalTeamBetClick(v,odds.betDone.getLocal())}"
+                    android:text="Bet"
                     android:textColor="@{odds.betDone.getVisitor()? @color/gray : @color/blue}"
-                    android:visibility="@{odds.betDone.getLocal()? View.GONE : View.VISIBLE}"/>
+                    android:visibility="@{odds.betDone.getLocal()? View.GONE : View.VISIBLE}" />
                 <com.google.android.material.button.MaterialButton
                     style="@style/BetBtnStyle"
                     android:layout_width="wrap_content"
