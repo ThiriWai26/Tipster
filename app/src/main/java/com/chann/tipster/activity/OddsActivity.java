@@ -105,6 +105,12 @@ public class OddsActivity extends AppCompatActivity {
         Picasso.get().load(league.localTeamLogo).resize(50, 50).into(binding.imgLocalProfile);
         Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(binding.imgVisitorProfile);
 
+        binding.tvLocalTeamScore.setText(String.valueOf(league.localTeamScore));
+        binding.tvVisitorTeamScore.setText(String.valueOf(league.visitorTeamScore));
+
+        Log.e("local goal",String.valueOf(league.localTeamScore));
+        Log.e("visitro goal",String.valueOf(league.visitorTeamScore));
+
         handiOddsId = league.handiCap.id;
         overOddsId = league.overUnder.id;
 

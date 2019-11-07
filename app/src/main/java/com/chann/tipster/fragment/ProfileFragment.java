@@ -2,33 +2,27 @@ package com.chann.tipster.fragment;
 
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-
-import android.provider.MediaStore;
-import android.text.InputType;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chann.tipster.R;
 import com.chann.tipster.activity.LoginActivity;
@@ -267,7 +261,10 @@ public class ProfileFragment extends Fragment {
                 pref = getContext().getApplicationContext().getSharedPreferences("MyPref", 0);
                 editor = pref.edit();
 
-                LoginManager.getInstance().logOut();
+                //fb account logout
+                if (pref.getString("fb_token", null) != null)
+                    LoginManager.getInstance().logOut();
+
                 editor.putString("Token", null);
                 editor.apply();
                 editor.commit();
@@ -283,22 +280,6 @@ public class ProfileFragment extends Fragment {
         }
         Log.e("onclickitem",String.valueOf(itemType));
 
-    }
-
-    public void fbLogout(View view){
-        SharedPreferences pref;// 0 - for private mode
-        SharedPreferences.Editor editor;
-        pref = getContext().getApplicationContext().getSharedPreferences("MyPref", 0);
-        editor = pref.edit();
-
-
-        editor.putString("Token", null);
-        editor.apply();
-        editor.commit();
-
-        Intent intent = new Intent(getContext() , LoginActivity.class);
-        startActivity(intent);
-        getActivity().finish();
     }
 
     private void loadFragment(Fragment fragment) {
