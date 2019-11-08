@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,20 +7,77 @@
     android:background="@color/white"
     tools:context=".fragment.MatchListFragment">
 
+        <!--        <RelativeLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent">-->
 
-        <!-- TODO: Update blank fragment layout -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <!--                <Spinner-->
+        <!--                    android:id="@+id/spinner"-->
+        <!--                    style="@style/Widget.AppCompat.Spinner"-->
+        <!--                    android:layout_width="120dp"-->
+        <!--                    android:layout_height="?attr/dropdownListPreferredItemHeight"-->
+        <!--                    android:layout_alignParentTop="true"-->
+        <!--                    android:layout_alignParentRight="true"-->
+        <!--                    android:background="@drawable/bg_spinner"-->
+        <!--                    android:dropDownWidth="wrap_content"-->
+        <!--                    android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"-->
+        <!--                    android:paddingRight="14dp"-->
+        <!--                    android:popupElevation="3dp"-->
+        <!--                    android:stateListAnimator="@drawable/spinner_sla" />-->
+        <!--                -->
+
+        <!--                &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+        <!--                <androidx.recyclerview.widget.RecyclerView-->
+        <!--                    android:id="@+id/recyclerView"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_below="@id/viewPager"-->
+        <!--                    tools:listitem="@layout/league_data"/>-->
+        <!--        </RelativeLayout>-->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/league_data"/>
+            android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:fontFamily="@font/roboto_medium"
+                    app:tabIndicatorColor="@color/colorPrimary"
+                    app:tabIndicatorHeight="1dp"
+                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Today" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tomorrow" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="AfterTomorrow" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progressBar"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            />-->
 
         <TextView
             android:id="@+id/tvStartDate"

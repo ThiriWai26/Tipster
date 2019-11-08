@@ -30,20 +30,23 @@ public class BetHistoryHolder extends RecyclerView.ViewHolder {
         binding.setData(data);
         binding.executePendingBindings();
 
+        String handiValue = data.odds.value < 0 ? String.format("%d(%d)",data.odds.handicap,data.odds.value):String.format("%d(+%d)",data.odds.handicap,data.odds.value);
         if(data.odds.label.equals("Home")){
 
-            String handiValue = data.odds.value < 0 ? String.format("%d(%d)",data.odds.handicap,data.odds.value):String.format("%d(+%d)",data.odds.handicap,data.odds.value);
             binding.ivLocalLogo.setText(handiValue);
+            binding.ivVisitorLogo.setText("");
+            binding.tvOverUnder.setText("");
         }
 
-        else if(data.odds.label.equals("Away")){
-
-            String handiValue = data.odds.value < 0 ? String.format("%d(%d)",data.odds.handicap,data.odds.value):String.format("%d(+%d)",data.odds.handicap,data.odds.value);
+        if(data.odds.label.equals("Away")){
             binding.ivVisitorLogo.setText(handiValue);
+            binding.ivLocalLogo.setText("");
+            binding.tvOverUnder.setText("");
         }
-        else {
-            String handiValue = data.odds.value < 0 ? String.format("%d(%d)",data.odds.handicap,data.odds.value):String.format("%d(+%d)",data.odds.handicap,data.odds.value);
+        if(data.odds.label.equals("over_under")) {
             binding.tvOverUnder.setText(handiValue);
+            binding.ivLocalLogo.setText("");
+            binding.ivVisitorLogo.setText("");
         }
 
         if (data.betType == 1 && data.label == 1) {

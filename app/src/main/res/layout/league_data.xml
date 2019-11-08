@@ -25,9 +25,7 @@
             android:background="@android:color/white"
             android:fontFamily="@font/roboto"
             android:paddingStart="@dimen/compat_margin_sm"
-            android:paddingTop="@dimen/margin_md"
             android:paddingEnd="@dimen/compat_margin_sm"
-            android:paddingBottom="@dimen/margin_md"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/league_title_size"
             android:textStyle="bold"/>
