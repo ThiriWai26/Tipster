@@ -23,6 +23,8 @@ import com.chann.tipster.data.MatchData;
 import com.chann.tipster.databinding.FragmentMatchListBinding;
 import com.chann.tipster.holderInterface.OnHolderItemClickListener;
 import com.chann.tipster.viewmodel.MatchListViewModel;
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,15 +59,31 @@ public class TodayMatchFragment extends Fragment implements OnHolderItemClickLis
         progressBar = view.findViewById(R.id.progressBar);
 
         adapter = new MatchDataAdapter(this);
-        recyclerView.setAdapter(adapter);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        SkeletonScreen skeletonScreen = Skeleton.bind(recyclerView)
+                .adapter(adapter)
+                .count(10)
+                .shimmer(false)
+                .duration(1300)
+                .angle(0)
+                .color(R.color.shimmer_color)
+                .load(R.layout.skeleton_screen_matchlist)
+                .show();
+
+        recyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                skeletonScreen.hide();
+            }
+        }  , 3000);
 
 
         model = ViewModelProviders.of(this).get(MatchListViewModel.class);
 
         model.getMatchList().observe(this, matchListResponse -> {
-            progressBar.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
             if (matchListResponse.isSuccess) {
 
                 roomId = matchListResponse.room.roomId;

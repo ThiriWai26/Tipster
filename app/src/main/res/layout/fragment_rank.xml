@@ -18,6 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/rootView"
             android:orientation="vertical">
 
 
@@ -118,14 +119,15 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/bet_history_item"/>
+                tools:listitem="@layout/history_item"/>
         </LinearLayout>
     </ScrollView>
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 </FrameLayout>
 
 </layout>

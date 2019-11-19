@@ -1,0 +1,364 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="215dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="36dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="16dp"
+                android:layout_marginBottom="@dimen/margin_md"
+                android:background="@color/light_transparent"
+                android:text="Rank"
+                android:textColor="@color/grey_dark"
+                android:textSize="@dimen/compat_text_size_md" />
+
+
+            <View
+                android:id="@+id/tv_rank"
+                android:layout_width="80dp"
+                android:layout_height="16dp"
+                android:layout_marginBottom="@dimen/margin_md"
+                android:background="@color/light_transparent"
+                android:text="@{String.valueOf(data.user.rank)}"
+                android:textColor="@color/grey_dark"
+                android:textSize="@dimen/compat_text_size_lg" />
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="16dp"
+                android:background="@color/light_transparent"
+                android:textColor="@color/grey_dark"
+                android:textSize="@dimen/compat_text_size_md" />
+
+            <View
+                android:id="@+id/tv_coin"
+                android:layout_width="80dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="@dimen/margin_md"
+                android:background="@color/light_transparent"
+                android:textSize="@dimen/compat_text_size_lg" />
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/iv_profile"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_toRightOf="@id/layout"
+            android:background="@color/light_transparent"
+            android:src="@drawable/logo_tipstar" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight="1"
+            android:text="" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:text="" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1.5"
+            android:background="@color/light_transparent"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight="0.5"
+            android:background="@color/light_transparent"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/league_title_size" />
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="28dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.1"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="1"
+            android:background="@color/light_transparent"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@color/light_transparent"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:src="@drawable/logo_tipstar"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="3"
+            android:text="@{data.name}"
+            android:background="@color/light_transparent"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/light_transparent"
+            android:textSize="@dimen/league_title_size"
+            android:layout_weight="1"
+            android:text="@{String.valueOf(data.coin)}"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shimmer_background"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_lg"
+        android:layout_marginRight="@dimen/margin_lg"/>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="28dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.1"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="1"
+            android:background="@color/light_transparent"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@color/light_transparent"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:src="@drawable/logo_tipstar"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="3"
+            android:text="@{data.name}"
+            android:background="@color/light_transparent"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/light_transparent"
+            android:textSize="@dimen/league_title_size"
+            android:layout_weight="1"
+            android:text="@{String.valueOf(data.coin)}"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shimmer_background"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_lg"
+        android:layout_marginRight="@dimen/margin_lg"/>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="28dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.1"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="1"
+            android:background="@color/light_transparent"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@color/light_transparent"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:src="@drawable/logo_tipstar"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="3"
+            android:text="@{data.name}"
+            android:background="@color/light_transparent"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/light_transparent"
+            android:textSize="@dimen/league_title_size"
+            android:layout_weight="1"
+            android:text="@{String.valueOf(data.coin)}"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shimmer_background"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_lg"
+        android:layout_marginRight="@dimen/margin_lg"/>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="28dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.1"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="1"
+            android:background="@color/light_transparent"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@color/light_transparent"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:src="@drawable/logo_tipstar"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="3"
+            android:text="@{data.name}"
+            android:background="@color/light_transparent"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/light_transparent"
+            android:textSize="@dimen/league_title_size"
+            android:layout_weight="1"
+            android:text="@{String.valueOf(data.coin)}"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shimmer_background"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_lg"
+        android:layout_marginRight="@dimen/margin_lg"/>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="28dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.1"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="1"
+            android:background="@color/light_transparent"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@color/light_transparent"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:src="@drawable/logo_tipstar"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="3"
+            android:text="@{data.name}"
+            android:background="@color/light_transparent"
+            android:textSize="@dimen/league_title_size" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/light_transparent"
+            android:textSize="@dimen/league_title_size"
+            android:layout_weight="1"
+            android:text="@{String.valueOf(data.coin)}"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shimmer_background"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_lg"
+        android:layout_marginRight="@dimen/margin_lg"/>
+
+</LinearLayout>

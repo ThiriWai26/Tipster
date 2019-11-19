@@ -18,6 +18,8 @@ import com.chann.tipster.R;
 import com.chann.tipster.adapter.BetHistoryAdapter;
 import com.chann.tipster.databinding.FragmentOnfinishBinding;
 import com.chann.tipster.viewmodel.OnFinishViewModel;
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,7 +51,23 @@ public class OnfinishFragment extends Fragment {
         adapter = new BetHistoryAdapter();
         layoutManager = new LinearLayoutManager(getContext());
         binding.recyclerView.setLayoutManager(layoutManager);
-        binding.recyclerView.setAdapter(adapter);
+//        binding.recyclerView.setAdapter(adapter);
+
+        SkeletonScreen skeletonScreen = Skeleton.bind(binding.recyclerView)
+                .adapter(adapter)
+                .shimmer(true)
+                .count(10)
+                .angle(20)
+                .load(R.layout.layout_skeleton_bet_history)
+                .show();
+
+        binding.recyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                skeletonScreen.hide();
+            }
+        } , 3000);
+
 
         model = ViewModelProviders.of(this).get(OnFinishViewModel.class);
         getOnFinishHistory(pageNumber);

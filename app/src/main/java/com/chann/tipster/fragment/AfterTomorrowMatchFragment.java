@@ -23,6 +23,8 @@ import com.chann.tipster.data.MatchData;
 import com.chann.tipster.databinding.FragmentMatchListBinding;
 import com.chann.tipster.holderInterface.OnHolderItemClickListener;
 import com.chann.tipster.viewmodel.MatchListViewModel;
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +57,23 @@ public class AfterTomorrowMatchFragment extends Fragment implements OnHolderItem
         progressBar = view.findViewById(R.id.progressBar);
 
         adapter = new MatchDataAdapter(this);
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        SkeletonScreen skeletonScreen = Skeleton.bind(recyclerView)
+                .adapter(adapter)
+                .count(10)
+                .shimmer(false)
+                .angle(0)
+                .load(R.layout.skeleton_screen_matchlist)
+                .show();
+
+        recyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                skeletonScreen.hide();
+            }
+        }  , 3000);
         model = ViewModelProviders.of(this).get(MatchListViewModel.class);
 
         model.getMatchList().observe(this, matchListResponse -> {

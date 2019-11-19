@@ -1,6 +1,7 @@
 package com.chann.tipster.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.chann.tipster.api.OnClickItemListener;
 import com.chann.tipster.databinding.FragmentRankBinding;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.chann.tipster.viewmodel.RankViewModel;
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -51,6 +54,14 @@ public class RankFragment extends Fragment implements OnClickItemListener {
         adapter = new UserStandingAdapter(this);
         binding.recyclerView.setLayoutManager(layoutManager);
         binding.recyclerView.setAdapter(adapter);
+
+        SkeletonScreen  skeletonScreen = Skeleton.bind(binding.rootView)
+                .load(R.layout.layout_skeleton_ranking)
+                .angle(0)
+                .shimmer(true)
+                .show();
+
+        binding.getRoot().postDelayed(() -> skeletonScreen.hide(), 3000);
         getRankingList(pageNumber);
 
         binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

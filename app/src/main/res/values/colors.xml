@@ -25,4 +25,6 @@
     <color name="gray">#504F4F</color>
     <color name="blue">#3D4DA1</color>
 
+    <color name="light_transparent">#16000000</color>
+
 </resources>
