@@ -5,17 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.chann.tipster.R;
 import com.chann.tipster.activity.OddsActivity;
 import com.chann.tipster.adapter.MatchDataAdapter;
@@ -112,7 +104,7 @@ public class MatchListFragment extends Fragment implements OnHolderItemClickList
     public void onDestroyView() {
         super.onDestroyView();
         model.compositeDisposable.clear();
-        model.disposable.dispose();
+//        model.disposable.dispose();
     }
 
     @Override

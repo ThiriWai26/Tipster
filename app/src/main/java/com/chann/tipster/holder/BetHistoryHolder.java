@@ -1,5 +1,6 @@
 package com.chann.tipster.holder;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class BetHistoryHolder extends RecyclerView.ViewHolder {
         binding.setData(data);
         binding.executePendingBindings();
 
-        String handiValue = data.odds.value < 0 ? String.format("%d(%d)",data.odds.handicap,data.odds.value):String.format("%d(+%d)",data.odds.handicap,data.odds.value);
+        String handiValue = data.odds.value < 0 ? String.format("%d(%d)", data.odds.handicap+data.odds.totalScore, data.odds.value) : String.format("%d(+%d)", data.odds.handicap+data.odds.totalScore, data.odds.value);
         if(data.odds.label.equals("Home")){
 
             binding.ivLocalLogo.setText(handiValue);
@@ -44,6 +45,7 @@ public class BetHistoryHolder extends RecyclerView.ViewHolder {
             binding.tvOverUnder.setText("");
         }
         if(data.odds.label.equals("over_under")) {
+            Log.e("handiValue", handiValue);
             binding.tvOverUnder.setText(handiValue);
             binding.ivLocalLogo.setText("");
             binding.ivVisitorLogo.setText("");

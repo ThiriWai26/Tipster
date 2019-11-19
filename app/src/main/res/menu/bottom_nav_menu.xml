@@ -1,52 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--    <item-->
-    <!--        android:id="@+id/action_league"-->
-    <!--        android:icon="@drawable/img_league"-->
-    <!--        android:title="@string/navi_league" />-->
-
-    <!--    <item-->
-    <!--        android:id="@+id/action_super_league"-->
-    <!--        android:icon="@drawable/img_super_league"-->
-    <!--        android:title="@string/navi_super_league" />-->
-
-    <!--    <item-->
-    <!--        android:id="@+id/action_custom_league"-->
-    <!--        android:icon="@drawable/img_custom_league"-->
-    <!--        android:title="@string/navi_custom_league" />-->
-
-    <!--    <item-->
-    <!--        android:id="@+id/action_tipstar"-->
-    <!--        android:icon="@drawable/img_tipstar"-->
-    <!--        android:title="@string/navi_tipstar" />-->
-
+    <item
+        android:id="@+id/action_normal_league"
+        android:icon="@drawable/img_normal_league"
+        android:title="@string/navi_league" />
 
     <item
-        android:id="@+id/menu_item_matchlist"
-        android:icon="@drawable/ic_ranking"
-        android:title="@string/navi_matchList" />
-
-
-    <item
-        android:id="@+id/menu_item_history"
-        android:icon="@drawable/ic_history"
-        android:title="@string/title_bet_history" />
-
-
+        android:id="@+id/action_super_league"
+        android:icon="@drawable/img_super_league"
+        android:title="@string/navi_super_league" />
     <item
         android:id="@+id/menu_item_profile"
         android:icon="@drawable/ic_profile"
         android:title="@string/navi_profile" />
 
-
-    <!--    <item-->
-    <!--        android:id="@+id/menu_item_bet_history"-->
-    <!--        android:icon="@drawable/ic_bet_history"-->
-    <!--        android:title="@string/navi_bet_history" />-->
     <item
-        android:id="@+id/menu_item_ranking"
-        android:icon="@drawable/ic_menu_rank"
-        android:title="@string/navi_user_ranking" />
+        android:id="@+id/action_custom_league"
+        android:icon="@drawable/img_custom_league"
+        android:title="@string/navi_custom_league" />
 
+    <item
+        android:id="@+id/action_tipstar"
+        android:icon="@drawable/img_tipstar"
+        android:title="@string/navi_tipstar" />
 
 </menu>

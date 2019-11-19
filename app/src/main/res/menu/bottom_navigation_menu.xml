@@ -3,7 +3,7 @@
 
         <item
             android:id="@+id/action_league"
-            android:icon="@drawable/img_league"
+            android:icon="@drawable/img_normal_league"
             android:title="@string/navi_league" />
 
         <item

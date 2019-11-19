@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (menuItem.getItemId()) {
 
-                case R.id.menu_item_matchlist:
+                case R.id.action_tipstar:
                     if (manager.getBackStackEntryCount() >= 1)
                         manager.popBackStack();
                     toolbar.setTitle(R.string.title_match_list);
@@ -64,18 +64,21 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new ProfileFragment());
                     return true;
 
-                case R.id.menu_item_ranking:
+                case R.id.action_normal_league:
                     if (manager.getBackStackEntryCount() >= 1)
                         manager.popBackStack();
                     toolbar.setTitle(R.string.title_ranking);
                     loadFragment(new RankFragment());
                     return true;
 
-                case R.id.menu_item_history:
+                case R.id.action_super_league:
                     if (manager.getBackStackEntryCount() >= 1)
                         manager.popBackStack();
                     toolbar.setTitle(R.string.title_bet_history);
                     loadFragment(new BetHistoryFragment());
+                    return true;
+
+                case R.id.action_custom_league:
                     return true;
             }
             return false;
