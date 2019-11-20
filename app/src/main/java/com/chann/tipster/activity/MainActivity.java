@@ -3,6 +3,7 @@ package com.chann.tipster.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FragmentManager manager;
     private FragmentTransaction transaction;
+    private TextView title;
 
     public static Intent getInstance(Context context) {
         return new Intent(context, MainActivity.class);
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
+        title = findViewById(R.id.title);
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
 
@@ -53,28 +56,32 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.action_tipstar:
                     if (manager.getBackStackEntryCount() >= 1)
                         manager.popBackStack();
-                    toolbar.setTitle(R.string.title_match_list);
+//                    toolbar.setTitle(R.string.title_match_list);
+                    title.setText(R.string.title_match_list);
                     loadFragment(new MatchListFragment());
                     return true;
 
                 case R.id.menu_item_profile:
                     if (manager.getBackStackEntryCount() >= 1)
                         manager.popBackStack();
-                    toolbar.setTitle(R.string.title_profile);
+//                    toolbar.setTitle(R.string.title_profile);
+                    title.setText(R.string.title_profile);
                     loadFragment(new ProfileFragment());
                     return true;
 
-                case R.id.action_normal_league:
+                case R.id.action_rank:
                     if (manager.getBackStackEntryCount() >= 1)
                         manager.popBackStack();
-                    toolbar.setTitle(R.string.title_ranking);
+//                    toolbar.setTitle(R.string.title_ranking);
+                    title.setText(R.string.title_ranking);
                     loadFragment(new RankFragment());
                     return true;
 
-                case R.id.action_super_league:
+                case R.id.action_history:
                     if (manager.getBackStackEntryCount() >= 1)
                         manager.popBackStack();
-                    toolbar.setTitle(R.string.title_bet_history);
+//                    toolbar.setTitle(R.string.title_bet_history);
+                    title.setText(R.string.title_bet_history);
                     loadFragment(new BetHistoryFragment());
                     return true;
 

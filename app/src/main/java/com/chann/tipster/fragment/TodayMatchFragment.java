@@ -20,7 +20,6 @@ import com.chann.tipster.activity.OddsActivity;
 import com.chann.tipster.adapter.MatchDataAdapter;
 import com.chann.tipster.adapter.MatchPagerAdapter;
 import com.chann.tipster.data.MatchData;
-import com.chann.tipster.databinding.FragmentMatchListBinding;
 import com.chann.tipster.holderInterface.OnHolderItemClickListener;
 import com.chann.tipster.viewmodel.MatchListViewModel;
 import com.ethanhua.skeleton.Skeleton;
@@ -65,7 +64,7 @@ public class TodayMatchFragment extends Fragment implements OnHolderItemClickLis
         SkeletonScreen skeletonScreen = Skeleton.bind(recyclerView)
                 .adapter(adapter)
                 .count(10)
-                .shimmer(false)
+                .shimmer(true)
                 .duration(1300)
                 .angle(0)
                 .color(R.color.shimmer_color)
@@ -77,7 +76,7 @@ public class TodayMatchFragment extends Fragment implements OnHolderItemClickLis
             public void run() {
                 skeletonScreen.hide();
             }
-        }  , 3000);
+        }  , 2000);
 
 
         model = ViewModelProviders.of(this).get(MatchListViewModel.class);
@@ -127,6 +126,7 @@ public class TodayMatchFragment extends Fragment implements OnHolderItemClickLis
     public void onResume() {
         super.onResume();
 
+//        model.getMatchList();
         if (model.disposable.isDisposed()) {
 
             model.getMatchList();

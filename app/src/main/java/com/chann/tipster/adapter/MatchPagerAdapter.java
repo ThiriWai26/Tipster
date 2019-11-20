@@ -12,7 +12,7 @@ import com.chann.tipster.fragment.TomorrowMatchFragment;
 
 public class MatchPagerAdapter extends FragmentStatePagerAdapter {
 
-    private String[] tabTitles = {"Today", "Tomorrow", "20-11-2019"};
+    private String[] tabTitles = {"Today", "Tomorrow", "After Tomorrow"};
 
     public MatchPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);

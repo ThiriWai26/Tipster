@@ -5,32 +5,44 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
-    <RelativeLayout
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:background="@color/divider_league_color" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_league_name"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginStart="@dimen/compat_margin_sm"-->
+<!--            android:layout_marginEnd="@dimen/compat_margin_sm"-->
+<!--            android:background="@android:color/white"-->
+<!--            android:fontFamily="@font/roboto"-->
+<!--            android:paddingStart="@dimen/compat_margin_sm"-->
+<!--            android:paddingEnd="@dimen/compat_margin_sm"-->
+<!--            android:textColor="@color/colorAccent"-->
+<!--            android:textSize="@dimen/league_title_size"-->
+<!--            android:textStyle="bold"/>-->
+
+<!--    </RelativeLayout>-->
+
+    <TextView
+        android:id="@+id/tv_league_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:background="@color/divider_color"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        android:textSize="@dimen/league_title_size"
+        android:textStyle="bold"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:background="@color/divider_league_color" />
-
-        <TextView
-            android:id="@+id/tv_league_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/compat_margin_sm"
-            android:layout_marginEnd="@dimen/compat_margin_sm"
-            android:background="@android:color/white"
-            android:fontFamily="@font/roboto"
-            android:paddingStart="@dimen/compat_margin_sm"
-            android:paddingEnd="@dimen/compat_margin_sm"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/league_title_size"
-            android:textStyle="bold"/>
-
-    </RelativeLayout>
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

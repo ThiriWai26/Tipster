@@ -20,7 +20,6 @@ import com.chann.tipster.activity.OddsActivity;
 import com.chann.tipster.adapter.MatchDataAdapter;
 import com.chann.tipster.adapter.MatchPagerAdapter;
 import com.chann.tipster.data.MatchData;
-import com.chann.tipster.databinding.FragmentMatchListBinding;
 import com.chann.tipster.holderInterface.OnHolderItemClickListener;
 import com.chann.tipster.viewmodel.MatchListViewModel;
 import com.ethanhua.skeleton.Skeleton;
@@ -63,17 +62,12 @@ public class AfterTomorrowMatchFragment extends Fragment implements OnHolderItem
         SkeletonScreen skeletonScreen = Skeleton.bind(recyclerView)
                 .adapter(adapter)
                 .count(10)
-                .shimmer(false)
+                .shimmer(true)
                 .angle(0)
                 .load(R.layout.skeleton_screen_matchlist)
                 .show();
 
-        recyclerView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                skeletonScreen.hide();
-            }
-        }  , 3000);
+        recyclerView.postDelayed(() -> skeletonScreen.hide(), 2000);
         model = ViewModelProviders.of(this).get(MatchListViewModel.class);
 
         model.getMatchList().observe(this, matchListResponse -> {
@@ -121,7 +115,7 @@ public class AfterTomorrowMatchFragment extends Fragment implements OnHolderItem
     @Override
     public void onResume() {
         super.onResume();
-
+//        model.getMatchList();
         if (model.disposable.isDisposed()) {
 
             model.getMatchList();

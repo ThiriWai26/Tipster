@@ -99,14 +99,7 @@ public class OddsActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void bindData() {
 
-        Picasso.get().load(league.localTeamLogo).resize(50, 50).into(binding.localProfile);
-        Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(binding.visitorProfile);
-
-        Picasso.get().load(league.localTeamLogo).resize(50, 50).into(binding.imgLocalProfile);
-        Picasso.get().load(league.visitorTeamLogo).resize(50, 50).into(binding.imgVisitorProfile);
-
-        binding.tvLocalTeamScore.setText(String.valueOf(league.localTeamScore));
-        binding.tvVisitorTeamScore.setText(String.valueOf(league.visitorTeamScore));
+        binding.setData(league);
 
         Log.e("local goal",String.valueOf(league.localTeamScore));
         Log.e("visitro goal",String.valueOf(league.visitorTeamScore));

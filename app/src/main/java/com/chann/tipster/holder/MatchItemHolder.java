@@ -69,6 +69,13 @@ public class MatchItemHolder extends RecyclerView.ViewHolder{
                 binding.localHandiCap.setText("");//30 sec reload မှာ မထည့်ရင်  ပေါက်ကရဖြစ်လို့
             }
 
+            if(data.overUnder.value < 0){
+                binding.overUnder.setText(data.overUnder.totalScore+" "+data.overUnder.value);
+            }
+            else {
+                binding.overUnder.setText(data.overUnder.totalScore+" +"+data.overUnder.value);
+            }
+
     }
 
     public static MatchItemHolder create(LayoutInflater inflater , ViewGroup parent , OnHolderItemClickListener listener){
