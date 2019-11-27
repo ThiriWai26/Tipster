@@ -24,6 +24,7 @@ public class MatchListViewModel extends AndroidViewModel {
     public CompositeDisposable compositeDisposable;
     public Disposable disposable;
     private MutableLiveData<MatchListResponse> matchListResponse;
+    private String date;
 
 
     public MatchListViewModel(@NonNull Application application) {
@@ -35,7 +36,9 @@ public class MatchListViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<MatchListResponse> getMatchList(){
+    public LiveData<MatchListResponse> getMatchList(String date){
+
+        this.date = date;
 
         if(matchListResponse == null){
             matchListResponse = new MutableLiveData<>();
@@ -48,7 +51,7 @@ public class MatchListViewModel extends AndroidViewModel {
     }
 
     private void loadData(Long aLong) {
-        Disposable subscribe = RetrofitService.getApiEnd().getMatchList(Token.token)
+        Disposable subscribe = RetrofitService.getApiEnd().getMatchList(Token.token , date)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult , this::handleError);

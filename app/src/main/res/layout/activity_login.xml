@@ -13,11 +13,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.LoginActivity">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <include
@@ -26,81 +25,90 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1.8"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_weight="2">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="@dimen/view_width"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/MyTextInputLayout">
+                <ImageView
+                    android:layout_width="360dp"
+                    android:layout_height="450dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="-80dp"
+                    android:layout_marginBottom="-60dp"
+                    android:src="@drawable/img_bglogin" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ph"
-                        style="@style/CvEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_ph_no"
-                        android:imeOptions="actionNext"
-                        android:text="@={userlogin.ph}"
-                        android:inputType="phone" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="@dimen/view_width"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/MyTextInputLayout"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@android:color/white">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/pwd"
-                        style="@style/CvEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_pwd"
-                        android:text="@={userlogin.pwd}"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPassword" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/MyBtnStyle"
-                    android:layout_width="@dimen/view_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_xl"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/label_login"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:onClick="onLogin"/>
-                <com.facebook.login.widget.LoginButton
-                    android:id="@+id/loginButton"
-                    android:layout_width="@dimen/view_width"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
-                    android:onClick="facebookLogin"/>
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/fb_login"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_lg"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/label_create_account"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:onClick="onRegister"/>
+                    android:gravity="center"
+                    android:orientation="vertical">
 
 
-            </LinearLayout>
+                    <EditText
+                        android:id="@+id/ph"
+                        android:layout_width="240dp"
+                        android:layout_height="48dp"
+                        android:hint="@string/hint_ph_no"
+                        android:background="@drawable/bg_login_btn_rounded"
+                        android:inputType="phone"
+                        android:imeOptions="actionNext"
+                        android:paddingLeft="15dp"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="14sp" />
 
+
+                    <EditText
+                        android:id="@+id/pwd"
+                        android:layout_width="240dp"
+                        android:layout_height="48dp"
+                        android:hint="@string/hint_pwd"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_login_btn_rounded"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:paddingLeft="15dp"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="14sp" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/MyBtnStyle"
+                        android:layout_width="@dimen/view_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_xl"
+                        android:fontFamily="sans-serif"
+                        android:onClick="onLogin"
+                        android:text="@string/label_register"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        app:cornerRadius="24dp" />
+
+
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/loginButton"
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:onClick="facebookLogin" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/fb_login"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_lg"
+                        android:fontFamily="sans-serif"
+                        android:onClick="onRegister"
+                        android:text="@string/label_create_account"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 

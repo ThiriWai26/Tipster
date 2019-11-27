@@ -45,7 +45,7 @@ public interface ApiEnd {
 
     @FormUrlEncoded
     @POST("/api/matchList")
-    Observable<MatchListResponse> getMatchList(@Field("token") String token);
+    Observable<MatchListResponse> getMatchList(@Field("token") String token , @Field("day") String date);
 
     @FormUrlEncoded
     @POST("/api/odds")

@@ -2,14 +2,14 @@
 <resources>
     <color name="colorPrimary">#1abc9c</color>
     <color name="colorPrimaryDark">#1abc9c</color>
-    <color name="colorAccent">#16a085</color>
+    <color name="colorAccent">#1abc9c</color>
     <color name="colorPrimaryLight">#4e6681</color>
 
     <color name="theme_color">#1abc9c</color>
 
     <color name="grey">#f4f3f3</color>
     <color name="grey_dark">#F3363636</color>
-    <color name="green_light">#00AAA9</color>
+<!--    <color name="green_light">#00AAA9</color>-->
     <color name="fb_color">#3D4DA1</color>
     <color name="black_light">#97000000</color>
     <color name="shimmer_background">#e2dfdf</color>

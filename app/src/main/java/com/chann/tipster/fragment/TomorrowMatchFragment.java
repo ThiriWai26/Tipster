@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.chann.tipster.R;
 import com.chann.tipster.activity.OddsActivity;
@@ -78,7 +79,7 @@ public class TomorrowMatchFragment extends Fragment implements OnHolderItemClick
 
         model = ViewModelProviders.of(this).get(MatchListViewModel.class);
 
-        model.getMatchList().observe(this, matchListResponse -> {
+        model.getMatchList("tomorrow").observe(this, matchListResponse -> {
             progressBar.setVisibility(View.GONE);
             if (matchListResponse.isSuccess) {
 
@@ -114,8 +115,9 @@ public class TomorrowMatchFragment extends Fragment implements OnHolderItemClick
     @Override
     public void onHolderitemClick(MatchData matchData) {
 
-        Log.e("handicap",String.valueOf(matchData.handiCap.handicap));
-        startActivity(OddsActivity.getInstance(getContext(), matchData , roomId));
+//        Log.e("handicap",String.valueOf(matchData.handiCap.handicap));
+//        startActivity(OddsActivity.getInstance(getContext(), matchData , roomId));
+        Toast.makeText(getContext(), "Can't be bet now", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -126,7 +128,7 @@ public class TomorrowMatchFragment extends Fragment implements OnHolderItemClick
 
         if (model.disposable.isDisposed()) {
 
-            model.getMatchList();
+            model.getMatchList("tomorrow");
 
         }
     }

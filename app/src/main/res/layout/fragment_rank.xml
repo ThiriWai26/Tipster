@@ -25,7 +25,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="215dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/layout"
@@ -90,29 +91,30 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text=""/>
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Rank"/>
 
-                <TextView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginRight="@dimen/margin_lg"
-                    android:text=""/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.6"
                     android:text="Name"
+                    android:fontFamily="@font/roboto"
                     android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/league_title_size"/>
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Points"
+                    android:fontFamily="@font/roboto"
                     android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/league_title_size"/>
+                    android:textSize="14sp"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

@@ -81,15 +81,17 @@ public class TodayMatchFragment extends Fragment implements OnHolderItemClickLis
 
         model = ViewModelProviders.of(this).get(MatchListViewModel.class);
 
-        model.getMatchList().observe(this, matchListResponse -> {
+        model.getMatchList("today").observe(this, matchListResponse -> {
 //            progressBar.setVisibility(View.GONE);
             if (matchListResponse.isSuccess) {
 
                 roomId = matchListResponse.room.roomId;
 
+                Log.e("today",matchListResponse.matchDates.afterTomorrow);
                 if(matchListResponse.room.roomId != null ){
                     if(matchListResponse.room.isActive){
                         adapter.addData(matchListResponse.matchListData);
+                        adapter.notifyDataSetChanged();
                     }
                     else {
 //                        binding.tvStartDate.setText(String.format("Tipster will be started at %s %s .",matchListResponse.room.startDate , matchListResponse.room.startTime));
@@ -129,7 +131,7 @@ public class TodayMatchFragment extends Fragment implements OnHolderItemClickLis
 //        model.getMatchList();
         if (model.disposable.isDisposed()) {
 
-            model.getMatchList();
+            model.getMatchList("today");
 
         }
     }

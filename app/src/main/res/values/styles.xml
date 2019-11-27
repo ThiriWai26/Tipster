@@ -28,15 +28,22 @@
         <item name="android:minHeight">54dip</item>
     </style>
 
+    <style name="FacebookLoginButton">
+        <item name="android:background">@drawable/bg_login_btn_rounded</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
     <style name="MyTextInputLayout" parent="@style/Widget.Design.TextInputLayout">
         <item name="hintTextAppearance">@style/HintColor</item>
         <!-- Hint color and label color in FALSE state -->
-        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:textColorHint">@color/grey_dark</item>
         <item name="android:textSize">@dimen/input_text_size</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
-        <item name="colorAccent">@color/grey</item>
-        <item name="colorControlNormal">@android:color/white</item>
-        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorAccent">@color/grey_dark</item>
+        <item name="colorControlNormal">@color/grey_dark</item>
+        <item name="colorControlActivated">@color/grey_dark</item>
     </style>
 
     <style name="HintColor" parent="@style/TextAppearance.Design.Hint">
@@ -58,6 +65,12 @@
     </style>
 
 
+    <style name="Widget.MaterialComponents.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:paddingLeft">@dimen/mtrl_btn_padding_left</item>
+        <item name="android:paddingRight">@dimen/mtrl_btn_padding_right</item>
+        <item name="strokeColor">@color/mtrl_btn_stroke_color_selector</item>
+        <item name="strokeWidth">@dimen/mtrl_btn_stroke_size</item>
+    </style>
 
     <style name="BetTvStyle">
         <item name="android:textSize">16sp</item>

@@ -8,10 +8,11 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="84dp"
-        android:layout_height="84dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_gravity="center"
-        android:src="@drawable/logo_tipstar" />
+        android:scaleType="fitXY"
+        android:src="@drawable/ballkan_logo1" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
@@ -21,7 +22,8 @@
         android:gravity="center"
         android:letterSpacing="0.1"
         android:text="TIPSTAR CHAMPIONSHIP"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textColor="@color/grey_dark"
+        android:textSize="16sp"
+        android:visibility="gone"/>
 
 </LinearLayout>

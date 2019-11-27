@@ -1,21 +1,25 @@
 package com.chann.tipster.adapter;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.chann.tipster.data.MatchDates;
 import com.chann.tipster.fragment.AfterTomorrowMatchFragment;
 import com.chann.tipster.fragment.TodayMatchFragment;
 import com.chann.tipster.fragment.TomorrowMatchFragment;
 
+
 public class MatchPagerAdapter extends FragmentStatePagerAdapter {
 
-    private String[] tabTitles = {"Today", "Tomorrow", "After Tomorrow"};
-
+    private MatchDates matchDates;
     public MatchPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
+        matchDates = new MatchDates();
     }
 
     @NonNull
@@ -35,13 +39,28 @@ public class MatchPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return tabTitles.length;
+        return 3;
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabTitles[position];
 
+        if(position == 0 )
+            return matchDates.today;
+
+        if (position == 1)
+            return matchDates.tomorrow;
+
+        if(position == 2)
+            return matchDates.afterTomorrow;
+
+        return null;
+
+    }
+
+    public void addDates(MatchDates matchDates){
+        this.matchDates = matchDates;
+        notifyDataSetChanged();
     }
 }

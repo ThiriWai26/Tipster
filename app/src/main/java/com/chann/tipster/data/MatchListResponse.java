@@ -15,4 +15,6 @@ public class MatchListResponse {
     @SerializedName("data")
     public List<MatchListData>  matchListData;
 
+    @SerializedName("date")
+    public MatchDates matchDates;
 }
