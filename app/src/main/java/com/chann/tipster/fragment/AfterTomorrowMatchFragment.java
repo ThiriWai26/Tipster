@@ -39,6 +39,7 @@ public class AfterTomorrowMatchFragment extends Fragment implements OnHolderItem
 
     public AfterTomorrowMatchFragment() {
         // Required empty public constructor
+
     }
 
 
@@ -120,7 +121,7 @@ public class AfterTomorrowMatchFragment extends Fragment implements OnHolderItem
 //        model.getMatchList();
         if (model.disposable.isDisposed()) {
 
-            model.getMatchList("aftertomorrow");
+            model.getMatchList("after_tomorrow");
 
         }
     }

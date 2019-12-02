@@ -85,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:gravity="center_vertical"
+                android:background="@color/divider_color"
                 android:orientation="horizontal">
 
                 <TextView
@@ -92,11 +93,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="14sp"
                     android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/league_title_size"
+                    android:textStyle="bold"
                     android:text="Rank"/>
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=" "/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -104,17 +111,19 @@
                     android:layout_weight="3.6"
                     android:text="Name"
                     android:fontFamily="@font/roboto"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="14sp"/>
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/league_title_size"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1.2"
                     android:text="Points"
                     android:fontFamily="@font/roboto"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="14sp"/>
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/league_title_size"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

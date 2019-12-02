@@ -65,41 +65,6 @@
             android:src="@drawable/logo_tipstar" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="16dp"
-            android:layout_weight="1"
-            android:text="" />
-
-        <View
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginRight="@dimen/margin_lg"
-            android:text="" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_weight="1.5"
-            android:background="@color/light_transparent"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/league_title_size" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="16dp"
-            android:layout_weight="0.5"
-            android:background="@color/light_transparent"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/league_title_size" />
-    </LinearLayout>
 
     <LinearLayout
 
@@ -145,13 +110,7 @@
             android:text="@{String.valueOf(data.coin)}"/>
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/shimmer_background"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/margin_lg"
-        android:layout_marginRight="@dimen/margin_lg"/>
+
 
 
     <LinearLayout
@@ -198,13 +157,6 @@
             android:text="@{String.valueOf(data.coin)}"/>
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/shimmer_background"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/margin_lg"
-        android:layout_marginRight="@dimen/margin_lg"/>
 
     <LinearLayout
 
@@ -250,13 +202,7 @@
             android:text="@{String.valueOf(data.coin)}"/>
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/shimmer_background"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/margin_lg"
-        android:layout_marginRight="@dimen/margin_lg"/>
+
 
     <LinearLayout
 
@@ -302,13 +248,7 @@
             android:text="@{String.valueOf(data.coin)}"/>
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/shimmer_background"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/margin_lg"
-        android:layout_marginRight="@dimen/margin_lg"/>
+
 
     <LinearLayout
 
@@ -354,12 +294,5 @@
             android:text="@{String.valueOf(data.coin)}"/>
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/shimmer_background"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/margin_lg"
-        android:layout_marginRight="@dimen/margin_lg"/>
 
 </LinearLayout>

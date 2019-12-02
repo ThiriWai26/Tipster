@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -51,9 +53,13 @@ public class MatchListFragment extends Fragment  {
         Disposable subscribe = RetrofitService.getApiEnd().getMatchList(Token.token , "Today")
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleResult);
+                .subscribe(this::handleResult , this::handleError);
 
 
+    }
+
+    private void handleError(Throwable throwable) {
+        Toast.makeText(getContext() , "Something went wrong!!",Toast.LENGTH_LONG).show();
     }
 
     private void handleResult(MatchListResponse matchListResponse) {

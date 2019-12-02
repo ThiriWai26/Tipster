@@ -4,6 +4,7 @@ import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
 
+import com.chann.tipster.R;
 import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
@@ -70,7 +71,8 @@ public class MatchData {
 
     @BindingAdapter("getImage")
     public static void loadImage(ImageView view , String url){
-        Picasso.get().load(url).resize(50,50).into(view);
+        Picasso.get().load(url).resize(50,50)
+                .placeholder(R.drawable.logo_tipstar).into(view);
     }
 
 }
