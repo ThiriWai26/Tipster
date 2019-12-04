@@ -9,42 +9,27 @@ import com.squareup.picasso.Picasso;
 
 public class BetHistoryData {
 
-    @SerializedName("label")
-    public int label;
+    @SerializedName("bet_match_id")
+    public int betMatchid;
 
-    @SerializedName("coin")
-    public int coin;
+    @SerializedName("handicap_bet_info")
+    public HandiBetInfo handiBetInfo;
 
-    @SerializedName("value")
-    public int value;
+    @SerializedName("handicap_odds")
+    public HandicapOdds handicapOdds;
 
+    @SerializedName("over_under_bet_info")
+    public OverUnderBetInfo overUnderBetInfo;
 
-    @SerializedName("date")
-    public String date;
-
-    @SerializedName("time")
-    public String time;
-
-    @SerializedName("outcomes")
-    public Integer outcomes;
-
-    @SerializedName("winning")
-    public Integer winning;
-
-    @SerializedName("match_id")
-    public int matchId;
-
-    @SerializedName("bet_type")
-    public int betType;
+    @SerializedName("over_under_odds")
+    public OverUnderOdds overUnderOdds;
 
     @SerializedName("match")
     public BetHisMatch match;
-
-    @SerializedName("odds")
-    public BetHisOdds odds;
 
     @BindingAdapter("loadImage")
     public static void getImage(ImageView view, String url){
         Picasso.get().load(url).resize(50, 50).into(view);
     }
+
 }
