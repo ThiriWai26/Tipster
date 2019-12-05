@@ -281,7 +281,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
                     android:onClick="@{(v)->oddsActivity.onLocalTeamBetClick(v,odds.betDone.getLocal())}"
-                    android:text="Bet"
+                    android:text="Play"
                     android:backgroundTint="@{odds.betDone.getVisitor()? @color/gray : @color/colorPrimary}"
                     android:visibility="@{odds.betDone.getLocal()? View.GONE : View.VISIBLE}" />
                 <com.google.android.material.button.MaterialButton
@@ -290,7 +290,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:text="Bet"
+                    android:text="Play"
                     android:visibility="@{odds.betDone.getLocal()? View.VISIBLE : View.GONE}"/>
 
             </LinearLayout>
@@ -340,7 +340,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:text="Bet"
+                    android:text="Play"
                     android:backgroundTint="@{odds.betDone.getLocal()? @color/gray : @color/colorPrimary}"
                     android:onClick="@{(v)->oddsActivity.onVisitorTeamBetClick(v,odds.betDone.getVisitor())}"
                     android:visibility="@{odds.betDone.getVisitor()? View.GONE : View.VISIBLE}"/>
@@ -349,7 +349,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:text="Bet"
+                    android:text="Play"
                     android:backgroundTint="@color/red"
                     android:background="@color/red"
                     android:visibility="@{odds.betDone.getVisitor()? View.VISIBLE : View.GONE}"/>
@@ -432,7 +432,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:text="Bet"
+                    android:text="Play"
                     android:backgroundTint="@{odds.betDone.getUnder()? @color/gray : @color/colorPrimary}"
                     android:onClick="@{(v)->oddsActivity.onOverBetClick(v,odds.betDone.getOver())}"
                     android:visibility="@{odds.betDone.getOver()? View.GONE : View.VISIBLE}"/>
@@ -442,7 +442,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:text="Bet"
+                    android:text="Play"
                     android:backgroundTint="@color/red"
                     android:visibility="@{odds.betDone.getOver()? View.VISIBLE : View.GONE}"/>
 
@@ -489,7 +489,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:text="Bet"
+                    android:text="Play"
                     android:backgroundTint="@{odds.betDone.getOver()? @color/gray : @color/colorPrimary}"
                     android:onClick="@{(v)->oddsActivity.onUnderBetClick(v,odds.betDone.getUnder())}"
                     android:visibility="@{odds.betDone.getUnder()? View.GONE : View.VISIBLE}"/>
@@ -499,7 +499,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_lg"
-                    android:text="Bet"
+                    android:text="Play"
                     android:backgroundTint="@color/red"
                     android:visibility="@{odds.betDone.getUnder()? View.VISIBLE : View.GONE}"/>
 
