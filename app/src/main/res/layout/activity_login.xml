@@ -81,7 +81,7 @@
                         android:layout_marginTop="@dimen/margin_xl"
                         android:fontFamily="sans-serif"
                         android:onClick="onLogin"
-                        android:text="@string/label_register"
+                        android:text="@string/label_login"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
                         app:cornerRadius="24dp" />
