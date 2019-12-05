@@ -35,7 +35,9 @@ import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
 
+import id.zelory.compressor.Compressor;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -155,12 +157,21 @@ public class ProfileFragment extends Fragment {
             RequestBody token = RequestBody.create( MediaType.parse("multipart/form-data"), Token.token);
             MultipartBody.Part image = null;
             File file = new File(imagePath);
+            Log.e("originalfilesize",String.valueOf(file.length()/1024));
+            File compressFile = null;
+
+            try {
+                compressFile = new Compressor(getContext()).compressToFile(file);
+                Log.e("compressfilesize",String.valueOf(compressFile.length()/1024));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             Log.e("fileimagePath",imagePath);
             Log.e("file name",editName);
             Log.e("token",Token.token);
 
-            RequestBody imageBody = RequestBody.create( MediaType.parse("multipart/form-data"),file);
+            RequestBody imageBody = RequestBody.create( MediaType.parse("multipart/form-data"), compressFile);
             image = MultipartBody.Part.createFormData("image",file.getName(),imageBody);
 
             Log.e("file name",file.getName());
