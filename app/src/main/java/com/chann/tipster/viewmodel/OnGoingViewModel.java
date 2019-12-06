@@ -48,6 +48,7 @@ public class OnGoingViewModel extends AndroidViewModel {
     }
     private void handleResult(BetHistoryResponse betHistoryResponse) {
         betData.setValue(betHistoryResponse);
+        Log.e("Ongoinghistroysize", String.valueOf(betHistoryResponse.betHistoryData.size()));
     }
     private void handleError(Throwable throwable) {
         Log.e("history_throwable",throwable.toString());

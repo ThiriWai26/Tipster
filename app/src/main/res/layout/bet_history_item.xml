@@ -11,12 +11,15 @@
         android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center"
+            android:minHeight="76dp">
 
 <!--            <ImageView-->
 <!--                android:id="@+id/iv_local_logo"-->
@@ -148,7 +151,8 @@
                 android:gravity="center_horizontal"
                 android:textSize="12sp"
                 android:typeface="sans"
-                android:layout_below="@id/layout_goal_score"/>
+                android:layout_below="@id/layout_goal_score"
+                android:visibility="@{data.overUnderOdds == null? View.GONE : View.VISIBLE}"/>
         </RelativeLayout>
 
         <LinearLayout
@@ -156,14 +160,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:visibility="gone">
 
 
             <RelativeLayout
+                android:id="@+id/handicap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="4dp"
+                android:visibility="@{data.handiBetInfo == null ? View.GONE : View.VISIBLE}">
 
                 <TextView
                     android:id="@+id/tv_bet_team_name"
@@ -174,7 +182,7 @@
                     android:layout_marginRight="16dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="hello"
+                    android:text='@{data.handiBetInfo.label.equals("1")? data.match.localName : data.match.visitorName}'
                     android:fontFamily="@font/roboto_medium"
                     android:gravity="center_vertical"
                     android:textSize="14sp"
@@ -187,7 +195,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="64dp"
                     android:ellipsize="end"
-                    android:text="@{String.valueOf(data.coin)}"
+                    android:text="@{String.valueOf(data.handiBetInfo.coin)}"
                     android:fontFamily="@font/roboto_medium"
                     android:gravity="center_vertical"
                     android:textSize="12sp"
@@ -200,7 +208,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="@{data.date}"
+                    android:text="@{data.handiBetInfo.date}"
                     android:gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"/>
@@ -213,20 +221,21 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="64dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:textColor="@{data.winning == 1 ? @color/colorAccent : @color/red }"
+                    android:textColor="@{data.handiBetInfo.winning == 1 ? @color/colorAccent : @color/red }"
                     android:textSize="12sp"
                     android:typeface="sans"
-                    android:text='@{data.winning == 1 ? "+"+ String.valueOf(data.outcomes) : "-"+String.valueOf(data.outcomes)}'
-                    android:visibility="@{data.winning == null ? View.GONE : View.VISIBLE}"/>
+                    android:text='@{data.handiBetInfo.winning == 1 ? "+"+ String.valueOf(data.handiBetInfo.outcomes - data.handiBetInfo.coin) : String.valueOf(data.handiBetInfo.outcomes - data.handiBetInfo.coin)}'
+                    android:visibility="@{data.handiBetInfo.winning == null ? View.GONE : View.VISIBLE}"/>
 
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/overUnder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp"
-                android:visibility="gone">
+                android:layout_marginTop="4dp"
+                android:visibility="@{data.overUnderBetInfo == null ? View.GONE : View.VISIBLE}">
 
                 <TextView
                     android:id="@+id/tv_over"
@@ -237,7 +246,7 @@
                     android:layout_marginRight="16dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="Over"
+                    android:text='@{data.overUnderBetInfo.label.equals("1")? "Over" : "Under"}'
                     android:fontFamily="@font/roboto_medium"
                     android:gravity="center_vertical"
                     android:textSize="14sp"
@@ -250,13 +259,11 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="64dp"
                     android:ellipsize="end"
-                    android:text="1000"
+                    android:text="@{String.valueOf(data.overUnderBetInfo.coin)}"
                     android:fontFamily="@font/roboto_medium"
                     android:gravity="center_vertical"
                     android:textSize="12sp"
                     android:typeface="sans"/>
-
-
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -265,11 +272,11 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="64dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:minHeight="40dp"
-                    android:text="+2000"
-                    android:visibility="gone"
                     android:textSize="12sp"
-                    android:typeface="sans" />
+                    android:typeface="sans"
+                    android:textColor="@{data.overUnderBetInfo.winning == 0 ? @color/red : @color/colorAccent}"
+                    android:text='@{data.overUnderBetInfo.winning == 1 ? "+"+ String.valueOf(data.overUnderBetInfo.outcomes - data.overUnderBetInfo.coin) : String.valueOf(data.overUnderBetInfo.outcomes - data.overUnderBetInfo.coin)}'
+                    android:visibility="@{data.overUnderBetInfo.winning == null ? View.GONE : View.VISIBLE}"/>
 
 
             </RelativeLayout>

@@ -72,7 +72,7 @@ public class AfterTomorrowMatchFragment extends Fragment implements OnHolderItem
         recyclerView.postDelayed(() -> skeletonScreen.hide(), 2000);
         model = ViewModelProviders.of(this).get(MatchListViewModel.class);
 
-        model.getMatchList("aftertomorrow").observe(this, matchListResponse -> {
+        model.getMatchList("after_tomorrow").observe(this, matchListResponse -> {
             progressBar.setVisibility(View.GONE);
 
             if (matchListResponse.isSuccess) {

@@ -1,5 +1,6 @@
 package com.chann.tipster.holder;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,38 +32,27 @@ public class BetHistoryHolder extends RecyclerView.ViewHolder {
         binding.setData(data);
         binding.executePendingBindings();
 
-        String handiValue = data.odds.value < 0 ? String.format("%d(%d)", data.odds.handicap+data.odds.totalScore, data.odds.value) : String.format("%d(+%d)", data.odds.handicap+data.odds.totalScore, data.odds.value);
-        if(data.odds.label.equals("Home")){
+        if (data.handiBetInfo!=null){
+            @SuppressLint("DefaultLocale")
+            String handiValue = data.handicapOdds.value < 0 ? String.format("%d(%d)", data.handicapOdds.handicap,data.handicapOdds.value) : String.format("%d(+%d)", data.handicapOdds.handicap,data.handicapOdds.value);
+            if(data.handicapOdds.label.equals("Home")){
+                binding.ivLocalLogo.setText(handiValue);
+                binding.ivVisitorLogo.setText("");
+            }
 
-            binding.ivLocalLogo.setText(handiValue);
-            binding.ivVisitorLogo.setText("");
-            binding.tvOverUnder.setText("");
-        }
-
-        if(data.odds.label.equals("Away")){
-            binding.ivVisitorLogo.setText(handiValue);
-            binding.ivLocalLogo.setText("");
-            binding.tvOverUnder.setText("");
-        }
-        if(data.odds.label.equals("over_under")) {
-            Log.e("handiValue", handiValue);
-            binding.tvOverUnder.setText(handiValue);
-            binding.ivLocalLogo.setText("");
-            binding.ivVisitorLogo.setText("");
+            if(data.handicapOdds.label.equals("Away")){
+                binding.ivVisitorLogo.setText(handiValue);
+                binding.ivLocalLogo.setText("");
+            }
         }
 
-        if (data.betType == 1 && data.label == 1) {
-            binding.tvBetTeamName.setText(data.match.localName);
+        if (data.overUnderBetInfo!=null){
+            @SuppressLint("DefaultLocale")
+            String overUnder = data.overUnderOdds.value < 0 ? String.format("%d(%d)",data.overUnderOdds.totalScore,data.overUnderOdds.value): String.format("%d(+%d)",data.overUnderOdds.totalScore,data.overUnderOdds.value);
+            binding.tvOverUnder.setText(overUnder);
         }
-        else if (data.betType == 1 && data.label == 2) {
-            binding.tvBetTeamName.setText(data.match.visitorName);
-        }
-        else if (data.betType == 2 && data.label == 1) {
-            binding.tvBetTeamName.setText("Over");
-        }
-        else if (data.betType == 2 && data.label == 2) {
-            binding.tvBetTeamName.setText("Under");
-        }
+
+
         binding.layout1.setOnClickListener(view -> {
             if(binding.layout.getVisibility() == View.GONE){
                 ExpandAndCollapseViewUtil.expand(binding.layout , 250);
