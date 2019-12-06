@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -405,5 +406,14 @@ public class OddsActivity extends AppCompatActivity {
     public void onBackAction(View view) {
 
         finish();
+    }
+
+    public void onClickAds(View view) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        intent.setData(Uri.parse("http://google.com"));
+        startActivity(intent);
+
     }
 }
