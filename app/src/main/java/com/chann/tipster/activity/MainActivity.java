@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.chann.tipster.R;
 import com.chann.tipster.fragment.BetHistoryFragment;
+import com.chann.tipster.fragment.HomeFragment;
 import com.chann.tipster.fragment.MatchListFragment;
 import com.chann.tipster.fragment.ProfileFragment;
 import com.chann.tipster.fragment.RankFragment;
@@ -83,6 +84,14 @@ public class MainActivity extends AppCompatActivity {
 //                    toolbar.setTitle(R.string.title_bet_history);
                     title.setText(R.string.title_bet_history);
                     loadFragment(new BetHistoryFragment());
+                    return true;
+
+                case R.id.action_home:
+                    if (manager.getBackStackEntryCount() >= 1)
+                        manager.popBackStack();
+//                    toolbar.setTitle(R.string.title_bet_history);
+                    title.setText(R.string.title_home);
+                    loadFragment(new HomeFragment());
                     return true;
 
                 case R.id.action_custom_league:

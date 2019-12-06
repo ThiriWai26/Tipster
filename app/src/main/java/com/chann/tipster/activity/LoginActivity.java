@@ -1,15 +1,20 @@
 package com.chann.tipster.activity;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -48,9 +53,15 @@ public class LoginActivity extends AppCompatActivity {
     private String token = "hello";
 
     @SuppressLint("CommitPrefEdits")
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
@@ -58,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         token = pref.getString("Token", null);
         disposable = new CompositeDisposable();
         checkLoginStatus();
+
     }
 
     private void init() {
