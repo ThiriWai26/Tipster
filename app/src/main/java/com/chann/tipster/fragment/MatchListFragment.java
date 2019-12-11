@@ -46,7 +46,7 @@ public class MatchListFragment extends Fragment  {
 
     private void initFragment() {
 
-        pagerAdapter = new MatchPagerAdapter(getActivity().getSupportFragmentManager() , 0);
+        pagerAdapter = new MatchPagerAdapter(getActivity().getSupportFragmentManager() , 1);
         binding.viewPager.setAdapter(pagerAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
 

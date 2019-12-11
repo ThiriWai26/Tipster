@@ -1,69 +1,65 @@
 package com.chann.tipster.fragment;
 
-import android.graphics.Color;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.chann.tipster.R;
+import com.chann.tipster.activity.LeagueDetailActivity;
+import com.chann.tipster.adapter.LeaguePagerAdapter;
 import com.chann.tipster.adapter.SliderImageAdapter;
-import com.chann.tipster.adapter.ViewPagerAdapter;
-import com.smarteist.autoimageslider.IndicatorAnimations;
-import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
+import com.chann.tipster.databinding.FragmentHomeBinding;
+import com.chann.tipster.viewmodel.HomeViewModel;
+import com.google.android.material.tabs.TabLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeViewModel.BtnLeagueClickListener {
 
-    ViewPager viewPager;
-    SliderView sliderView;
-    public HomeFragment() {
-        // Required empty public constructor
+    private HomeViewModel mViewModel;
+    private com.smarteist.autoimageslider.SliderView sliderView;
+    SliderImageAdapter adapter;
+    private FragmentHomeBinding binding;
+
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
     }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        // Inflate the layout for this fragment
-
-        viewPager = view.findViewById(R.id.viewPager);
-
-        ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getContext());
-        viewPager.setAdapter(pagerAdapter);
-
-        sliderView = view.findViewById(R.id.imageSlider);
-
-        final SliderImageAdapter adapter = new SliderImageAdapter(getContext());
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home,container,false);
+        adapter = new SliderImageAdapter(getContext());
         adapter.setCount(5);
-
-        sliderView.setSliderAdapter(adapter);
-
-        sliderView.setIndicatorAnimation(IndicatorAnimations.SLIDE); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINROTATIONTRANSFORMATION);
-        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        sliderView.setIndicatorSelectedColor(Color.WHITE);
-        sliderView.setIndicatorUnselectedColor(Color.GRAY);
-        sliderView.startAutoCycle();
-
-        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
-            @Override
-            public void onIndicatorClicked(int position) {
-                sliderView.setCurrentPagePosition(position);
-            }
-        });
-
-        return view;
+        binding.imageSlider.setSliderAdapter(adapter);
+        return binding.getRoot();
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        mViewModel.listener = this;
+        binding.setViewmodel(mViewModel);
+
+    }
+
+    @Override
+    public void onLeagueClick(String league) {
+
+        Log.e("league_name",league);
+        Intent intent = new Intent(getContext() , LeagueDetailActivity.class);
+        intent.putExtra("league_name",league);
+        startActivity(intent);
+    }
 }

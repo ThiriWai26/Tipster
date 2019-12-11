@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.chann.tipster.viewmodel.HomeViewModel" />
+    </data>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -184,9 +192,10 @@
                     android:background="@drawable/bg_rounded"
                     android:fontFamily="@font/roboto_medium"
                     android:gravity="center"
-                    android:text="TipSter\nLeague"
+                    android:text="Champion\nLeague"
                     android:textColor="@color/white"
-                    android:textSize="22sp" />
+                    android:textSize="22sp"
+                    android:onClick='@{()-> viewmodel.onClickEvent("Champion League")}'/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -198,7 +207,8 @@
                     android:gravity="center"
                     android:text="Normal\nLeague"
                     android:textColor="@color/white"
-                    android:textSize="22sp" />
+                    android:textSize="22sp"
+                    android:onClick='@{()-> viewmodel.onClickEvent("Normal League")}'/>
 
 
             </LinearLayout>
@@ -225,7 +235,8 @@
                 android:gravity="center"
                 android:text="Custom\nLeague"
                 android:textColor="@color/white"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:onClick='@{()->viewmodel.onClickEvent("Custom League")}'/>
 
 
             <HorizontalScrollView
@@ -256,3 +267,4 @@
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
+</layout>

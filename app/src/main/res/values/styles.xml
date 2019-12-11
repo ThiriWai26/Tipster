@@ -31,6 +31,10 @@
     </style>
 
     <style name="NoActionbarTheme" parent="AppTheme.Base.NoActionBar" />
+    <style name="MyToolBar">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
     <!--    <style name="Splash" parent="NoActionbarTheme">-->
     <!--        <item name="android:windowBackground">@drawable/bg_splash</item>-->

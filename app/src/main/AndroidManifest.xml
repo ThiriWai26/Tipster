@@ -17,6 +17,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.LeagueDetailActivity"></activity>
         <activity android:name=".activity.OddsActivity" /> <!-- <activity android:name=".activity.EditProfileActivity"/> -->
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.MainActivity" />
