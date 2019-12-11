@@ -3,8 +3,11 @@ package com.chann.tipster.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -19,7 +22,6 @@ import com.chann.tipster.data.Token;
 import com.chann.tipster.databinding.ActivityLoginBinding;
 import com.chann.tipster.retrofit.RetrofitService;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -29,6 +31,9 @@ import com.facebook.login.LoginResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -51,6 +56,25 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        try {
+            PackageInfo info = getBaseContext().getPackageManager().getPackageInfo(
+                    "com.chann.tipster",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA1");
+                md.update(signature.toByteArray());
+                Log.e("KeyHash", "KeyHash:" + Base64.encodeToString(md.digest(),
+                        Base64.DEFAULT));
+                Toast.makeText(getBaseContext().getApplicationContext(), Base64.encodeToString(md.digest(),
+                        Base64.DEFAULT), Toast.LENGTH_LONG).show();
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
