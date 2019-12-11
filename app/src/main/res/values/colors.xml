@@ -28,4 +28,9 @@
     <color name="light_transparent">#16000000</color>
     <color name="color_bg_rounded">#e74c3c</color>
 
+    ...
+    <color name="colorGradientStart">#F519C5</color>
+    <color name="colorGradientCenter">#F67831</color>
+    <color name="colorGradientEnd">#940351</color>
+
 </resources>
