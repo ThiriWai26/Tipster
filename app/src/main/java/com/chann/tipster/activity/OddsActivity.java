@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.chann.tipster.R;
+import com.chann.tipster.data.AdsResponse;
 import com.chann.tipster.data.BetResponse;
 import com.chann.tipster.data.MatchData;
 import com.chann.tipster.data.OddsData;
@@ -40,7 +41,9 @@ public class OddsActivity extends AppCompatActivity {
     private String handiOdds;
 
     private int typeId = 1, handiOddsId, overOddsId, handcap, value;
+    private int random;
     private boolean isLiveOdds;
+    private String imgLink = null;
 
     public static Intent getInstance(Context context, MatchData matchData, int roomId) {
         league = matchData;
@@ -58,6 +61,34 @@ public class OddsActivity extends AppCompatActivity {
         disposable = new CompositeDisposable();
         bindData();
         getOdd();
+        getAds();
+    }
+
+    private void getAds() {
+
+        Disposable subscribe = RetrofitService.getApiEnd().getAds(Token.token)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleAdsResult);
+        disposable.add(subscribe);
+
+    }
+
+    private void handleAdsResult(AdsResponse adsResponse) {
+        if(adsResponse.ads.size()!= 0 ){
+            random = (int) (Math.random()*adsResponse.ads.size());
+            Picasso.get().load(RetrofitService.BASE_URL+"/api/get_image/"+adsResponse.ads.get(random).image)
+                    .resize(100,100)
+                    .into(binding.imgAds);
+            imgLink = adsResponse.ads.get(random).link;
+
+            Log.e("random",String.valueOf(random));
+
+        }
+        else {
+            binding.imgAds.setVisibility(View.GONE);
+            binding.imgClose.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -412,8 +443,13 @@ public class OddsActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        intent.setData(Uri.parse("http://google.com"));
+        intent.setData(Uri.parse(imgLink));
         startActivity(intent);
 
+    }
+
+    public void onClickAdsClose(View view) {
+        binding.imgAds.setVisibility(View.GONE);
+        binding.imgClose.setVisibility(View.GONE);
     }
 }

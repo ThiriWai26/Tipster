@@ -8,7 +8,7 @@
     <string name="navi_league">League</string>
     <string name="navi_super_league">Super</string>
     <string name="navi_custom_league">Custom</string>
-    <string name="navi_tipstar">Tipstar</string>
+    <string name="navi_tipstar">Champion\nShip</string>
     <string name="navi_profile">Profile</string>
     <string name="navi_bet_history">Bet History</string>
     <string name="navi_user_ranking">Ranking</string>
@@ -35,6 +35,7 @@
 
     <string name="facebook_app_id">1338693459646615</string>
     <string name="fb_login_protocol_scheme">fb1338693459646615</string>
+
     <string name="title_activity_main2">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

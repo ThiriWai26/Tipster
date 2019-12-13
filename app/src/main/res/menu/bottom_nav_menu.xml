@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <!--    <item-->
 <!--        android:id="@+id/action_normal_league"-->
 <!--        android:icon="@drawable/img_normal_league"-->
@@ -19,11 +20,12 @@
 <!--        android:icon="@drawable/img_custom_league"-->
 <!--        android:title="@string/navi_custom_league" />-->
 
-    <item android:id="@+id/action_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home"/>
+    <!--    <item android:id="@+id/action_home"-->
+    <!--        android:icon="@drawable/ic_home_black_24dp"-->
+    <!--        android:title="Home"/>-->
 
     <item
+        app:showAsAction="withText"
         android:id="@+id/action_tipstar"
         android:icon="@drawable/img_tipstar"
         android:title="@string/navi_tipstar" />

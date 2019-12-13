@@ -583,20 +583,35 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imgAds"
-            android:layout_width="match_parent"
-            android:layout_height="62dp"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="32dp"
             android:layout_marginLeft="38dp"
-            android:layout_marginRight="40dp"
-            android:clickable="true"
-            android:onClick="onClickAds"
-            android:scaleType="fitXY"
-            android:src="@drawable/bg_odds"
+            android:layout_marginRight="40dp">
 
-            />
+            <ImageView
+                android:id="@+id/imgClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:onClick="onClickAdsClose"/>
+            <ImageView
+                android:layout_below="@+id/imgClose"
+                android:id="@+id/imgAds"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:clickable="true"
+                android:onClick="onClickAds"
+                android:scaleType="fitXY"
+                android:src="@drawable/img_ads"
+                />
+        </RelativeLayout>
+
+
     </RelativeLayout>
 
 

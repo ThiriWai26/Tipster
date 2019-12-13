@@ -58,24 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        try {
-            PackageInfo info = getBaseContext().getPackageManager().getPackageInfo(
-                    "com.chann.tipster",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA1");
-                md.update(signature.toByteArray());
-                Log.e("KeyHash", "KeyHash:" + Base64.encodeToString(md.digest(),
-                        Base64.DEFAULT));
-                Toast.makeText(getBaseContext().getApplicationContext(), Base64.encodeToString(md.digest(),
-                        Base64.DEFAULT), Toast.LENGTH_LONG).show();
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         editor = pref.edit();
@@ -85,30 +67,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
-
-//        callbackManager = CallbackManager.Factory.create();
-//        binding.loginButton.setReadPermissions("email", "public_profile");
-//
-//        // Callback registration
-//        binding.loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                // App code
-//                Log.e("accessToken", loginResult.getAccessToken().getToken());
-////                loadUserProfile(loginResult.getAccessToken());
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//                // App code
-//            }
-//
-//            @Override
-//            public void onError(FacebookException exception) {
-//                // App code
-//                Log.e("onError_1", exception.toString());
-//            }
-//        });
 
     }
 

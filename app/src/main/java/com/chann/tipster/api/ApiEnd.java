@@ -1,5 +1,6 @@
 package com.chann.tipster.api;
 
+import com.chann.tipster.data.AdsResponse;
 import com.chann.tipster.data.BetHistoryResponse;
 import com.chann.tipster.data.BetResponse;
 import com.chann.tipster.data.CurrentCoin;
@@ -85,4 +86,8 @@ public interface ApiEnd {
     @FormUrlEncoded
     @POST("/api/facebook_register")
     Observable<Register> facebookRegister(@Field("facebook_token") String fbToken , @Field("name") String name , @Field("fb_profile") String fbProfile);
+
+    @FormUrlEncoded
+    @POST("/api/ads")
+    Observable<AdsResponse> getAds(@Field("token") String token);
 }

@@ -86,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new BetHistoryFragment());
                     return true;
 
-                case R.id.action_home:
-                    if (manager.getBackStackEntryCount() >= 1)
-                        manager.popBackStack();
+//                case R.id.action_home:
+//                    if (manager.getBackStackEntryCount() >= 1)
+//                        manager.popBackStack();
 //                    toolbar.setTitle(R.string.title_bet_history);
-                    title.setText(R.string.title_home);
-                    loadFragment(new HomeFragment());
-                    return true;
+//                    title.setText(R.string.title_home);
+//                    loadFragment(new HomeFragment());
+//                    return true;
 
                 case R.id.action_custom_league:
                     return true;
