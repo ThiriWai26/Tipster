@@ -111,11 +111,6 @@
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
 
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_right" />
-
 
             </LinearLayout>
 
@@ -157,11 +152,6 @@
                     android:text="Bet History"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_right" />
 
 
             </LinearLayout>
@@ -205,10 +195,6 @@
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
 
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_right"/>
 
 
             </LinearLayout>
@@ -254,10 +240,6 @@
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
 
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_right" />
 
 
             </LinearLayout>
@@ -300,11 +282,6 @@
                     android:text="Logout"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_right" />
 
             </LinearLayout>
 

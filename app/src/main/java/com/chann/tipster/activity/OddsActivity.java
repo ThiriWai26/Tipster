@@ -113,12 +113,28 @@ public class OddsActivity extends AppCompatActivity {
         Log.e("failure", throwable.toString());
     }
 
+
     private void handleResult(OddsData oddsData) {
         if (oddsData.isSuccess) {
             this.oddsData = oddsData;
             isLiveOdds = oddsData.isLive;
             binding.setOdds(oddsData);
             binding.setOddsActivity(this);
+
+            if(!(oddsData.betDone.getOver() && oddsData.betDone.getUnder())){
+                binding.btnOver.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                binding.btnUnder.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            }
+
+            if(oddsData.betDone.getOver() && !oddsData.betDone.getUnder()){
+                binding.btnOver.setBackgroundColor(getResources().getColor(R.color.red));
+                binding.btnUnder.setBackgroundColor(getResources().getColor(R.color.grey_dark));
+            }
+
+            if(!oddsData.betDone.getOver() && oddsData.betDone.getUnder()){
+                binding.btnOver.setBackgroundColor(getResources().getColor(R.color.grey_dark));
+                binding.btnUnder.setBackgroundColor(getResources().getColor(R.color.red));
+            }
 
         } else {
           Toast.makeText(this, "The match is finished" , Toast.LENGTH_LONG ).show();
@@ -303,6 +319,7 @@ public class OddsActivity extends AppCompatActivity {
 
     public void onOverBetClick(View view , boolean isBet) {
 
+
         if(isLiveOdds){
             Toast.makeText(this , "Live odds cannot be bet",Toast.LENGTH_LONG).show();
         }
@@ -317,6 +334,7 @@ public class OddsActivity extends AppCompatActivity {
 
                 else {
 
+                    Log.e("This bet ","over");
                     final Dialog dialog = new Dialog(this);
                     final RadioButton minBtn, maxBtn;
                     TextView tvOverUnder, tvCancel, tvBet;
@@ -356,6 +374,7 @@ public class OddsActivity extends AppCompatActivity {
 
     public void onUnderBetClick(View view , boolean isBet) {
 
+
         if(isLiveOdds){
             Toast.makeText(this , "Live odds cannot be bet",Toast.LENGTH_LONG).show();
         }
@@ -369,6 +388,7 @@ public class OddsActivity extends AppCompatActivity {
                 }
                 else {
 
+                    Log.e("This bet ","over");
                     final Dialog dialog = new Dialog(this);
                     final RadioButton minBtn, maxBtn;
                     TextView tvOverUnder, tvCancel, tvBet;

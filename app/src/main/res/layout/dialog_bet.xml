@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_bet_dialog"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="@dimen/margin_md">
@@ -79,22 +78,22 @@
 
         <TextView
             android:id="@+id/tvCancel"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_bet_cancel"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
             android:text="Cancel"
+            android:background="@color/grey"
             android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/tvBet"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_bet_confirm"
+            android:background="@color/colorPrimary"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
