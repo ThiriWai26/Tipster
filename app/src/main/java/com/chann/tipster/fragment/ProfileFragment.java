@@ -276,7 +276,7 @@ public class ProfileFragment extends Fragment {
                 if (pref.getString("fb_token", null) != null)
                     LoginManager.getInstance().logOut();
 
-                editor.putString("Token", null);
+                editor.clear();
                 editor.apply();
                 editor.commit();
                 dialog.dismiss();

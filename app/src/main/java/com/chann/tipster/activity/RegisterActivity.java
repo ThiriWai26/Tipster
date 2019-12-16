@@ -105,10 +105,8 @@ public class RegisterActivity extends AppCompatActivity {
         if(register.isSuccess()){
 
             binding.progressBar.setVisibility(View.GONE);
-            editor.putString("Token", register.getToken());
-            editor.apply();
-            editor.commit();
             Token.token = register.getToken();
+            Toast.makeText(this,"Register Success",Toast.LENGTH_LONG).show();
             finish();
         }
         else {

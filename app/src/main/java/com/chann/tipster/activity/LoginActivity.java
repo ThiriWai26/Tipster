@@ -43,14 +43,11 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
-    private static final String EMAIL = "email";
-    private AccessToken mAccessToken;
     private CompositeDisposable disposable;
     private ActivityLoginBinding binding;
-    private String ph = "", pwd = "";
+    private String ph = null, pwd = null , fbToken=null , username=null , imageUrl =null;
     private SharedPreferences pref;// 0 - for private mode
     private SharedPreferences.Editor editor;
-    private String token = "hello";
 
     @SuppressLint("CommitPrefEdits")
     @Override
@@ -61,14 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         editor = pref.edit();
-        token = pref.getString("Token", null);
         disposable = new CompositeDisposable();
-        checkLoginStatus();
     }
 
-    private void init() {
-
-    }
 
 
     @SuppressLint("CheckResult")
@@ -101,7 +93,8 @@ public class LoginActivity extends AppCompatActivity {
             Token.token = login.getToken();
             Log.e("user token ", login.getToken());
 
-            editor.putString("Token", login.getToken());
+            editor.putString("ph", ph);
+            editor.putString("pwd",pwd);
             editor.apply();
             editor.commit();
             startActivity(MainActivity.getInstance(getApplicationContext()));
@@ -110,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         else {
             binding.progressBar.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(),login.getErrorMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Invalid User", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -121,20 +114,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onRegister(View view) {
         startActivity(RegisterActivity.startIntent(this));
-    }
-
-
-    private void checkLoginStatus() {
-        if (token != null) {
-            Token.token = token;
-            Log.e("token",token);
-            startActivity(MainActivity.getInstance(getApplicationContext()));
-            finish();
-        }
-
-        else {
-            init();
-        }
     }
 
 
@@ -178,6 +157,8 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("user name", first_name + " " + last_name);
 
                     editor.putString("fb_token", newAccessToken.getToken());
+                    editor.putString("username",first_name + " " + last_name);
+                    editor.putString("image_url",image_url);
                     editor.apply();
                     editor.commit();
 
