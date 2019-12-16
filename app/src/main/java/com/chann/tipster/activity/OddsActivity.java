@@ -121,21 +121,6 @@ public class OddsActivity extends AppCompatActivity {
             binding.setOdds(oddsData);
             binding.setOddsActivity(this);
 
-            if(!(oddsData.betDone.getOver() && oddsData.betDone.getUnder())){
-                binding.btnOver.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                binding.btnUnder.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            }
-
-            if(oddsData.betDone.getOver() && !oddsData.betDone.getUnder()){
-                binding.btnOver.setBackgroundColor(getResources().getColor(R.color.red));
-                binding.btnUnder.setBackgroundColor(getResources().getColor(R.color.grey_dark));
-            }
-
-            if(!oddsData.betDone.getOver() && oddsData.betDone.getUnder()){
-                binding.btnOver.setBackgroundColor(getResources().getColor(R.color.grey_dark));
-                binding.btnUnder.setBackgroundColor(getResources().getColor(R.color.red));
-            }
-
         } else {
           Toast.makeText(this, "The match is finished" , Toast.LENGTH_LONG ).show();
 
