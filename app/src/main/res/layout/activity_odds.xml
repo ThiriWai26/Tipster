@@ -286,7 +286,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/margin_lg"
-                            android:background="@{odds.betDone.getVisitor()? @color/gray : @color/colorPrimary}"
+                            android:backgroundTint="@{odds.betDone.getLocal()? @color/gray : @color/colorPrimary}"
                             android:onClick="@{(v)->oddsActivity.onLocalTeamBetClick(v,odds.betDone.getLocal())}"
                             android:text="Play"
                             android:visibility="@{odds.betDone.getLocal()? View.GONE : View.VISIBLE}" />

@@ -33,11 +33,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:fontFamily="@font/roboto_medium"
-                android:padding="12dp"
+                android:padding="14dp"
                 android:text="Save"
                 android:onClick="@{(v)->fragment.onClickSave(v)}"
                 android:textColor="@android:color/black"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:visibility="gone" />
 
             <de.hdodenhof.circleimageview.CircleImageView

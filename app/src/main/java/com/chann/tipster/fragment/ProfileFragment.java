@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import com.chann.tipster.R;
 import com.chann.tipster.activity.LoginActivity;
 import com.chann.tipster.data.EditProfile;
+import com.chann.tipster.data.IsSuccess;
 import com.chann.tipster.data.Profile;
 import com.chann.tipster.data.Token;
 import com.chann.tipster.databinding.FragmentProfileBinding;
@@ -133,7 +134,11 @@ public class ProfileFragment extends Fragment {
             }
             else {
                 binding.tvName.setText(editName);
-                binding.tvSave.setVisibility(View.VISIBLE);
+                Disposable subscribe = RetrofitService.getApiEnd().changeName(Token.token, editName)
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::handleEditProfile, this::handleError);
+                disposable.add(subscribe);
                 dialog.dismiss();
             }
         });
@@ -142,9 +147,6 @@ public class ProfileFragment extends Fragment {
 
     }
     public void onClickSave(View view){
-        if(editName.equals("")){
-            editName =  binding.tvName.getText().toString();
-        }
 
         if( imagePath.equals("")){
             Toast.makeText(getContext(),"Please choose an image",Toast.LENGTH_LONG).show();
@@ -153,7 +155,7 @@ public class ProfileFragment extends Fragment {
 
             binding.tvSave.setVisibility(View.GONE);
 
-            RequestBody name = RequestBody.create( MediaType.parse("multipart/form-data") , editName);
+//            RequestBody name = RequestBody.create( MediaType.parse("multipart/form-data") , editName);
             RequestBody token = RequestBody.create( MediaType.parse("multipart/form-data"), Token.token);
             MultipartBody.Part image = null;
             File file = new File(imagePath);
@@ -176,7 +178,7 @@ public class ProfileFragment extends Fragment {
 
             Log.e("file name",file.getName());
 
-            Disposable subscribe = RetrofitService.getApiEnd().profileEdit(token, name, image)
+            Disposable subscribe = RetrofitService.getApiEnd().changePhoto(token, image)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::handleEditProfile, this::handleError);
@@ -192,9 +194,9 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void handleEditProfile(EditProfile editProfile) {
+    private void handleEditProfile(IsSuccess isSuccess) {
 
-        if(editProfile.isSuccess){
+        if(isSuccess.isSuccess){
             Log.e("upload","successful");
             Toast.makeText(getContext(),"Update Successfully",Toast.LENGTH_LONG).show();
         }

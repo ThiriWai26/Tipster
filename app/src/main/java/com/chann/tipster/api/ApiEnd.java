@@ -5,6 +5,7 @@ import com.chann.tipster.data.BetHistoryResponse;
 import com.chann.tipster.data.BetResponse;
 import com.chann.tipster.data.CurrentCoin;
 import com.chann.tipster.data.EditProfile;
+import com.chann.tipster.data.IsSuccess;
 import com.chann.tipster.data.Login;
 import com.chann.tipster.data.MatchListData;
 import com.chann.tipster.data.MatchListResponse;
@@ -90,4 +91,13 @@ public interface ApiEnd {
     @FormUrlEncoded
     @POST("/api/ads")
     Observable<AdsResponse> getAds(@Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("/api/change_name")
+    Observable<IsSuccess> changeName(@Field("token") String token, @Field("name") String name);
+
+
+    @Multipart
+    @POST("/api/change_photo")
+    Observable<IsSuccess> changePhoto(@Part("token") RequestBody token , @Part MultipartBody.Part image);
 }
