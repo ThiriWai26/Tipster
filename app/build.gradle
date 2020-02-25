@@ -8,7 +8,7 @@ android {
         enabled = true
     }
     defaultConfig {
-        applicationId "com.chann.tipster"
+        applicationId "com.chan.tipster"
         minSdkVersion 18
         targetSdkVersion 29
         versionCode 3

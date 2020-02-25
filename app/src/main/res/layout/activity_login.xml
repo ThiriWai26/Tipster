@@ -4,7 +4,7 @@
     <data>
         <variable
             name="userlogin"
-            type="com.chann.tipster.data.UserLogin" />
+            type="com.mounts.ballkan.data.UserLogin" />
     </data>
 
 <FrameLayout android:layout_width="match_parent"
@@ -12,7 +12,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.LoginActivity">
+    tools:context="com.mounts.ballkan.activity.LoginActivity">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

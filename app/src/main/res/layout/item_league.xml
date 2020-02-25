@@ -4,11 +4,11 @@
     <data>
         <variable
             name="data"
-            type="com.chann.tipster.data.MatchData" />
+            type="com.mounts.ballkan.data.MatchData" />
         <import type="android.view.View"/>
         <variable
             name="itemClickListener"
-            type="com.chann.tipster.holderInterface.OnHolderItemClickListener" />
+            type="com.mounts.ballkan.holderInterface.OnHolderItemClickListener" />
     </data>
 <LinearLayout
     android:layout_width="match_parent"

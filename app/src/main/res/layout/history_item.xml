@@ -4,10 +4,10 @@
     <data>
         <variable
             name="data"
-            type="com.chann.tipster.data.UserStanding" />
+            type="com.mounts.ballkan.data.UserStanding" />
         <variable
             name="itemListener"
-            type="com.chann.tipster.api.OnClickItemListener" />
+            type="com.mounts.ballkan.api.OnClickItemListener" />
     </data>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

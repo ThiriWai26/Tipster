@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".activity.EditProfileActivity">
+    tools:context="com.mounts.ballkan.activity.EditProfileActivity">
 
     <ImageView
         android:id="@+id/imageView"

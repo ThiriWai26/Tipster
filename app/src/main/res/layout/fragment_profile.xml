@@ -3,10 +3,10 @@
     <data>
         <variable
             name="profile"
-            type="com.chann.tipster.data.Profile" />
+            type="com.mounts.ballkan.data.Profile" />
         <variable
             name="fragment"
-            type="com.chann.tipster.fragment.ProfileFragment" />
+            type="com.mounts.ballkan.fragment.ProfileFragment" />
 
         <import type="android.view.View"/>
     </data>
@@ -15,7 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.ProfileFragment">
+    tools:context="com.mounts.ballkan.fragment.ProfileFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

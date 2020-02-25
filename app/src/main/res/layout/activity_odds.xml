@@ -4,13 +4,13 @@
     <data>
         <variable
             name="data"
-            type="com.chann.tipster.data.MatchData" />
+            type="com.mounts.ballkan.data.MatchData" />
         <variable
             name="oddsActivity"
-            type="com.chann.tipster.activity.OddsActivity" />
+            type="com.mounts.ballkan.activity.OddsActivity" />
         <variable
             name="odds"
-            type="com.chann.tipster.data.OddsData" />
+            type="com.mounts.ballkan.data.OddsData" />
         <import type="android.graphics.Color"/>
         <import type="android.view.View"/>
     </data>
@@ -222,8 +222,6 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </RelativeLayout>
-
-                <!-- layout for betting -->
                 <LinearLayout
                     android:id="@+id/layout_bet"
                     android:layout_width="match_parent"

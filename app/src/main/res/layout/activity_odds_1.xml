@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".activity.OddsActivity">
+    tools:context="com.mounts.ballkan.activity.OddsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
